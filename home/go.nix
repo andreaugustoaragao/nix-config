@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-with lib;
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; {
   config = {
     home.packages = with pkgs; [
       go
-      dep2nix
       # editor support
       go-tools # honnef.co/go/tools/...@latest
       gotools # golang.org/x/tools
@@ -33,7 +36,7 @@ with lib;
       go-tools
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [ vim-go ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [vim-go];
 
     programs.vscode = {
       userSettings = {
@@ -42,14 +45,13 @@ with lib;
         "go.useLanguageServer" = true;
       };
 
-      extensions = (with pkgs.vscode-extensions; [
+      extensions = with pkgs.vscode-extensions; [
         golang.go
-      ]);
+      ];
     };
 
     home.sessionVariables = {
       GOPATH = "${config.xdg.dataHome}/go";
     };
-
   };
 }

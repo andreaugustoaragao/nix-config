@@ -34,11 +34,11 @@ in {
   };
 
   programs.firefox = {
-    enable = true;
+    enable = false;
     package = pkgs.firefox.override {
       cfg = {
-        enableTridactylNative = true;
-        enableBukubrow = true;
+        #enableTridactylNative = true;
+        #enableBukubrow = true;
       };
     };
 
