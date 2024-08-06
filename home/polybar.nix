@@ -22,6 +22,8 @@
   alert = "#eb6f92";
   disabled = "#6e6a86";
   background-modules = "#21202e";
+  # Get the directory of the current file
+  __curDir = builtins.toString ./.;
 in {
   services.polybar = {
     package = pkgs.polybar.override {
@@ -68,7 +70,7 @@ in {
         font-3 = "JetbrainsMono Nerd Font Mono:size=15:weight=bold;7";
 
         modules-left = "xworkspaces xwindow";
-        modules-right = "filesystem memory cpu avaya network battery  date tray powermenu";
+        modules-right = "cpu temperature memory filesystem network avaya battery date tray notifications powermenu";
 
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
@@ -161,9 +163,10 @@ in {
         format-background = background-alt;
         format-underline = quaternary;
         #format-foreground = secondary;
-        format-padding = 1;
+        # format-padding = 1;
 
-        label = "%gb_used%/%gb_total%";
+        #label = "%gb_used%/%gb_total%";
+        label = "%gb_used%(%percentage_used%%)";
         #format-underline = tertiary;
         label-font = 2;
       };
@@ -249,7 +252,7 @@ in {
         mount-0 = "/";
         fixed-values = false;
         format-mounted = "<label-mounted>";
-        label-mounted = "%{T4}󰋊 %{T-}%used%/%total%";
+        label-mounted = "%{T4}󰋊 %{T-}%used%(%percentage_used%%)";
         label-mounted-font = 2;
         label-mounted-background = background-alt;
         label-mounted-underline = quaternary;
@@ -260,7 +263,7 @@ in {
         # interface = "enp4s0";
         interface-type = "wired";
         interval = "3.0";
-        label-connected = "%{T4}󰛴 %{T-}%downspeed% %{T4}󰛶 %{T-}%upspeed% [%local_ip%]";
+        label-connected = "%ifname%: %{T4}󰛴 %{T-}%downspeed% %{T4}󰛶 %{T-}%upspeed%";
         label-connected-font = 2;
         label-connected-underline = quaternary;
         label-connected-background = background-alt;
@@ -274,6 +277,29 @@ in {
         pseudo-transparency = true;
       };
 
+      "module/temperature" = {
+        type = "internal/temperature";
+        interval = 1;
+        hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon4/temp2_input";
+        label = " %temperature-c%";
+        label-background = background-alt;
+        label-underline = quaternary;
+      };
+
+      "module/notifications" = {
+        type = "custom/script";
+        exec = "~/.local/bin/notifications.sh";
+        tail = false;
+        interval = 1;
+        format = "<label>";
+        format-padding = 0;
+        label = "%output%";
+        label-font = 2;
+        label-background = background-alt;
+        label-underline = quaternary;
+        click-left = "~/.local/bin/toggle-notifications.sh";
+      };
+
       "module/avaya" = {
         type = "custom/script";
         exec = "~/.local/bin/connected-to-avaya.sh";
@@ -284,5 +310,20 @@ in {
         label-font = 2;
       };
     };
+  };
+
+  home.file.".local/bin/notifications.sh" = {
+    source = "${__curDir}/notifications.sh";
+    executable = true;
+  };
+
+  home.file.".local/bin/connected-to-avaya.sh" = {
+    source = "${__curDir}/connected-to-avaya.sh";
+    executable = true;
+  };
+
+  home.file.".local/bin/toggle-notifications.sh" = {
+    source = "${__curDir}/toggle-notifications.sh";
+    executable = true;
   };
 }

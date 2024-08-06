@@ -1,5 +1,9 @@
-{ pkgs, config, ... }:
-let isLinux = pkgs.stdenv.hostPlatform.isLinux;
+{
+  pkgs,
+  config,
+  ...
+}: let
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
 in {
   programs.git = {
     package = pkgs.gitFull;
@@ -9,28 +13,28 @@ in {
       co = "checkout";
       s = "status";
     };
-    signing = {
-      signByDefault = if isLinux then true else false;
-      key = "0xDDD13A55026CFA51";
-    };
+    # signing = {
+    #  signByDefault = if isLinux then true else false;
+    #  key = "0xDDD13A55026CFA51";
+    #};
     extraConfig = {
       credential.helper = "${
-          pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
+        pkgs.git.override {withLibsecret = true;}
+      }/bin/git-credential-libsecret";
     };
 
     includes = [
       {
-        condition="gitdir=${config.home.homeDirectory}/projects/personal/";
-        contents={
+        condition = "gitdir=${config.home.homeDirectory}/projects/personal/";
+        contents = {
           user = {
-              name = "andreaugustoaragao";
-              email = "andrearag@gmail.com";
+            name = "andreaugustoaragao";
+            email = "andrearag@gmail.com";
           };
         };
       }
       {
-        condition="gitdir=${config.home.homeDirectory}/projects/work/";
+        condition = "gitdir=${config.home.homeDirectory}/projects/work/";
         contents = {
           user = {
             name = "aragao";
@@ -43,4 +47,3 @@ in {
     #TODO review https://pickard.cc/posts/git-identity-home-manager/
   };
 }
-
