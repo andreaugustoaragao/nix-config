@@ -41,5 +41,7 @@
     redis
     onefetch
     speedtest-cli
+
+    pasystray
   ];
 }

@@ -1,7 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{ lib, inputs, system, config, pkgs, userDetails, ... }: {
+{
+  lib,
+  inputs,
+  system,
+  config,
+  pkgs,
+  userDetails,
+  ...
+}: {
   imports = [
     ./nix.nix
     ./packages.nix
@@ -21,7 +29,7 @@
     true; # Easiest to use and most distros use this by default.
   systemd.network.wait-online.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
-
+  programs.nm-applet.enable = true;
   # SECURITY
   security.polkit.enable = true;
   security.rtkit.enable = true;
@@ -34,7 +42,7 @@
     enable = true;
     # Certain features, including CLI integration and system authentication support,
     # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-    polkitPolicyOwners = [ "${userDetails.userName}" ];
+    polkitPolicyOwners = ["${userDetails.userName}"];
   };
 
   # USER SETUP
@@ -43,7 +51,7 @@
       createHome = true;
       description = "${userDetails.fullName}";
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = ["wheel" "docker" "networkmanager"];
       shell = pkgs.fish;
       password = "password";
     };
@@ -51,12 +59,12 @@
   users.mutableUsers = true;
   programs.fish.enable =
     true; # make shell assertion happy, it doesn't know about home manager.
-  environment.pathsToLink = [ "/libexec" ];
+  environment.pathsToLink = ["/libexec"];
   environment.binsh = "${pkgs.dash}/bin/dash"; #faster, consumes less memory
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
   };
- # DOCKER and MINIKUBE
+  # DOCKER and MINIKUBE
   virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
     docker-credential-helpers
@@ -70,7 +78,7 @@
   # KEYBOARD SANITY
   services.keyd = {
     enable = true;
-    keyboards.default.settings = { main.capslock = "overload(control, esc)"; };
+    keyboards.default.settings = {main.capslock = "overload(control, esc)";};
   };
 
   # MISC
@@ -81,8 +89,8 @@
   programs.command-not-found.enable = false;
 
   environment.variables = {
-    GDK_SCALE = "2";
-    GDK_DPI_SCALE = "0.5";
+    #GDK_SCALE = "2";
+    #GDK_DPI_SCALE = "0.5";
     #_JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
     #QT_SCALE_FACTOR = "1";
   };
@@ -91,7 +99,10 @@
 
   services.envfs.enable = true;
 
-  system.stateVersion = "23.05"; # Do not change this number?
+  #system.stateVersion = "23.05"; # Do not change this number?
   #github.com/R-VdP/nixos-config
-}
 
+  systemd.packages = with pkgs.xfce; [
+    #xfce4-notifyd
+  ];
+}

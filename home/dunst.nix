@@ -1,8 +1,7 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services.dunst = {
     enable = true;
     settings = {
-
       global = {
         width = 300;
         height = 300;
@@ -20,12 +19,16 @@
         line_height = 0;
         markup = "full";
         padding = 8;
-        separator_color = "frame";
+        #separator_color = "frame";
+        separator_color = "auto";
         separator_height = 2;
         transparency = 10;
         word_wrap = true;
         icon_theme = "rose-pine";
         enable_recursive_icon_lookup = true;
+        idle_threshold = 120;
+        stack_duplicates = true;
+        show_indicators = true;
       };
 
       urgency_low = {
@@ -48,7 +51,6 @@
         frame_color = "#c4a7e7";
         timeout = 0;
       };
-
     };
   };
 }

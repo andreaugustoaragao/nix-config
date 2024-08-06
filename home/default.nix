@@ -1,15 +1,14 @@
 {
   lib,
-    inputs,
-    system,
-    config,
-    pkgs,
-    userDetails,
-    desktopDetails,
-    ...
-}: 
-{
-  home-manager.users.${userDetails.userName} ={ 
+  inputs,
+  system,
+  config,
+  pkgs,
+  userDetails,
+  desktopDetails,
+  ...
+}: {
+  home-manager.users.${userDetails.userName} = {
     imports = [
       ./firefox-webapp.nix
       ./i3.nix
@@ -27,7 +26,7 @@
       ./nvim.nix
       ./git.nix
       ./xdg.nix
-      ./xresources.nix 
+      ./xresources.nix
       ./screen-capture.nix
       ./qt.nix
       ./zathura.nix
@@ -39,14 +38,15 @@
     xsession.enable = true;
     home.sessionVariables = {
       JAVAX_NET_SSL_TRUSTSTORE = "$HOME/.config/java-cacerts";
-      MINIKUBE_HOME="$HOME/.config";
-      DOCKER_CONFIG="$HOME/.config/docker";
-      AZURE_CONFIG_DIR="$HOME/.config/azure";
+      MINIKUBE_HOME = "$HOME/.config";
+      DOCKER_CONFIG = "$HOME/.config/docker";
+      AZURE_CONFIG_DIR = "$HOME/.config/azure";
     };
     xdg.configFile.".minikube/certs" = {
-      source= ../system/nixos/certs;
-      recursive=true;
+      source = ../system/nixos/certs;
+      recursive = true;
     };
+    services.pasystray.enable = true;
+    services.blueman-applet.enable = true;
   };
 }
-

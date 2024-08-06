@@ -6,15 +6,21 @@
   ...
 }: {
   services = {
-    displayManager.autoLogin.enable = true;
-    displayManager.autoLogin.user = "${userDetails.userName}";
+    #displayManager.autoLogin.enable = true;
+    #displayManager.autoLogin.user = "${userDetails.userName}";
     displayManager.defaultSession = "none+i3";
 
     xserver = {
       dpi = desktopDetails.dpi;
       enable = true;
       displayManager = {
+        sddm.enable = false;
         lightdm.enable = true;
+        lightdm.greeters.lomiri.enable = false;
+        lightdm.greeters.slick.enable = true;
+        lightdm.greeters.enso.enable = false;
+        lightdm.greeters.enso.blur = false;
+        #        lightdm.greeters.enso.theme.package = pkgs.rose-pine-gtk-theme;
       };
       windowManager.i3 = {
         enable = true;
@@ -36,6 +42,8 @@
           evince
           foliate
           inkscape-with-extensions
+          i3lock
+          xautolock
           libreoffice
         ];
         extraSessionCommands = ''

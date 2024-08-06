@@ -30,14 +30,14 @@ in {
       gaps = {
         inner = 10;
         outer = 5;
-        top = 20;
+        top = 25;
         left = 1;
         right = 1;
         bottom = 1;
       };
       gaps.smartBorders = "off";
       defaultWorkspace = "workspace number 1";
-      floating.criteria = [{class = "Pavucontrol";} {class = "1Password";}];
+      floating.criteria = [{class = "pavucontrol";} {class = "1Password";}];
       floating.titlebar = false;
       fonts = {
         names = ["RobotoMono"];
@@ -51,7 +51,7 @@ in {
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
         "${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
-        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -dpi 192 -show drun -show-icons";
+        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -dpi 144 -show drun -show-icons";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
@@ -117,6 +117,11 @@ in {
       };
       focus.newWindow = "focus";
       startup = [
+        {
+          command = "xautolock -time 10 -locker 'i3lock -c 000000' -detectsleep";
+          always = false;
+          notification = false;
+        }
         {
           command = "exec i3-msg workspace 1";
           always = true;

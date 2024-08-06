@@ -1,5 +1,10 @@
-{ gtk-nix, config, pkgs, lib, ... }:
 {
+  gtk-nix,
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
@@ -16,24 +21,24 @@
       };
       "org/gtk/settings/file-chooser" = {
         show-type-column = true;
-        sidebar-width=152;
-        date-format="with-time";
-        location-mode="path-bar";
-        show-hidden=true;
-        show-size-column=true;
-        sort-column="modified";
-        sort-directories-first=true;
-        sort-order="ascending";
-        type-format="category";
+        sidebar-width = 152;
+        date-format = "with-time";
+        location-mode = "path-bar";
+        show-hidden = true;
+        show-size-column = true;
+        sort-column = "modified";
+        sort-directories-first = true;
+        sort-order = "ascending";
+        type-format = "category";
         #window-position="(462,304)";
         #window-size="(799, 491)";
       };
     };
   };
-# gtk's theme settings, generate files: 
-#   1. ~/.gtkrc-2.0
-#   2. ~/.config/gtk-3.0/settings.ini
-#   3. ~/.config/gtk-4.0/settings.ini
+  # gtk's theme settings, generate files:
+  #   1. ~/.gtkrc-2.0
+  #   2. ~/.config/gtk-3.0/settings.ini
+  #   3. ~/.config/gtk-4.0/settings.ini
   gtk = {
     enable = true;
 
@@ -53,17 +58,17 @@
     };
 
     theme = {
-# https://github.com/catppuccin/gtk
+      # https://github.com/catppuccin/gtk
       name = "rose-pine";
       package = pkgs.rose-pine-gtk-theme;
 
       #name = "Catppuccin-Mocha-Standard-Pink-Dark";
       #package = pkgs.catppuccin-gtk.override {
-# https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/data/themes/catppuccin-gtk/default.nix
-      #  accents = [ "pink" ];
-      #  size = "standard";
-      #  variant = "mocha";
-      #};t
+      # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/data/themes/catppuccin-gtk/default.nix
+      # accents = ["pink"];
+      # size = "standard";
+      # variant = "mocha";
+      #};
     };
 
     gtk3.bookmarks = [
@@ -72,22 +77,17 @@
       "file:///${config.home.homeDirectory}/downloads"
     ];
 
-    gtk3 = {
-        extraConfig = {
-          #gtk-application-prefer-dark-theme = 1;
-          #gtk-icon-sizes = "panel-menu=16,16:gtk-large-toolbar=24,24";
-        };
-      };
-      gtk4 = {
-        extraConfig = {
-          #gtk-application-prefer-dark-theme = 1;
-        };
-      };
+    gtk3.extraConfig = {
+      gtk-decoration-layout = "menu:close";
+    };
+    gtk4.extraConfig = {
+      gtk-decoration-layout = ":close";
+    };
   };
 
-  home.sessionVariables.GTK_THEME = config.gtk.theme.name;
+  # home.sessionVariables.GTK_THEME = config.gtk.theme.name;
   services.xsettingsd = {
-    enable = true;
+    enable = false;
     settings = {
       "Gtk/DecorationLayout" = ":";
       "Net/EnableInputFeedbackSounds" = 0;
@@ -95,4 +95,3 @@
     };
   };
 }
-

@@ -1,18 +1,24 @@
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   programs.rofi = {
     enable = true;
     font = "Jetbrains Mono Nerd Font SemiBold 12";
     terminal = "${pkgs.alacritty}/bin/alacritty";
     extraConfig = {
       show-icons = true;
-      dpi = 192;
+      #dpi = 192;
       display-drun = " ";
       icon-theme = "rose-pine";
       drun-display-format = "{name}";
       columns = 2;
     };
 
-    theme = let inherit (config.lib.formats.rasi) mkLiteral;
+    theme = let
+      inherit (config.lib.formats.rasi) mkLiteral;
     in {
       "*" = {
         bg = mkLiteral "#191724";
@@ -65,7 +71,7 @@
       };
 
       "inputbar" = {
-        children = map mkLiteral [ "prompt" "entry" ];
+        children = map mkLiteral ["prompt" "entry"];
         background-color = mkLiteral "@bg";
       };
 
@@ -76,7 +82,7 @@
       };
 
       "mainbox" = {
-        children = map mkLiteral [ "inputbar" "listview" ];
+        children = map mkLiteral ["inputbar" "listview"];
         background-color = mkLiteral "@bg";
       };
 
@@ -89,4 +95,3 @@
     };
   };
 }
-

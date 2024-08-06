@@ -4,10 +4,10 @@
   lib,
   ...
 }: let
-  chatGptIcon = pkgs.fetchurl {
-    url = "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png";
-    sha256 = "024yhp9kqky0v9yviz9z60gwfqksvbx7vf8gads03idvvcja89hn";
-  };
+ # chatGptIcon = pkgs.fetchurl {
+ #   url = "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png";
+ #   sha256 = "024yhp9kqky0v9yviz9z60gwfqksvbx7vf8gads03idvvcja89hn";
+ # };
 
   msTeamsIcon = pkgs.fetchurl {
     url = "https://cdn.icon-icons.com/icons2/2397/PNG/512/microsoft_office_teams_logo_icon_145726.png";
@@ -29,10 +29,10 @@
     sha256 = "01ja74q5i797s0cfhr8byqq1bzzix23hswimij663ylm864w7lna";
   };
 
-  twitterIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
-    sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
-  };
+ # twitterIcon = pkgs.fetchurl {
+ #   url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
+ #   sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
+ # };
 
   vimCheatSheetIcon = pkgs.fetchurl {
     url = "https://cdn.icon-icons.com/icons2/1381/PNG/512/vim_94609.png";
@@ -164,14 +164,14 @@ in {
       name = "Twitter";
       genericName = "Twitter";
       exec = "chromium -app=https://x.com";
-      icon = twitterIcon;
+  #    icon = twitterIcon;
     };
 
     chatgpt = {
       name = "ChatGPT";
       genericName = "ChatGPT";
       exec = "chromium -app=https://chat.openai.com";
-      icon = chatGptIcon;
+   #   icon = chatGptIcon;
     };
 
     rocketchat = {

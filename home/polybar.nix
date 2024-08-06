@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-let
-
+{pkgs, ...}: let
   #background = "#282A2E";
   #background-alt = "#373B41";
   #foreground = "#C5C8C6";
@@ -8,7 +6,6 @@ let
   #secondary = "#8ABEB7";
   #alert = "#A54242";
   #disabled = "#707880";
-
   background = "#FF191724";
   background-transparent = "#FF191724";
   background-alt = "#26233a";
@@ -24,8 +21,8 @@ let
 
   alert = "#eb6f92";
   disabled = "#6e6a86";
+  background-modules = "#21202e";
 in {
-
   services.polybar = {
     package = pkgs.polybar.override {
       i3Support = true;
@@ -36,7 +33,6 @@ in {
     script = "polybar -q -r top &";
 
     config = {
-
       "bar/top" = {
         dpi-x = 0;
         dpi-y = 0;
@@ -72,7 +68,7 @@ in {
         font-3 = "JetbrainsMono Nerd Font Mono:size=15:weight=bold;7";
 
         modules-left = "xworkspaces xwindow";
-        modules-right = "filesystem memory cpu avaya network battery tray date powermenu";
+        modules-right = "filesystem memory cpu avaya network battery  date tray powermenu";
 
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
@@ -87,8 +83,11 @@ in {
 
       "module/tray" = {
         type = "internal/tray";
-        tray-size = "65%";
+        tray-size = "55%";
         tray-spacing = 10;
+        format-margin = "8px";
+        format-background = background-modules;
+        format-underline = quaternary;
       };
 
       "module/os" = {
@@ -96,7 +95,7 @@ in {
         format = "<label>";
         label = "󰀻";
         label-font = "3";
-        click-left="exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
+        click-left = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
       };
 
       "module/xworkspaces" = {
@@ -108,8 +107,7 @@ in {
         ws-icon-3 = "4; 󰴢 "; # outlocker
         ws-icon-4 = "5;  "; # idea
         ws-icon-5 = "6;  "; # rocket chat
-        ws-icon-6 =
-          "7; 󱔘 "; # documents: pdfs and books and images and powerpoint and excel
+        ws-icon-6 = "7; 󱔘 "; # documents: pdfs and books and images and powerpoint and excel
         ws-icon-7 = "8;  "; # music
         ws-icon-8 = "9; 󱜸 "; # chat gpt
         ws-icon-default = "  ";
@@ -150,6 +148,8 @@ in {
         label = "%date%";
         label-padding-x = 0;
         #label-foreground = "${primary}";
+        label-background = background-alt;
+        label-underline = quaternary;
       };
 
       "module/memory" = {
@@ -158,7 +158,8 @@ in {
         interval = 3;
 
         format = "%{T4}󰍛 %{T-}<label>";
-        #format-background = tertiary;
+        format-background = background-alt;
+        format-underline = quaternary;
         #format-foreground = secondary;
         format-padding = 1;
 
@@ -172,11 +173,12 @@ in {
 
         interval = "0.5";
 
-        format = "%{T4}󰻠 %{T-}<label>";
+        format = "%{T4}󰻠%{T-}<label>";
         # jformat-underline = quaternary;
 
         #format-foreground = quaternary;
-        #format-background = secondary;
+        format-background = background-alt;
+        format-underline = quaternary;
         #format-padding = 1;
 
         label = "%percentage:2%%";
@@ -249,17 +251,19 @@ in {
         format-mounted = "<label-mounted>";
         label-mounted = "%{T4}󰋊 %{T-}%used%/%total%";
         label-mounted-font = 2;
-
-        #label-mounted-underline = secondary;
+        label-mounted-background = background-alt;
+        label-mounted-underline = quaternary;
       };
 
       "module/network" = {
         type = "internal/network";
-        interface = "enp0s5";
+        # interface = "enp4s0";
+        interface-type = "wired";
         interval = "3.0";
-        label-connected = "%{T4}󰛴 %{T-}%downspeed% %{T4}󰛶 %{T-}%upspeed%";
+        label-connected = "%{T4}󰛴 %{T-}%downspeed% %{T4}󰛶 %{T-}%upspeed% [%local_ip%]";
         label-connected-font = 2;
-        #label-connected-underline = quinary;
+        label-connected-underline = quaternary;
+        label-connected-background = background-alt;
 
         label-disconnected = "󰲛 OFFLINE";
         label-disconnected-foreground = alert;
@@ -271,7 +275,7 @@ in {
       };
 
       "module/avaya" = {
-        type="custom/script";
+        type = "custom/script";
         exec = "~/.local/bin/connected-to-avaya.sh";
         tail = false;
         interval = 5;

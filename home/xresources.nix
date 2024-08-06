@@ -1,7 +1,4 @@
-{
-pkgs,
-...}:
-{
+{pkgs, ...}: {
   xresources = {
     properties = {
       "*.foreground" = "#e0def4";
@@ -35,11 +32,10 @@ pkgs,
       "XTerm*font" = "xft:JetbrainsMono Nerd Font:size=10";
       "XTerm*saveLines" = "1000";
       "XTerm*scrollBar" = "false";
-      "Xft.dpi" = 192;
-      "*.dpi" = 192;
+      "Xft.dpi" = 144;
+      "*.dpi" = 144;
       #"Xcursor.size" = 96;
       #"Xcursor.theme" = "Adwaita";
     };
   };
-
 }

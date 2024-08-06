@@ -15,11 +15,12 @@ in {
     # TERMINAL
     any-nix-shell
     neofetch
+    fastfetch
     escrotum # screen recording
     gnupg
     feh
     cdrkit # to create iso files
-
+    bluetuith
     # DEVELOPMENT
     #jetbrains.idea-ultimate
     #jetbrains.goland
