@@ -83,7 +83,7 @@
       };
 
       utm-dev = nixpkgs.lib.nixosSystem rec {
-        system = "aarch64-linux"; # Corrected architecture
+        system = "aarch_64-linux"; # Corrected architecture
         specialArgs = {
           inherit inputs;
           inherit userDetails;

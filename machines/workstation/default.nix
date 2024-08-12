@@ -92,7 +92,6 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  system.stateVersion = "24.05";
   services.upower.enable = true;
   services.blueman.enable = true;
   services.printing.enable = true;
