@@ -9,12 +9,10 @@
     #displayManager.autoLogin.enable = true;
     #displayManager.autoLogin.user = "${userDetails.userName}";
     displayManager.defaultSession = "none+i3";
-
     xserver = {
       dpi = desktopDetails.dpi;
       enable = true;
       displayManager = {
-        sddm.enable = false;
         lightdm.enable = true;
         lightdm.greeters.lomiri.enable = false;
         lightdm.greeters.slick.enable = true;
@@ -44,6 +42,7 @@
           inkscape-with-extensions
           i3lock
           xautolock
+          xss-lock
           libreoffice
         ];
         extraSessionCommands = ''
@@ -52,7 +51,6 @@
       };
 
       xkb.layout = "us";
-      xkb.options = "caps:escape";
     };
     gnome.gnome-keyring.enable = true;
     dbus.enable = true;
@@ -68,6 +66,10 @@
     touchpad.disableWhileTyping = false;
     touchpad.clickMethod = "clickfinger";
   };
+  #programs.xss-lock.enable = true;
+
+  #programs.xss-lock.lockerCommand = "export XSECURELOCK_SAVER=saver_xscreensaver; ${pkgs.xsecurelock}/bin/xsecurelock";
+  #programs.xss-lock.extraOptions = ["-n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer" "-l"];
   security.pam.services.lightdm.enableGnomeKeyring = true;
   programs = {
     thunar = {

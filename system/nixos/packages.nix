@@ -41,7 +41,15 @@
     redis
     onefetch
     speedtest-cli
-
+    amdgpu_top
     pasystray
+    xsecurelock
+    btop
+    vulkan-tools
+    vulkan-loader
+    vulkan-headers
+    xorg.libxcvt
+    lact
+    corectrl
   ];
 }

@@ -2,11 +2,24 @@
   services.pasystray.enable = true;
   services.picom = {
     enable = true;
-
+    package = pkgs.picom-pijulius;
     settings = {
       backend = "glx";
-      vSync = true;
-      fade = true;
+      vsync = true;
+      fading = true;
+      fade-delta = 5;
+      shadow = false;
+      animations = true;
+      # `auto`, `none`, `fly-in`, `zoom`, `slide-down`, `slide-up`, `slide-left`, `slide-right` `slide-in`, `slide-out`
+      animation-for-transient-window = "fly-in";
+      animation-for-open-window = "zoom";
+      animation-for-unmap-window = "zoom";
+      animation-for-workspace-switch-in = "fly-in";
+      # animation-stiffness = 350
+      animation-dampening = 20;
+      # animation-window-mass = 0.5
+      # animation-delta = 8
+      animation-clamping = true;
     };
 
     /*

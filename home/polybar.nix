@@ -87,7 +87,7 @@ in {
         type = "internal/tray";
         tray-size = "55%";
         tray-spacing = 10;
-        format-margin = "8px";
+        #format-margin = "8px";
         format-background = background-modules;
         format-underline = quaternary;
       };
@@ -229,22 +229,12 @@ in {
       };
 
       "module/powermenu" = {
-        type = "custom/menu";
-        expand-right = false;
-        expand-left = true;
+        type = "custom/text";
 
-        format = "<label-toggle> <menu>";
-        #format-background = secondary;
         format-padding = 1;
 
-        label-open = " ";
-        label-close = "";
-        label-separator = "  ";
-        label-font = 3;
-        menu-0-0 = " Reboot";
-        menu-0-0-exec = "/run/current-system/sw/bin/reboot";
-        menu-0-1 = " Shutdown";
-        menu-0-1-exec = "/run/current-system/sw/bin/poweroff";
+        label = " ";
+        click-left = "~/.local/bin/powermenu.sh";
       };
 
       "module/filesystem" = {
@@ -325,5 +315,15 @@ in {
   home.file.".local/bin/toggle-notifications.sh" = {
     source = "${__curDir}/toggle-notifications.sh";
     executable = true;
+  };
+
+  home.file.".local/bin/powermenu.sh" = {
+    source = "${__curDir}/powermenu.sh";
+    executable = true;
+  };
+
+  home.file.".local/bin/powermenu.rasi" = {
+    source = "${__curDir}/powermenu.rasi";
+    executable = false;
   };
 }

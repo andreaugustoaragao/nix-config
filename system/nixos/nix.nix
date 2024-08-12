@@ -17,7 +17,6 @@
 
     extraOptions = ''
       experimental-features = nix-command flakes
-
     '';
   };
 
@@ -25,4 +24,16 @@
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0"
   ];
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L" # print build logs
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
+  };
 }

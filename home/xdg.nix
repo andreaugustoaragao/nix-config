@@ -4,23 +4,9 @@
   lib,
   ...
 }: let
-  # chatGptIcon = pkgs.fetchurl {
-  #   url = "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png";
-  #   sha256 = "024yhp9kqky0v9yviz9z60gwfqksvbx7vf8gads03idvvcja89hn";
-  # };
-  msTeamsIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/2397/PNG/512/microsoft_office_teams_logo_icon_145726.png";
-    sha256 = "0b9nmxm03r90a3fdfyzrwk4f7plv74699w5ir369nd24m0zx5ry3";
-  };
-
-  msOutlookIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/2397/PNG/512/microsoft_office_outlook_logo_icon_145721.png";
-    sha256 = "0lwd3x2c3jgzi7pkynrahijbi5a2l60l49k98g9jvcvp8a5pk27a";
-  };
-
-  rocketChatIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/2621/PNG/512/brand_rocket_chat_icon_157334.png";
-    sha256 = "1rc3b8fgp6a4dpmndhp2b8fczhp7mmmxh624y58hr43xxzr7y1yb";
+  chatGptIcon = pkgs.fetchurl {
+    url = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/chatgpt-icon.png";
+    sha256 = "157xbcxzlfjb9ls7vja9vq8zb4i8nkd33qk58qva7yavn71zzxay";
   };
 
   redditIcon = pkgs.fetchurl {
@@ -28,10 +14,10 @@
     sha256 = "01ja74q5i797s0cfhr8byqq1bzzix23hswimij663ylm864w7lna";
   };
 
-  # twitterIcon = pkgs.fetchurl {
-  #   url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
-  #   sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
-  # };
+  twitterIcon = pkgs.fetchurl {
+    url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
+    sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
+  };
 
   vimCheatSheetIcon = pkgs.fetchurl {
     url = "https://cdn.icon-icons.com/icons2/1381/PNG/512/vim_94609.png";
@@ -62,7 +48,7 @@ in {
     mimeApps = {
       enable = true;
       defaultApplications = let
-        browser = ["chromium.desktop"];
+        browser = ["brave.desktop"];
         lf = ["lf.desktop"];
         nvim = ["nvim.desktop"];
       in {
@@ -122,67 +108,59 @@ in {
       icon = "utilities-terminal";
     };
 
-    teams = {
-      name = "Teams";
-      genericName = "Microsoft Teams";
-      exec = "chromium -app=https://teams.microsoft.com";
-      #icon = msTeamsIcon;
-      icon = "teams";
-    };
-
     outlook = {
       name = "Outlook";
       genericName = "Microsoft Outlook";
-      exec = "chromium -app=https://outlook.office.com";
-      #icon = msOutlookIcon;
+      exec = "brave -app=https://outlook.office.com";
       icon = "ms-outlook";
     };
 
     music = {
       name = "Youtube Music";
       genericName = "Youtube Music";
-      exec = "chromium -app=https://music.youtube.com";
+      exec = "brave -app=https://music.youtube.com";
       icon = youtubeMusicIcon;
+    };
+
+    youtube = {
+      name = "Youtube";
+      genericName = "Youtube";
+      exec = "brave -app=https://youtube.com";
+      icon = "youtube";
     };
 
     vimCheatSheet = {
       name = "Vim Cheat Sheet";
       genericName = "Vim Cheat Sheet";
-      exec = "chromium -app=https://vim.rtorr.com";
+      exec = "brave -app=https://vim.rtorr.com";
       icon = vimCheatSheetIcon;
     };
 
     reddit = {
       name = "Reddit";
       genericName = "Reddit";
-      exec = "chromium -app=https://reddit.com";
+      exec = "brave -app=https://reddit.com";
       icon = redditIcon;
     };
 
     twitter = {
       name = "Twitter";
       genericName = "Twitter";
-      exec = "chromium -app=https://x.com";
-      #    icon = twitterIcon;
+      exec = "brave -app=https://x.com";
+      icon = twitterIcon;
     };
 
     whatsapp = {
       name = "Whatsapp";
-      exec = "chromium -app=https://web.whatsapp.com";
+      exec = "brave -app=https://web.whatsapp.com";
+      icon = "whatsapp";
     };
 
     chatgpt = {
       name = "ChatGPT";
       genericName = "ChatGPT";
-      exec = "chromium -app=https://chat.openai.com";
-      #   icon = chatGptIcon;
-    };
-
-    rocketchat = {
-      name = "Rocket Chat";
-      genericName = "Rocket Chat";
-      exec = "chromium -app=https://avaya.rocket.chat";
-      icon = rocketChatIcon;
+      exec = "brave -app=https://chat.openai.com";
+      icon = chatGptIcon;
     };
   };
 

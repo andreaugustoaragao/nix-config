@@ -18,14 +18,16 @@ in {
       colors = {
         focused = {
           background = "#191724";
-          border = "#c4a7e7";
+          #border = "#c4a7e7";
+          border = "#5b96b2";
           text = "#e0def4";
           indicator = "#eb6f92";
-          childBorder = "#c4a7e7";
+          #childBorder = "#c4a7e7";
+          childBorder = "#5b96b2";
         };
         "background" = "#191724";
       };
-      window.border = 1;
+      window.border = 2;
       window.titlebar = false;
       gaps = {
         inner = 10;
@@ -72,56 +74,83 @@ in {
             instance = "chromium-browser";
             class = "Chromium-browser";
           }
+          {
+            instance = "brave-browser";
+            class = "Brave-browser";
+          }
         ];
         "3" = [
           {
             instance = "teams.microsoft.com";
-            class = "Chromium-browser";
+            class = "Brave-browser";
+          }
+          {
+            instance = "teams-for-linux";
+            class = "teams-for-linux";
           }
         ];
         "4" = [
           {
             instance = "outlook.office.com";
-            class = "Chromium-browser";
+            class = "Brave-browser";
           }
         ];
         "5" = [{class = "jetbrains-goland";} {class = "jetbrains-idea";}];
-        "6" = [
-          {
-            instance = "avaya.rocket.chat";
-            class = "Chromium-browser";
-          }
-        ];
         "8" = [
           {
             instance = "music.youtube.com";
-            class = "Chromium-browser";
+            class = "Brave-browser";
+          }
+          {
+            instance = "youtube.com";
+            class = "Brave-browser";
           }
         ];
         "9" = [
           {
             instance = "chat.openai.com";
-            class = "Chromium-browser";
+            class = "Brave-browser";
           }
         ];
         "10" = [
           {
             instance = "x.com";
-            class = "Chromium-browser";
+            class = "Brave-browser";
           }
           {
             instance = "reddit.com";
-            class = "Chromium-browser";
+            class = "Brave-browser";
+          }
+          {
+            instance = "web.whatsapp.com";
+            class = "Brave-browser";
           }
         ];
       };
       focus.newWindow = "focus";
       startup = [
         {
+          command = "xset dpms 1800 1800 1800";
+          always = false;
+          notification = false;
+        }
+
+        {
+          command = "xset s 180 10";
+          always = false;
+          notification = false;
+        }
+        {
+          command = "xss-lock -n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer -l -- ${pkgs.xsecurelock}/bin/xsecurelock";
+          always = false;
+        }
+        /*
+        {
           command = "xautolock -time 10 -locker 'i3lock -c 000000' -detectsleep";
           always = false;
           notification = false;
         }
+        */
         {
           command = "exec i3-msg workspace 1";
           always = true;

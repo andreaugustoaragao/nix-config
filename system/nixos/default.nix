@@ -24,12 +24,14 @@
   nixpkgs.overlays = [
     inputs.nurpkgs.overlay
   ];
+
   # NETWORK
   networking.networkmanager.enable =
     true; # Easiest to use and most distros use this by default.
   systemd.network.wait-online.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
   programs.nm-applet.enable = true;
+
   # SECURITY
   security.polkit.enable = true;
   security.rtkit.enable = true;
@@ -51,7 +53,7 @@
       createHome = true;
       description = "${userDetails.fullName}";
       isNormalUser = true;
-      extraGroups = ["wheel" "docker" "networkmanager"];
+      extraGroups = ["wheel" "docker" "networkmanager" "lp" "scanner" "libvirtd"];
       shell = pkgs.fish;
       password = "password";
     };
@@ -66,6 +68,8 @@
   };
   # DOCKER and MINIKUBE
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
   environment.systemPackages = with pkgs; [
     docker-credential-helpers
   ];
@@ -75,12 +79,6 @@
   location.provider = "geoclue2";
   services.localtimed.enable = true;
 
-  # KEYBOARD SANITY
-  services.keyd = {
-    enable = true;
-    keyboards.default.settings = {main.capslock = "overload(control, esc)";};
-  };
-
   # MISC
   documentation.man.generateCaches = true;
 
@@ -89,6 +87,7 @@
   programs.command-not-found.enable = false;
 
   environment.variables = {
+    XSECURELOCK_SAVER = "saver_xscreensaver";
     #GDK_SCALE = "2";
     #GDK_DPI_SCALE = "0.5";
     #_JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
@@ -101,8 +100,4 @@
 
   #system.stateVersion = "23.05"; # Do not change this number?
   #github.com/R-VdP/nixos-config
-
-  systemd.packages = with pkgs.xfce; [
-    #xfce4-notifyd
-  ];
 }

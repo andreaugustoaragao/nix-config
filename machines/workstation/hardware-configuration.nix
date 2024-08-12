@@ -16,6 +16,9 @@
   boot.initrd.kernelModules = ["amdgpu"];
   boot.kernelModules = ["kvm-amd" "it87"];
   boot.extraModulePackages = [];
+  boot.kernelParams = [
+    "video=DP-1:3840x2160@144"
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/bc6284c4-b8c5-484b-b982-a0a85eab8dd3";

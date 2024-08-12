@@ -1,9 +1,5 @@
-# machine specific configuration goes here
 {
-  lib,
-  inputs,
   system,
-  config,
   pkgs,
   ...
 }: {
@@ -13,18 +9,32 @@
 
   # Hostname
   networking.hostName = "workstation";
+  networking.wireless.enable = false;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   hardware.graphics.enable = true;
+
+  hardware.display.outputs."DP-1".mode = "e";
+
   hardware.graphics.extraPackages = [
     pkgs.mesa.drivers
     pkgs.vaapiVdpau
     pkgs.libvdpau-va-gl
+    pkgs.amdvlk
+    pkgs.rocmPackages.clr.icd
+    pkgs.vulkan-loader
+    pkgs.vulkan-validation-layers
+    pkgs.vulkan-extension-layer
   ];
+  hardware.graphics.extraPackages32 = [
+    pkgs.driversi686Linux.amdvlk
+  ];
+  # For 32 bit applications
   environment.systemPackages = with pkgs; [
     lm_sensors
     plymouth
   ];
+  services.xserver.videoDrivers = ["amdgpu"];
   systemd.services.plymouth-quit-wait = {
     wantedBy = ["multi-user.target"];
     after = ["systemd-user-sessions.service"];
@@ -32,11 +42,11 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "rings";
+      theme = "abstract_ring";
       themePackages = with pkgs; [
         # By default we would install all themes
         (adi1090x-plymouth-themes.override {
-          selected_themes = ["rings"];
+          selected_themes = ["abstract_ring"];
         })
       ];
     };
@@ -85,4 +95,23 @@
   system.stateVersion = "24.05";
   services.upower.enable = true;
   services.blueman.enable = true;
+  services.printing.enable = true;
+  services.printing.drivers = [pkgs.hplip];
+  services.printing.startWhenNeeded = true; # optional
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [pkgs.sane-airscan];
+  hardware.sane.disabledDefaultBackends = ["escl"];
+  systemd.services.lactd = {
+    description = "AMDGPU Control Daemon";
+    enable = true;
+    serviceConfig = {
+      ExecStart = "${pkgs.lact}/bin/lact daemon";
+    };
+    wantedBy = ["multi-user.target"];
+  };
 }
