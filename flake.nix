@@ -29,7 +29,7 @@
       userName = "aragao";
     };
     desktopDetails = {dpi = 144;};
-    homeManagerStateVersion = "23.11";
+    homeManagerStateVersion = "24.05";
 
     rootUserHomeManagerConfig = {
       home.username = "root";
@@ -51,7 +51,10 @@
           else "/home/${userDetails.userName}";
         stateVersion = homeManagerStateVersion;
       };
-      imports = [./home];
+      imports =
+        if builtins.match ".*darwin.*" system != null
+        then [./home/nvim.nix ./home/shell.nix ./home/alacritty.nix]
+        else [./home];
       programs.home-manager.enable = true;
     };
   in {

@@ -98,6 +98,6 @@
 
   services.envfs.enable = true;
 
-  system.stateVersion = "24.11"; # Do not change this number?
+  system.stateVersion = "24.05"; # Do not change this number?
   #github.com/R-VdP/nixos-config
 }

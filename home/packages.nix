@@ -80,6 +80,6 @@ in {
     libreoffice
     _1password-gui
     teams-for-linux
-    zoom-us
+    #zoom-us
   ];
 }

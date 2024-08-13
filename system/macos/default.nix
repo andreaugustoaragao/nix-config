@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   ## NIX #########################
   nix = {
     package = pkgs.nixFlakes;
@@ -27,16 +27,15 @@
   };
 
   environment = {
-    shells = with pkgs; [ fish ];
+    shells = with pkgs; [fish];
     loginShell = "${pkgs.fish}/bin/fish -l";
-    pathsToLink = [ "/Applications" ];
+    pathsToLink = ["/Applications"];
   };
 
   ## FONTS ##########################
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override {
-      fonts = [ "JetBrainsMono" "FiraCode" "DroidSansMono" ];
+      fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono"];
     })
     dejavu_fonts
     roboto
@@ -70,8 +69,8 @@
     caskArgs.no_quarantine = true;
     casks = [
       "stats"
-      "rocket-chat"
       "google-chrome"
+      "brave-browser"
       "1password"
       "sf-symbols"
       "parallels"
@@ -127,5 +126,4 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   #https://github.com/FelixKratz/dotfiles/tree/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b
-
 }

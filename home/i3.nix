@@ -37,7 +37,8 @@ in {
         right = 1;
         bottom = 1;
       };
-      gaps.smartBorders = "off";
+      #gaps.smartBorders = "off";
+      window.hideEdgeBorders = "smart";
       defaultWorkspace = "workspace number 1";
       floating.criteria = [{class = "pavucontrol";} {class = "1Password";}];
       floating.titlebar = false;
@@ -59,7 +60,8 @@ in {
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
         "${modifier}+b" = "split h";
-        "${modifier}+Shift+4" = "exec flameshot gui -c";
+        "${modifier}+Shift+4" = "exec flameshot gui";
+        "${modifier}+Shift+b" = "exec brave --new-tab httos://www.google.com";
       };
       assigns = {
         "1" = [
@@ -92,6 +94,10 @@ in {
         "4" = [
           {
             instance = "outlook.office.com";
+            class = "Brave-browser";
+          }
+          {
+            instance = "mail.google.com";
             class = "Brave-browser";
           }
         ];
@@ -153,7 +159,7 @@ in {
         */
         {
           command = "exec i3-msg workspace 1";
-          always = true;
+          always = false;
           notification = false;
         }
         {

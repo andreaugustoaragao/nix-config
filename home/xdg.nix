@@ -14,10 +14,10 @@
     sha256 = "01ja74q5i797s0cfhr8byqq1bzzix23hswimij663ylm864w7lna";
   };
 
-  twitterIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
-    sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
-  };
+  #twitterIcon = pkgs.fetchurl {
+  #  url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
+  #  sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
+  #};
 
   vimCheatSheetIcon = pkgs.fetchurl {
     url = "https://cdn.icon-icons.com/icons2/1381/PNG/512/vim_94609.png";
@@ -147,7 +147,7 @@ in {
       name = "Twitter";
       genericName = "Twitter";
       exec = "brave -app=https://x.com";
-      icon = twitterIcon;
+      icon = "twitter"; #twitterIcon;
     };
 
     whatsapp = {
@@ -161,6 +161,12 @@ in {
       genericName = "ChatGPT";
       exec = "brave -app=https://chat.openai.com";
       icon = chatGptIcon;
+    };
+
+    gmail = {
+      name = "Gmail";
+      exec = "brave -app=https://mail.google.com";
+      icon = "gmail";
     };
   };
 

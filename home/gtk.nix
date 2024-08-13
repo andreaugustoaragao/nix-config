@@ -56,19 +56,18 @@
       name = "rose-pine";
       package = pkgs.rose-pine-icon-theme;
     };
-
     theme = {
       # https://github.com/catppuccin/gtk
-      name = "rose-pine";
-      package = pkgs.rose-pine-gtk-theme;
+      #name = "rose-pine";
+      #package = pkgs.rose-pine-gtk-theme;
 
-      #name = "Catppuccin-Mocha-Standard-Pink-Dark";
-      #package = pkgs.catppuccin-gtk.override {
-      # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/data/themes/catppuccin-gtk/default.nix
-      # accents = ["pink"];
-      # size = "standard";
-      # variant = "mocha";
-      #};
+      name = "catppuccin-mocha-pink-standard";
+      package = pkgs.catppuccin-gtk.override {
+        # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/data/themes/catppuccin-gtk/default.nix
+        accents = ["pink"];
+        size = "standard";
+        variant = "mocha";
+      };
     };
 
     gtk3.bookmarks = [

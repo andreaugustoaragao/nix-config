@@ -35,5 +35,10 @@
     wireplumber.enable = true;
   };
 
+  environment.variables = {
+    MESA_GL_VERSION_OVERRIDE = "3.3";
+    MESA_GLSL_VERSION_OVERRIDE = "330";
+  };
+
   services.upower.enable = true;
 }

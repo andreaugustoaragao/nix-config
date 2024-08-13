@@ -159,7 +159,5 @@ in {
     };
   };
   home.sessionVariables = {
-    #MESA_GL_VERSION_OVERRIDE="3.3";
-    #MESA_GLSL_VERSION_OVERRIDE="330";
   };
 }
