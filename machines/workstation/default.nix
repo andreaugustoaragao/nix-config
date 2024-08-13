@@ -2,7 +2,9 @@
   system,
   pkgs,
   ...
-}: {
+}: let
+  __curDir = builtins.toString ./.;
+in {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -29,7 +31,11 @@
   hardware.graphics.extraPackages32 = [
     pkgs.driversi686Linux.amdvlk
   ];
-  # For 32 bit applications
+  hardware.amdgpu.initrd.enable = true;
+  hardware.amdgpu.amdvlk.enable = true;
+
+  hardware.amdgpu.opencl.enable = true;
+
   environment.systemPackages = with pkgs; [
     lm_sensors
     plymouth
@@ -42,8 +48,10 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "abstract_ring";
+      #theme = "abstract_ring";
+      theme = "catppuccin-macchiato";
       themePackages = with pkgs; [
+        catppuccin-plymouth
         # By default we would install all themes
         (adi1090x-plymouth-themes.override {
           selected_themes = ["abstract_ring"];
@@ -58,6 +66,7 @@
     kernelParams = [
       "quiet"
       "splash"
+      "$vt_hadoff"
       "boot.shell_on_fail"
       "loglevel=3"
       "rd.systemd.show_status=false"
@@ -70,7 +79,7 @@
     # :loader.timeout = 0;
   };
   boot.loader.systemd-boot.enable = false;
-  boot.initrd.systemd.enable = false;
+  boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
@@ -81,6 +90,21 @@
       devices = ["nodev"];
       efiSupport = true;
       useOSProber = true;
+      backgroundColor = "#24273a";
+      splashImage = "${__curDir}/grub-background.png";
+      gfxmodeEfi = "1920x1080";
+      gfxpayloadEfi = "keep";
+      extraEntries = ''
+        menuentry "Video Info" {
+            videoinfo
+        }
+        menuentry "Reboot" {
+            reboot
+        }
+        menuentry "Poweroff" {
+            halt
+        }
+      '';
     };
   };
 

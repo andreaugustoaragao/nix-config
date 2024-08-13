@@ -62,7 +62,7 @@ in {
         "${modifier}+b" = "split h";
         "${modifier}+Shift+4" = "exec flameshot gui";
         "${modifier}+Shift+b" = "exec brave --new-tab httos://www.google.com";
-        "${modifier}+Shift+p" = "exec ~/.local/bin/powermenu.sh";
+        "${modifier}+Shift+p" = "exec sh -c ~/.local/bin/powermenu.sh";
       };
       assigns = {
         "1" = [
