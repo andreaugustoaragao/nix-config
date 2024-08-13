@@ -125,7 +125,6 @@
               users.aragao = commonUserHomeManagerConfig {
                 userDetails = userDetails;
                 system = system;
-                imports = [./home/nvim.nix ./home/shell.nix ./home/alacritty.nix];
               };
             };
           }
