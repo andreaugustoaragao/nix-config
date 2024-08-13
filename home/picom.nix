@@ -1,10 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   services.pasystray.enable = true;
   services.picom = {
     enable = true;
     package = pkgs.picom-pijulius;
     settings = {
-      backend = "glx";
+      backend =
+        if builtins.getEnv "HOSTNAME" == "workstation"
+        then "glx"
+        else "xrender";
       vsync = true;
       fading = true;
       fade-delta = 5;

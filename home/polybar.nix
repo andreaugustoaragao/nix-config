@@ -159,7 +159,7 @@ in {
 
         interval = 3;
 
-        format = "%{T4}󰍛 %{T-}<label>";
+        format = "%{T4}󰍛  %{T-}<label>";
         format-background = background-alt;
         format-underline = quaternary;
         #format-foreground = secondary;
@@ -174,7 +174,7 @@ in {
       "module/cpu" = {
         type = "internal/cpu";
 
-        interval = "0.5";
+        interval = "1";
 
         format = "%{T4}󰻠%{T-}<label>";
         # jformat-underline = quaternary;
