@@ -109,6 +109,10 @@ in {
 
   services.xserver.resolutions = [
     {
+      x = "3456";
+      y = "2160";
+    }
+    {
       x = 3840;
       y = 2160;
     }
