@@ -106,4 +106,11 @@ in {
       '';
     };
   };
+
+  services.xserver.resolutions = [
+    {
+      x = 3840;
+      y = 2160;
+    }
+  ];
 }

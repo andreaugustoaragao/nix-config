@@ -41,6 +41,13 @@ in {
     plymouth
   ];
   services.xserver.videoDrivers = ["amdgpu"];
+  services.xserver.resolutions = [
+    {
+      x = 3840;
+      y = 2160;
+    }
+  ];
+
   systemd.services.plymouth-quit-wait = {
     wantedBy = ["multi-user.target"];
     after = ["systemd-user-sessions.service"];

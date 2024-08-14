@@ -30,9 +30,9 @@ in {
       window.border = 2;
       window.titlebar = false;
       gaps = {
-        inner = 10;
+        inner = 5;
         outer = 5;
-        top = 25;
+        top = 30;
         left = 1;
         right = 1;
         bottom = 1;
