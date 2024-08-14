@@ -40,7 +40,10 @@ in {
   };
 
   services.upower.enable = true;
-
+  systemd.services.plymouth-quit-wait = {
+    wantedBy = ["multi-user.target"];
+    after = ["systemd-user-sessions.service"];
+  };
   boot = {
     plymouth = {
       enable = true;
@@ -88,7 +91,7 @@ in {
       useOSProber = true;
       backgroundColor = "#24273a";
       splashImage = "${__curDir}/grub-background.png";
-      gfxmodeEfi = "1920x1080";
+      gfxmodeEfi = "2560x1440";
       gfxpayloadEfi = "keep";
       extraEntries = ''
         menuentry "Video Info" {
