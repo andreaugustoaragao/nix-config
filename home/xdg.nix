@@ -19,10 +19,10 @@
   #  sha256 = "1mlqxxj2rwwv439lvdv4k4djhmwk92lv1riywk94r9hcmk5bbs92";
   #};
 
-  vimCheatSheetIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/1381/PNG/512/vim_94609.png";
-    sha256 = "0fnrcrsrrnchrgjbg0hszynj2g2m674b3nc4ky8pdb3zgc1490sc";
-  };
+  #vimCheatSheetIcon = pkgs.fetchurl {
+  #  url = "https://cdn.icon-icons.com/icons2/1381/PNG/512/vim_94609.png";
+  #  sha256 = "0fnrcrsrrnchrgjbg0hszynj2g2m674b3nc4ky8pdb3zgc1490sc";
+  #};
 
   youtubeMusicIcon = pkgs.fetchurl {
     url = "https://cdn.icon-icons.com/icons2/3132/PNG/512/youtube_music_social_network_song_multimedia_icon_192250.png";
@@ -133,7 +133,7 @@ in {
       name = "Vim Cheat Sheet";
       genericName = "Vim Cheat Sheet";
       exec = "brave -app=https://vim.rtorr.com";
-      icon = vimCheatSheetIcon;
+      icon = "vim";
     };
 
     reddit = {

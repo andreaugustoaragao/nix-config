@@ -90,6 +90,7 @@ in {
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = [
+      "amdgpu"
       "quiet"
       "splash"
       "$vt_hadoff"
@@ -105,7 +106,7 @@ in {
     # :loader.timeout = 0;
   };
   boot.loader.systemd-boot.enable = false;
-  boot.initrd.systemd.enable = true;
+  #boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
