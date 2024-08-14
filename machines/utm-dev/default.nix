@@ -94,19 +94,10 @@ in {
       gfxmodeEfi = "2560x1440";
       gfxpayloadEfi = "keep";
       extraEntries = ''
-        menuentry "Video Info" {
-            videoinfo
-        }
-        menuentry "Reboot" {
-            reboot
-        }
-        menuentry "Poweroff" {
-            halt
-        }
       '';
     };
   };
-
+  services.xserver.videoDrivers = ["modesetting"];
   services.xserver.resolutions = [
     {
       x = "3456";
@@ -117,4 +108,8 @@ in {
       y = 2160;
     }
   ];
+
+  services.xserver.displayManager.setupCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --auto
+  '';
 }

@@ -16,7 +16,7 @@ in {
   hardware.bluetooth.powerOnBoot = true;
   hardware.graphics.enable = true;
 
-  hardware.display.outputs."DP-1".mode = "e";
+  hardware.display.outputs."HDMI-1".mode = "d";
 
   hardware.graphics.extraPackages = [
     pkgs.mesa.drivers
@@ -41,12 +41,31 @@ in {
     plymouth
   ];
   services.xserver.videoDrivers = ["amdgpu"];
-  services.xserver.resolutions = [
-    {
-      x = 3840;
-      y = 2160;
-    }
-  ];
+  services.xserver.deviceSection = ''
+    Option "VariableRefresh" "true"
+  '';
+
+  services.xserver.screenSection = ''
+    #DefaultDepth 30 #disabled as it makes brave looks bad
+    Monitor "DisplayPort-0"
+  '';
+
+  services.xserver.config = ''
+    Section "Monitor"
+      Identifier "DisplayPort-0"
+      Modeline   "3840x2160_144" 1339.63 3840 3888 3920 4200 2160 2163 2168 2215 +HSync -VSync
+      Option     "PreferredMode" "3840x2160_144"
+    EndSection
+  '';
+
+  # services.xserver.monitorSection = ''
+  #  Modeline   "3840x2160_144" 1339.63 3840 3888 3920 4200 2160 2163 2168 2215 +HSync -VSync
+  #   Option     "PreferredMode" "3840x2160_144"
+  #'';
+
+  #services.xserver.displayManager.setupCommands = ''
+  #${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --mode "3840x2160" --rate 144
+  #'';
 
   systemd.services.plymouth-quit-wait = {
     wantedBy = ["multi-user.target"];
