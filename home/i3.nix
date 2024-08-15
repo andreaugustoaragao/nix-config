@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  rose-pine-wallpapers = pkgs.callPackage ./wallpapers.nix {};
+  rose-pine-wallpapers = pkgs.callPackage ./wallpapers.nix {} + "/field.jpg";
 in {
   xsession.windowManager.i3 = {
     enable = true;

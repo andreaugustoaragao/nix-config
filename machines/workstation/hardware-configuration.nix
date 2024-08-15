@@ -17,7 +17,7 @@
   boot.kernelModules = ["kvm-amd" "it87"];
   boot.extraModulePackages = [];
   boot.kernelParams = [
-    "video=amdgpu:DP-1:3840x2160@144"
+    "video=amdgpu:DP-1:3840x2160@60"
   ];
 
   fileSystems."/" = {

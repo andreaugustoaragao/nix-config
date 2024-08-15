@@ -5,7 +5,7 @@
   desktopDetails,
   ...
 }: let
-  rose-pine-wallpapers = pkgs.callPackage ../../home/wallpapers.nix {} + "/moon.jpg";
+  rose-pine-wallpapers = pkgs.callPackage ../../home/wallpapers.nix {} + "/field.jpg";
 in {
   services = {
     #displayManager.autoLogin.enable = true;

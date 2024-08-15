@@ -25,7 +25,7 @@ in {
     pkgs.amdvlk
     pkgs.rocmPackages.clr.icd
     pkgs.vulkan-loader
-    pkgs.vulkan-validation-layers
+    #pkgs.vulkan-validation-layers
     pkgs.vulkan-extension-layer
   ];
   hardware.graphics.extraPackages32 = [
@@ -90,7 +90,6 @@ in {
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = [
-      "amdgpu"
       "quiet"
       "splash"
       "$vt_hadoff"
@@ -119,18 +118,10 @@ in {
       useOSProber = true;
       backgroundColor = "#24273a";
       splashImage = "${__curDir}/grub-background.png";
-      gfxmodeEfi = "1920x1080";
+      gfxmodeEfi = "2560x1440";
       gfxpayloadEfi = "keep";
+      configurationLimit = 20;
       extraEntries = ''
-        menuentry "Video Info" {
-            videoinfo
-        }
-        menuentry "Reboot" {
-            reboot
-        }
-        menuentry "Poweroff" {
-            halt
-        }
       '';
     };
   };
@@ -163,5 +154,21 @@ in {
       ExecStart = "${pkgs.lact}/bin/lact daemon";
     };
     wantedBy = ["multi-user.target"];
+  };
+  services.kmscon = {
+    enable = true;
+    fonts = [
+      {
+        name = "DroidSansM Nerd Font Mono";
+        package = pkgs.nerdfonts;
+      }
+    ];
+    extraOptions = ''
+    '';
+    hwRender = true;
+    extraConfig = ''
+      font-size=12
+      font-dpi=144
+    '';
   };
 }
