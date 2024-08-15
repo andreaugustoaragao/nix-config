@@ -9,10 +9,10 @@
     sha256 = "157xbcxzlfjb9ls7vja9vq8zb4i8nkd33qk58qva7yavn71zzxay";
   };
 
-  redditIcon = pkgs.fetchurl {
-    url = "https://cdn.icon-icons.com/icons2/1195/PNG/512/1490889653-reddit_82537.png";
-    sha256 = "01ja74q5i797s0cfhr8byqq1bzzix23hswimij663ylm864w7lna";
-  };
+  #redditIcon = pkgs.fetchurl {
+  #  url = "https://cdn.icon-icons.com/icons2/1195/PNG/512/1490889653-reddit_82537.png";
+  #  sha256 = "01ja74q5i797s0cfhr8byqq1bzzix23hswimij663ylm864w7lna";
+  #};
 
   #twitterIcon = pkgs.fetchurl {
   #  url = "https://cdn.icon-icons.com/icons2/836/PNG/512/Twitter_icon-icons.com_66803.png";
@@ -140,7 +140,7 @@ in {
       name = "Reddit";
       genericName = "Reddit";
       exec = "brave -app=https://reddit.com";
-      icon = redditIcon;
+      icon = "reddit";
     };
 
     twitter = {
