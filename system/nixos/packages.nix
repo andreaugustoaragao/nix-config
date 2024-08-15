@@ -50,6 +50,6 @@
     vulkan-headers
     xorg.libxcvt
     lact
-    corectrl
+    cmatrix
   ];
 }
