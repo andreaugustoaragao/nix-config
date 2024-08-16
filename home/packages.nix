@@ -81,6 +81,7 @@ in {
     _1password-gui
     teams-for-linux
     gimp
+    calibre
     #zoom-us
   ];
 }

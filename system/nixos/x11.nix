@@ -7,6 +7,8 @@
 }: let
   rose-pine-wallpapers = pkgs.callPackage ../../home/wallpapers.nix {} + "/field.jpg";
 in {
+  programs.sway.enable = true;
+
   services = {
     #displayManager.autoLogin.enable = true;
     #displayManager.autoLogin.user = "${userDetails.userName}";

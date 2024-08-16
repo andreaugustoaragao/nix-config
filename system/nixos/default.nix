@@ -17,7 +17,7 @@
     ./locale.nix
     ./kernel.nix
     ./certs.nix
-    ./desktop.nix
+    ./x11.nix
     ./tmux
     ./openssh.nix
   ];
