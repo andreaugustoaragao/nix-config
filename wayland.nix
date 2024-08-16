@@ -22,7 +22,7 @@ in {
       displayManager = {
         lightdm.enable = true;
         lightdm.greeters.lomiri.enable = false;
-        lightdm.greeters.slick.enable = true;
+        lightdm.greeters.slick.enable = false;
         lightdm.greeters.slick.cursorTheme.size = 48;
         lightdm.greeters.slick.cursorTheme.package = pkgs.bibata-cursors;
         lightdm.greeters.slick.cursorTheme.name = "Bibata-Modern-Classic";

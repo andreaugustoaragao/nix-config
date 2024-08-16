@@ -17,7 +17,8 @@
     ./locale.nix
     ./kernel.nix
     ./certs.nix
-    ./x11.nix
+    #./x11.nix
+    ./wayland.nix
     ./tmux
     ./openssh.nix
   ];
