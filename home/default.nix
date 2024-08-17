@@ -12,6 +12,7 @@
   imports = [
     ./firefox-webapp.nix
     ./i3.nix
+    ./sway.nix
     ./rofi.nix
     ./alacritty.nix
     ./packages.nix

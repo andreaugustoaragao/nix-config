@@ -13,14 +13,12 @@ in {
   };
 
   services = {
-    #displayManager.autoLogin.enable = true;
-    #displayManager.autoLogin.user = "${userDetails.userName}";
-    displayManager.defaultSession = "none+i3";
+    displayManager.defaultSession = "sway";
     xserver = {
       dpi = desktopDetails.dpi;
-      enable = true;
+      enable = false;
       displayManager = {
-        lightdm.enable = true;
+        lightdm.enable = false;
         lightdm.greeters.lomiri.enable = false;
         lightdm.greeters.slick.enable = false;
         lightdm.greeters.slick.cursorTheme.size = 48;
