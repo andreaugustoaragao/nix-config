@@ -5,12 +5,12 @@
   ...
 }: {
   programs.rofi = {
+    package = pkgs.rofi-wayland;
     enable = true;
-    font = "Jetbrains Mono Nerd Font SemiBold 12";
+    font = "Jetbrains Mono Nerd Font SemiBold 14";
     terminal = "${pkgs.alacritty}/bin/alacritty";
     extraConfig = {
       show-icons = true;
-      #dpi = 192;
       display-drun = " ";
       icon-theme = "rose-pine";
       drun-display-format = "{name}";
@@ -34,8 +34,8 @@
       };
 
       "window" = {
-        width = mkLiteral "31%";
-        height = mkLiteral "50%";
+        width = mkLiteral "25%";
+        height = mkLiteral "20%";
         background-color = mkLiteral "@bg";
         border = mkLiteral "2px solid "; # Adjust the size and color as needed
         border-radius = mkLiteral "5px"; # Optional: if you want rounded corners

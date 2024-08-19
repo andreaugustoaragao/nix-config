@@ -29,11 +29,11 @@
       "*.color7" = "#e0def4";
       "*.color15" = "#e0def4";
 
-      "XTerm*font" = "xft:JetbrainsMono Nerd Font:size=10";
+      "XTerm*font" = "xft:JetbrainsMono Nerd Font:size=12";
       "XTerm*saveLines" = "1000";
       "XTerm*scrollBar" = "false";
-      "Xft.dpi" = 144;
-      "*.dpi" = 144;
+      "Xft.dpi" = 96;
+      "*.dpi" = 96;
       #"Xcursor.size" = 96;
       #"Xcursor.theme" = "Adwaita";
     };

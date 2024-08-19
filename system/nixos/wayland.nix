@@ -5,19 +5,55 @@
   desktopDetails,
   ...
 }: let
-  rose-pine-wallpapers = pkgs.callPackage ../../home/wallpapers.nix {} + "/field.jpg";
+  wallpaper = pkgs.callPackage ../../home/wallpapers.nix {} + "/field.jpg";
 in {
   programs.sway = {
     enable = true;
     package = pkgs.swayfx;
   };
+  programs.hyprland.enable = true;
 
+  security.pam.services.swaylock = {};
+  xdg.portal = {
+    enable = true;
+    configPackages = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
+  };
+  environment.systemPackages = [
+    (
+      pkgs.catppuccin-sddm.override {
+        flavor = "mocha";
+        font = "Roboto Medium";
+        fontSize = "12";
+        #background = wallpaper;
+        loginBackground = false;
+      }
+    )
+  ];
   services = {
     displayManager.defaultSession = "sway";
+    displayManager.sddm = {
+      enable = true;
+      enableHidpi = true;
+      wayland.enable = false;
+      theme = "catppuccin-mocha";
+      package = pkgs.kdePackages.sddm;
+      settings = {
+        Theme = {
+          CursorTheme = "bibata-cursors";
+          CursorSize = 48;
+          EnableAvatars = true;
+          Background = wallpaper;
+        };
+      };
+    };
     xserver = {
       dpi = desktopDetails.dpi;
-      enable = false;
+      enable = true;
       displayManager = {
+        gdm = {
+          enable = false;
+          wayland = false;
+        };
         lightdm.enable = false;
         lightdm.greeters.lomiri.enable = false;
         lightdm.greeters.slick.enable = false;
@@ -25,7 +61,7 @@ in {
         lightdm.greeters.slick.cursorTheme.package = pkgs.bibata-cursors;
         lightdm.greeters.slick.cursorTheme.name = "Bibata-Modern-Classic";
         lightdm.greeters.slick.draw-user-backgrounds = true;
-        lightdm.background = rose-pine-wallpapers;
+        lightdm.background = wallpaper;
         lightdm.greeters.slick.theme = {
           name = "catppuccin-mocha-pink-standard";
           package = pkgs.catppuccin-gtk.override {
@@ -78,7 +114,10 @@ in {
       xkb.layout = "us";
     };
     gnome.gnome-keyring.enable = true;
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      packages = with pkgs; [dconf];
+    };
     gvfs.enable = true;
     tumbler.enable = true;
   };

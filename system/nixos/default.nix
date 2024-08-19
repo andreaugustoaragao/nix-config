@@ -27,11 +27,10 @@
   ];
 
   # NETWORK
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   systemd.network.wait-online.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
-  programs.nm-applet.enable = true;
+  programs.nm-applet.enable = false;
 
   # SECURITY
   security.polkit.enable = true;
@@ -54,7 +53,7 @@
       createHome = true;
       description = "${userDetails.fullName}";
       isNormalUser = true;
-      extraGroups = ["wheel" "docker" "networkmanager" "lp" "scanner" "libvirtd"];
+      extraGroups = ["wheel" "docker" "networkmanager" "lp" "scanner" "libvirtd" "video" "input"];
       shell = pkgs.fish;
       password = "password";
     };

@@ -8,6 +8,7 @@
 }: {
   # available to root and ${userDetails.userName}
   environment.systemPackages = with pkgs; [
+    qt5.qtwayland
     lf
     starship
     inetutils
@@ -51,5 +52,6 @@
     xorg.libxcvt
     lact
     cmatrix
+    rose-pine-icon-theme
   ];
 }

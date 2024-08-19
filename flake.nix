@@ -28,7 +28,7 @@
       fullName = "Andre Aragao";
       userName = "aragao";
     };
-    desktopDetails = {dpi = 144;};
+    desktopDetails = {dpi = 96;};
     homeManagerStateVersion = "24.05";
 
     rootUserHomeManagerConfig = {

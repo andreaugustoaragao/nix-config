@@ -7,6 +7,13 @@
 }: let
   rose-pine-wallpapers = pkgs.callPackage ./wallpapers.nix {} + "/field.jpg";
 in {
+  imports = [
+    ./rofi.nix
+    ./polybar.nix
+    ./picom.nix
+    ./redshift.nix
+    ./dunst.nix
+  ];
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
@@ -27,15 +34,15 @@ in {
         };
         "background" = "#191724";
       };
-      window.border = 2;
+      window.border = 4;
       window.titlebar = false;
       gaps = {
         inner = 5;
         outer = 5;
-        top = 30;
-        left = 1;
-        right = 1;
-        bottom = 1;
+        top = 45;
+        #left = 5;
+        #right = 5;
+        #bottom = 5;
       };
       #gaps.smartBorders = "off";
       window.hideEdgeBorders = "smart";
@@ -45,7 +52,7 @@ in {
       fonts = {
         names = ["RobotoMono"];
         style = "Bold";
-        size = 9.0;
+        size = 12.0;
       };
       keybindings = lib.mkOptionDefault {
         "XF86AudioMute" = "exec amixer set Master toggle";
@@ -54,7 +61,7 @@ in {
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
         "${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
-        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -dpi 144 -show drun -show-icons";
+        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
@@ -137,6 +144,11 @@ in {
       focus.newWindow = "focus";
       startup = [
         {
+          command = "polybar-check";
+          always = true;
+          notification = false;
+        }
+        {
           command = "xset dpms 1800 1800 1800";
           always = false;
           notification = false;
@@ -191,4 +203,21 @@ in {
       ];
     };
   };
+
+  home.packages = with pkgs; [
+    (writeShellScriptBin "polybar-check" ''
+      #!/usr/bin/env bash
+
+      # Check if Polybar is running
+      if pgrep -x "polybar" > /dev/null; then
+          echo "Polybar is running. Reloading configuration..."
+          # Reload Polybar configuration
+          pkill -USR1 polybar
+      else
+          echo "Polybar is not running. Starting Polybar..."
+          # Start Polybar (adjust "mybar" to your configuration name)
+          polybar -q -r top &
+      fi
+    '')
+  ];
 }

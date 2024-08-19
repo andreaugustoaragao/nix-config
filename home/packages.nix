@@ -83,5 +83,7 @@ in {
     gimp
     calibre
     #zoom-us
+
+    cheese
   ];
 }

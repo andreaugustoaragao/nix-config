@@ -1,54 +1,62 @@
 {pkgs, ...}: {
   services.dunst = {
     enable = true;
+    iconTheme = {
+      name = "rose-pine";
+      package = pkgs.rose-pine-icon-theme;
+      size = "48x48";
+    };
     settings = {
       global = {
-        width = 300;
-        height = 300;
-        offset = "12x30";
+        width = 450;
+        height = 600;
+        offset = "10x50";
         origin = "top-right";
-
-        browser = "${pkgs.chromium}/bin/chromium -new-tab";
-        #dmenu = "${pkgs.rofi}/bin/rofi -dmenu";
+        layer = "overlay";
+        browser = "brave --new-tab";
+        dmenu = "${pkgs.rofi}/bin/rofi -show run";
         follow = "mouse";
-        font = "Roboto Mono Regular 10";
-        format = "<b>%s</b>\\n%b";
+        font = "Roboto Mono Regular 14";
+        format = "<b>%a</b>\\n%s\\n%b";
         frame_width = 1;
-        horizontal_padding = 8;
+        corner_radius = 15;
+        horizontal_padding = 5;
+        padding = 5;
         icon_position = "left";
         line_height = 0;
         markup = "full";
-        padding = 8;
         #separator_color = "frame";
         separator_color = "auto";
         separator_height = 2;
-        transparency = 10;
+        transparency = 9;
         word_wrap = true;
-        icon_theme = "rose-pine";
+        max_icon_size = 256;
         enable_recursive_icon_lookup = true;
         idle_threshold = 120;
         stack_duplicates = true;
         show_indicators = true;
+        progress_bar = true;
+        icon_theme = "rose-pine";
       };
 
       urgency_low = {
         background = "#6e6a81";
         foreground = "#e0def4";
-        frame_color = "#c4a7e7";
+        frame_color = "#5b96b2";
         timeout = 10;
       };
 
       urgency_normal = {
         background = "#1f1d2e";
         foreground = "#e0def4";
-        frame_color = "#c4a7e7";
+        frame_color = "#5b96b2";
         timeout = 15;
       };
 
       urgency_critical = {
         background = "#eb6f92";
         foreground = "#e0def4";
-        frame_color = "#c4a7e7";
+        frame_color = "#5b96b2";
         timeout = 0;
       };
     };

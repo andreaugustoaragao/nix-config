@@ -32,8 +32,7 @@ in {
       pulseSupport = true;
     };
     enable = true;
-    script = "polybar -q -r top &";
-
+    script = ''if [ "$XDG_SESSION_TYPE" = "x11" ]; then polybar-check ; fi'';
     config = {
       "bar/top" = {
         dpi-x = 0;
@@ -64,10 +63,10 @@ in {
         separator = " ";
         separator-foreground = "${disabled}";
         # font-0 = "FiraCode Nerd Font:size=12;2;style=bold";
-        font-0 = "JetbrainsMono Nerd Font:size=9:weight=bold;4";
-        font-1 = "JetbrainsMono Nerd Font:size=9:weight=bold;4";
-        font-2 = "JetbrainsMono Nerd Font Mono:size=16:weight=bold;7";
-        font-3 = "JetbrainsMono Nerd Font Mono:size=15:weight=bold;7";
+        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
+        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
 
         modules-left = "xworkspaces xwindow";
         modules-right = "cpu temperature memory filesystem network avaya battery date tray notifications powermenu";
@@ -88,7 +87,7 @@ in {
         tray-size = "55%";
         tray-spacing = 10;
         #format-margin = "8px";
-        format-background = background-modules;
+        format-background = background-alt;
         format-underline = quaternary;
       };
 
@@ -176,7 +175,7 @@ in {
 
         interval = "1";
 
-        format = "%{T4}󰻠%{T-}<label>";
+        format = "%{T4}󰻠 %{T-}<label>";
         # jformat-underline = quaternary;
 
         #format-foreground = quaternary;
@@ -235,6 +234,8 @@ in {
 
         label = " ";
         click-left = "~/.local/bin/powermenu.sh";
+        label-background = background-alt;
+        label-underline = quaternary;
       };
 
       "module/filesystem" = {

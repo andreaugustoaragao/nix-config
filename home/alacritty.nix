@@ -43,7 +43,7 @@ in {
           else "Bold Italic";
         size =
           if isLinux
-          then 10
+          then 13
           else 12;
       };
 
@@ -158,6 +158,5 @@ in {
       ];
     };
   };
-  home.sessionVariables = {
-  };
+  programs.kitty.enable = true;
 }

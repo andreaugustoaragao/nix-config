@@ -8,7 +8,7 @@
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
-    size = 48;
+    size = 24;
     gtk.enable = true;
     x11.enable = true;
   };
@@ -45,7 +45,7 @@
     font = {
       name = "Roboto Medium";
       package = pkgs.roboto;
-      size = 10;
+      size = 13;
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

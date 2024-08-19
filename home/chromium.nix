@@ -36,6 +36,7 @@ in {
       "--enable-parallel-downloading"
       "--disable-native-brave-wallet"
       "--enable-features=TabHoverCardImages,SmoothScrolling,WindowsScrollingPersonality"
+      "--ozone-platform-hint=auto"
     ];
     extensions = [
       #{id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} #ublock origin

@@ -100,7 +100,7 @@ in {
     tmux-default = {
       name = "Tmux Default Session";
       genericName = "Tmux default session";
-      exec = "alacritty --class Alacritty,default-tmux -e tmux new-session -s default -A";
+      exec = "alacritty --class alacritty_default_tmux -e tmux new-session -s default -A";
       icon = "utilities-terminal";
     };
 
@@ -164,6 +164,12 @@ in {
       exec = "brave -app=https://mail.google.com";
       icon = "gmail";
     };
+
+    primevideo = {
+      name = "Amazon Prime Video";
+      exec = "brave -app=https://www.amazon.com/gp/video/storefront";
+      icon = "amazon";
+    };
   };
 
   home.activation = with config.xdg; {
@@ -185,8 +191,6 @@ in {
 
       $DRY_RUN_CMD mkdir --parents $VERBOSE_ARG \
         ${config.home.homeDirectory}/downloads
-
-
     '';
 
     #TODO remove this from here - should be in the java.nix file

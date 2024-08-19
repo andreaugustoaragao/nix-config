@@ -13,12 +13,9 @@
     ./firefox-webapp.nix
     ./i3.nix
     ./sway.nix
-    ./rofi.nix
+    ./waybar.nix
     ./alacritty.nix
     ./packages.nix
-    ./polybar.nix
-    ./picom.nix
-    ./redshift.nix
     ./vscode.nix
     ./shell.nix
     ./chromium.nix
@@ -33,7 +30,6 @@
     ./zathura.nix
     ./go.nix
     ./gpg.nix
-    ./dunst.nix
     ./file-managers.nix
   ];
   xsession.enable = true;
