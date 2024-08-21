@@ -71,11 +71,12 @@ in {
         font-2 = "Weather Icons:size=12;4";
         modules-left = "launcher date weather";
         modules-center = "xworkspaces";
-        modules-right = "cpu memory filesystem volume tray time powermenu";
+        modules-right = "cpu memory filesystem volume notifications tray time powermenu";
         background = transparent_background;
         foreground = transparent_foreground;
         line-size = 4;
         module-margin-right = "10px";
+        wm-restack = "i3";
       };
 
       "module/base" = {
@@ -221,6 +222,7 @@ in {
         mount-0 = "/";
         fixed-values = false;
         format-mounted = "<label-mounted>";
+
         label-mounted = "%{T2}󰋊 %{T-}%percentage_used%%";
         label-mounted-font = 1;
         label-mounted-foreground = gold;
@@ -248,309 +250,29 @@ in {
 
       "module/launcher" = {
         type = "custom/text";
-
         "inherit" = "module/base";
         label = "󰀻";
         click-left = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
         label-font = 2;
       };
+
+      "module/notifications" = {
+        type = "custom/script";
+        "inherit" = "module/base";
+        exec = "~/.local/bin/notifications.sh";
+        tail = false;
+        interval = 1;
+        format = "<label>";
+        label = "%output%";
+        label-font = 2;
+        click-left = "~/.local/bin/toggle-notifications.sh";
+      };
+
+      "settings" = {
+        screenchange-reload = true;
+        pseudo-transparency = true;
+      };
     };
-    #     "bar/launcher" = {
-    #       bottom = false;
-    #       fixed-center = false;
-    #       override-redirect = true;
-    #       width = "2%";
-    #       offset-x = "15px";
-    #       offset-y = "0.2%";
-    #       height = 45;
-    #       radius = 15;
-    #       background = "${background-transparent}";
-    #       foreground = "${foreground}";
-    #       line-size = "2pt";
-    #       border-size = "0pt";
-    #       border-color = "#00000000";
-    #       #padding = 10;
-    #       #padding-left = 1;
-    #       padding-right = 1;
-    #       padding-left = 1;
-    #
-    #       module-margin-left = 1;
-    #       module-margin-right = 1;
-    #
-    #       separator = " ";
-    #       separator-foreground = "${disabled}";
-    #       font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #       font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #       font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
-    #       font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
-    #       font-4 = "Weather Icons:size=12;4";
-    #
-    #       modules-right = "";
-    #       modules-left = "";
-    #       modules-center = "launcher";
-    #       cursor-click = "pointer";
-    #       cursor-scroll = "ns-resize";
-    #       wm-restack = "i3";
-    #       enable-ipc = true;
-    #     };
-    #
-    #      "bar/left" = {
-    #        dpi-x = 0;
-    #        dpi-y = 0;
-    #        bottom = false;
-    #        fixed-center = true;
-    #        override-redirect = true;
-    #        width = "30%";
-    #        offset-x = "3%";
-    #        offset-y = "0.2%";
-    #        height = 45;
-    #        radius = 15;
-    #        background = "${background-transparent}";
-    #        foreground = "${foreground}";
-    #        line-size = "2pt";
-    #        border-size = "0pt";
-    #        border-color = "#00000000";
-    #        padding-right = 0;
-    #        padding-left = 0;
-    #
-    #        module-margin-left = 0;
-    #        module-margin-right = 0;
-    #
-    #        separator = " ";
-    #        separator-foreground = "${disabled}";
-    #        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
-    #        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
-    #
-    #        modules-left = "xworkspaces xwindow";
-    #        # modules-right = "cpu temperature memory filesystem network avaya battery date tray notifications powermenu";
-    #
-    #        cursor-click = "pointer";
-    #        cursor-scroll = "ns-resize";
-    #        wm-restack = "i3";
-    #        enable-ipc = true;
-    #      };
-    #
-    #      "bar/middle" = {
-    #        bottom = false;
-    #        fixed-center = true;
-    #        override-redirect = true;
-    #        width = "33%";
-    #        offset-x = "33.5%";
-    #        offset-y = "0.2%";
-    #        height = 45;
-    #        radius = 15;
-    #        background = "${background-transparent}";
-    #        #background = "${primary}";
-    #        foreground = "${foreground}";
-    #        line-size = "2pt";
-    #        border-size = "0pt";
-    #        border-color = "#00000000";
-    #        padding-right = 0;
-    #        padding-left = 0;
-    #
-    #        module-margin-left = 10;
-    #        module-margin-right = 10;
-    #
-    #        separator = " ";
-    #        separator-foreground = "${disabled}";
-    #        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
-    #        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
-    #        font-4 = "Weather Icons:size=12;4";
-    #
-    #        modules-center = "date";
-    #        modules-right = "weather";
-    #        modules-left = "";
-    #
-    #        cursor-click = "pointer";
-    #        cursor-scroll = "ns-resize";
-    #        wm-restack = "i3";
-    #        enable-ipc = true;
-    #      };
-    #
-    #      "bar/right" = {
-    #        bottom = false;
-    #        fixed-center = false;
-    #        override-redirect = true;
-    #        width = "30%";
-    #        offset-x = "67%";
-    #        offset-y = "0.2%";
-    #        height = 45;
-    #        radius = 15;
-    #        background = "${background-transparent}";
-    #        foreground = "${foreground}";
-    #        line-size = "2pt";
-    #        border-size = "0pt";
-    #        border-color = "#00000000";
-    #        #padding = 10;
-    #        #padding-left = 1;
-    #        padding-right = 0;
-    #        padding-left = 0;
-    #
-    #        module-margin-left = 0;
-    #        module-margin-right = 0;
-    #
-    #        separator = " ";
-    #        separator-foreground = "${disabled}";
-    #        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-1 = "JetbrainsMono Nerd Fot:size=12:weight=bold;4";
-    #        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
-    #        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
-    #
-    #        modules-center = "cpu temperature memory filesystem network avaya battery volume tray notifications";
-    #        cursor-click = "pointer";
-    #        cursor-scroll = "ns-resize";
-    #        wm-restack = "i3";
-    #        enable-ipc = true;
-    #      };
-    #
-    #      "bar/powermenu" = {
-    #        bottom = false;
-    #        fixed-center = true;
-    #        override-redirect = true;
-    #        width = "2%";
-    #        offset-x = "100%:-90px";
-    #        offset-y = "0.2%";
-    #        height = 45;
-    #        radius = 15;
-    #        background = "${background-transparent}";
-    #        #background = "#00000000";
-    #        foreground = "${foreground}";
-    #        line-size = "2pt";
-    #        border-size = "0pt";
-    #        border-color = "#00000000";
-    #        #padding = 10;
-    #        #padding-left = 1;
-    #        padding-right = 1;
-    #        padding-left = 1;
-    #
-    #        module-margin-left = 1;
-    #        module-margin-right = 1;
-    #
-    #        separator = " ";
-    #        separator-foreground = "${disabled}";
-    #        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-    #        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
-    #        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
-    #
-    #        modules-center = "powermenu";
-    #        modules-left = "";
-    #        cursor-click = "pointer";
-    #        cursor-scroll = "ns-resize";
-    #        wm-restack = "i3";
-    #        enable-ipc = true;
-    #      };
-    #
-    #h      "module/launcher" = {
-    #h        type = "custom/text";
-    #h        format-padding = 1;
-    #h        label = "󰀻";
-    #h        click-left = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
-    #h        label-background = background-alt;
-    #h        label-font = 3;
-    #h      };
-    #h
-    #h      "module/tray" = {
-    #h        type = "internal/tray";
-    #h        tray-size = "55%";
-    #h        tray-spacing = 10;
-    #h        #format-margin = "8px";
-    #h        format-background = background-alt;
-    #h        format-underline = quaternary;
-    #h      };
-    #h
-    #h      "module/xworkspaces" = {
-    #h        type = "internal/i3";
-    #h        format = "<label-state> <label-mode>";
-    #h        ws-icon-0 = "1;  "; # terminal
-    #h        ws-icon-1 = "2; 󰖟 "; # browser
-    #h        ws-icon-2 = "3; 󰊻 "; # teams
-    #h        ws-icon-3 = "4; 󰴢 "; # outlocker
-    #h        ws-icon-4 = "5;  "; # idea
-    #h        ws-icon-5 = "6;  "; # rocket chat
-    #h        ws-icon-6 = "7; 󱔘 "; # documents: pdfs and books and images and powerpoint and excel
-    #h        ws-icon-7 = "8;  "; # music
-    #h        ws-icon-8 = "9; 󱜸 "; # chat gpt
-    #h        ws-icon-default = "  ";
-    #h
-    #h        label-focused = "%icon%";
-    #h        label-focused-padding = 0;
-    #h        label-focused-underline = "${primary}";
-    #h        label-focused-background = "${background-alt}";
-    #h        label-focused-font = "3";
-    #h
-    #h        label-unfocused = "%icon%";
-    #h        label-unfocused-font = 3;
-    #h        label-unfocused-padding = 0;
-    #h
-    #h        label-visible = "%icon%";
-    #h        label-visible-font = 3;
-    #h        #       label-visible-padding = 1;
-    #h
-    #h        label-urgent = "%icon%";
-    #h        #      label-urgent-padding = 1;
-    #h        label-urgent-background = "${alert}";
-    #h        label-urgent-font = 3;
-    #h        #label-active-background = "${background-alt}";
-    #h        #label-active-underline= "${primary}";
-    #h        #label-active-padding = 1;
-    #h      };
-    #h
-    #h      "module/xwindow" = {
-    #h        type = "internal/xwindow";
-    #h        label = "%title%";
-    #h        label-maxlen = 50;
-    #h      };
-    #h
-    #h      "module/date" = {
-    #h        type = "internal/date";
-    #h        interval = 5;
-    #h        date = "%a %b %d %l:%M %p";
-    #h        label = "%date%";
-    #h        label-font = 2;
-    #h        #label-foreground = "${primary}";
-    #h        #label-background = background-alt;
-    #h        #label-underline = quaternary;
-    #h      };
-    #h
-    #h      "module/memory" = {
-    #h        type = "internal/memory";
-    #h
-    #h        interval = 3;
-    #h
-    #h        format = "%{T4}󰍛  %{T-}<label>";
-    #h        format-background = background-alt;
-    #h        format-underline = quaternary;
-    #h        #format-foreground = secondary;
-    #h        # format-padding = 1;
-    #h
-    #h        #label = "%gb_used%/%gb_total%";
-    #h        label = "%gb_used%(%percentage_used%%)";
-    #h        #format-underline = tertiary;
-    #h        label-font = 2;
-    #h      };
-    #h
-    #h      "module/cpu" = {
-    #h        type = "internal/cpu";
-    #h
-    #h        interval = "1";
-    #h
-    #h        format = "%{T4}󰻠 %{T-}<label>";
-    #h        # jformat-underline = quaternary;
-    #h
-    #h        #format-foreground = quaternary;
-    #h        format-background = background-alt;
-    #h        format-underline = quaternary;
-    #h        #format-padding = 1;
-    #h
-    #h        label = "%percentage:2%%";
-    #h        #label-underling = secondary;
-    #h        label-font = 2;
-    #h      };
     #h
     #h      "module/battery" = {
     #h        type = "internal/battery";
@@ -591,30 +313,6 @@ in {
     #h        ramp-capacity-4 = "";
     #h      };
     #h
-    #h      "module/powermenu" = {
-    #h        type = "custom/text";
-    #h
-    #h        format-padding = 1;
-    #h
-    #h        label = " ";
-    #h        #label-padding = "20px";
-    #h        click-left = "~/.local/bin/powermenu.sh";
-    #h        #label-background = "#ff0000ff";
-    #h        #label-underline = quaternary;
-    #h        label-font = 3;
-    #h      };
-    #h
-    #h      "module/filesystem" = {
-    #h        type = "internal/fs";
-    #h        mount-0 = "/";
-    #h        fixed-values = false;
-    #h        format-mounted = "<label-mounted>";
-    #h        label-mounted = "%{T4}󰋊 %{T-}%used%(%percentage_used%%)";
-    #h        label-mounted-font = 2;
-    #h        label-mounted-background = background-alt;
-    #h        label-mounted-underline = quaternary;
-    #h      };
-    #h
     #h      "module/network" = {
     #h        type = "internal/network";
     #h        # interface = "enp4s0";
@@ -629,26 +327,6 @@ in {
     #h        label-disconnected-foreground = alert;
     #h      };
     #h
-    #h      "module/volume" = {
-    #h        type = "internal/pulseaudio";
-    #h        click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
-    #h
-    #h        format-volume = "vol <ramp-volume> <label-volume>";
-    #h        format-volume-padding = 1;
-    #h        label-muted = " ";
-    #h        label-muted-foreground = alert;
-    #h        format-muted-padding = 1;
-    #h        label-volume = "%percentage%%";
-    #h        ramp-volume-0 = "🔈";
-    #h        ramp-volume-1 = "🔉";
-    #h        ramp-volume-2 = "🔊";
-    #h        ramp-volume-font = 4;
-    #h      };
-    #h
-    #h      "settings" = {
-    #h        screenchange-reload = true;
-    #h        pseudo-transparency = true;
-    #h      };
     #h
     #h      "module/temperature" = {
     #h        type = "internal/temperature";
@@ -657,20 +335,6 @@ in {
     #h        label = " %temperature-c%";
     #h        label-background = background-alt;
     #h        label-underline = quaternary;
-    #h      };
-    #h
-    #h      "module/notifications" = {
-    #h        type = "custom/script";
-    #h        exec = "~/.local/bin/notifications.sh";
-    #h        tail = false;
-    #h        interval = 1;
-    #h        format = "<label>";
-    #h        format-padding = 0;
-    #h        label = "%output%";
-    #h        label-font = 2;
-    #h        label-background = background-alt;
-    #h        label-underline = quaternary;
-    #h        click-left = "~/.local/bin/toggle-notifications.sh";
     #h      };
     #h
     #h      "module/avaya" = {
@@ -683,14 +347,6 @@ in {
     #h        label-font = 2;
     #h      };
     #h
-    #h      "module/weather" = {
-    #h        type = "custom/script";
-    #h        exec = "~/.local/bin/weather.sh";
-    #h        tail = false;
-    #h        interval = 960;
-    #h        label = "%output%";
-    #h        label-font = 1;
-    #h      };
     #h    };
   };
 
