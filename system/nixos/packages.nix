@@ -43,7 +43,6 @@
     onefetch
     speedtest-cli
     amdgpu_top
-    pasystray
     xsecurelock
     btop
     vulkan-tools

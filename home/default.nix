@@ -43,7 +43,6 @@
     source = ../system/nixos/certs;
     recursive = true;
   };
-  services.pasystray.enable = true;
   services.blueman-applet.enable = true;
   services.xscreensaver = {
     enable = true;

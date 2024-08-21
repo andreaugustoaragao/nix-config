@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  rose-pine-wallpapers = pkgs.callPackage ./wallpapers.nix {} + "/field.jpg";
+  rose-pine-wallpapers = pkgs.callPackage ./wallpapers.nix {} + "/rocks.jpg";
 in {
   imports = [
     ./rofi.nix
@@ -26,7 +26,7 @@ in {
         focused = {
           background = "#191724";
           #border = "#c4a7e7";
-          border = "#5b96b2";
+          border = "#9ccfd8";
           text = "#e0def4";
           indicator = "#eb6f92";
           #childBorder = "#c4a7e7";
@@ -39,7 +39,7 @@ in {
       gaps = {
         inner = 5;
         outer = 5;
-        top = 48;
+        top = 45;
         #left = 5;
         #right = 5;
         #bottom = 5;
@@ -220,11 +220,7 @@ in {
       #    echo "Polybar is not running. Starting Polybar..."
           # Start Polybar (adjust "mybar" to your configuration name)
 
-          polybar -q -r powermenu &
-          polybar -q -r launcher &
-          polybar -q -r left &
-          polybar -q -r middle &
-          polybar -q -r right &
+          polybar -q -r top &
       #fi
     '')
   ];

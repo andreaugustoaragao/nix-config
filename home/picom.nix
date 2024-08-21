@@ -3,7 +3,6 @@
   config,
   ...
 }: {
-  services.pasystray.enable = true;
   services.picom = {
     enable = true;
     package = pkgs.picom-pijulius;
