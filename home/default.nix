@@ -58,4 +58,9 @@
       uris = ["qemu:///system"];
     };
   };
+
+  programs.eww = {
+    enable = true;
+    configDir = ./eww;
+  };
 }

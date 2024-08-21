@@ -7,11 +7,11 @@
   #alert = "#A54242";
   #disabled = "#707880";
   background = "#FF191724";
-  background-transparent = "#FF191724";
+  background-transparent = "#191724";
   background-alt = "#26233a";
-  foreground = "#e0def4";
-  #background-transparent = "#e0def4";
-  #foreground="#191724";
+  foreground = "#e0def4"; #e0def4
+  #background-transparent = "#faf4ed"; #faf4ed
+  #foreground = "#191724";
   #https://materialpalettes.com/
   primary = "#f6c177";
   secondary = "#124d63";
@@ -34,19 +34,131 @@ in {
     enable = true;
     script = ''if [ "$XDG_SESSION_TYPE" = "x11" ]; then polybar-check ; fi'';
     config = {
-      "bar/top" = {
+      "bar/launcher" = {
+        bottom = false;
+        fixed-center = false;
+        override-redirect = true;
+        width = "2%";
+        offset-x = "0.5%";
+        offset-y = "0.2%";
+        height = 45;
+        radius = 15;
+        background = "${background-transparent}";
+        foreground = "${foreground}";
+        line-size = "2pt";
+        border-size = "0pt";
+        border-color = "#00000000";
+        #padding = 10;
+        #padding-left = 1;
+        padding-right = 1;
+        padding-left = 1;
+
+        module-margin-left = 1;
+        module-margin-right = 1;
+
+        separator = " ";
+        separator-foreground = "${disabled}";
+        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
+        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
+        font-4 = "Weather Icons:size=12;4";
+
+        modules-right = "";
+        modules-left = "";
+        modules-center = "launcher";
+        cursor-click = "pointer";
+        cursor-scroll = "ns-resize";
+        wm-restack = "i3";
+        enable-ipc = true;
+      };
+
+      "bar/left" = {
         dpi-x = 0;
         dpi-y = 0;
         bottom = false;
         fixed-center = true;
         override-redirect = true;
-        #        width = "99%";
-        #        offset-x = "32";
-        offset-y = "0";
+        width = "30%";
+        offset-x = "3%";
+        offset-y = "0.2%";
         height = 45;
-        #radius = 25;
-        #offset-x = 150;
-        #offset-y = 150;
+        radius = 15;
+        background = "${background-transparent}";
+        foreground = "${foreground}";
+        line-size = "2pt";
+        border-size = "0pt";
+        border-color = "#00000000";
+        padding-right = 0;
+        padding-left = 0;
+
+        module-margin-left = 0;
+        module-margin-right = 0;
+
+        separator = " ";
+        separator-foreground = "${disabled}";
+        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
+        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
+
+        modules-left = "xworkspaces xwindow";
+        # modules-right = "cpu temperature memory filesystem network avaya battery date tray notifications powermenu";
+
+        cursor-click = "pointer";
+        cursor-scroll = "ns-resize";
+        wm-restack = "i3";
+        enable-ipc = true;
+      };
+
+      "bar/middle" = {
+        bottom = false;
+        fixed-center = true;
+        override-redirect = true;
+        width = "33%";
+        offset-x = "33.5%";
+        offset-y = "0.2%";
+        height = 45;
+        radius = 15;
+        background = "${background-transparent}";
+        #background = "${primary}";
+        foreground = "${foreground}";
+        line-size = "2pt";
+        border-size = "0pt";
+        border-color = "#00000000";
+        padding-right = 0;
+        padding-left = 0;
+
+        module-margin-left = 10;
+        module-margin-right = 10;
+
+        separator = " ";
+        separator-foreground = "${disabled}";
+        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
+        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
+        font-4 = "Weather Icons:size=12;4";
+
+        modules-center = "date";
+        modules-right = "weather";
+        modules-left = "";
+
+        cursor-click = "pointer";
+        cursor-scroll = "ns-resize";
+        wm-restack = "i3";
+        enable-ipc = true;
+      };
+
+      "bar/right" = {
+        bottom = false;
+        fixed-center = false;
+        override-redirect = true;
+        width = "30%";
+        offset-x = "67%";
+        offset-y = "0.2%";
+        height = 45;
+        radius = 15;
         background = "${background-transparent}";
         foreground = "${foreground}";
         line-size = "2pt";
@@ -62,24 +174,63 @@ in {
 
         separator = " ";
         separator-foreground = "${disabled}";
-        # font-0 = "FiraCode Nerd Font:size=12;2;style=bold";
         font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
         font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
         font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
         font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
 
-        modules-left = "xworkspaces xwindow";
-        modules-right = "cpu temperature memory filesystem network avaya battery date tray notifications powermenu";
-
+        modules-center = "cpu temperature memory filesystem network avaya battery volume tray notifications";
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         wm-restack = "i3";
         enable-ipc = true;
+      };
 
-        #tray-position = "right";
-        #tray-maxsize = 20;
-        #tray-padding = 10;
-        #tray-offset-x = 0;
+      "bar/powermenu" = {
+        bottom = false;
+        fixed-center = false;
+        override-redirect = true;
+        width = "2%";
+        offset-x = "97.5%";
+        offset-y = "0.2%";
+        height = 45;
+        radius = 15;
+        background = "${background-transparent}";
+        foreground = "${foreground}";
+        line-size = "2pt";
+        border-size = "0pt";
+        border-color = "#00000000";
+        #padding = 10;
+        #padding-left = 1;
+        padding-right = 1;
+        padding-left = 1;
+
+        module-margin-left = 1;
+        module-margin-right = 1;
+
+        separator = " ";
+        separator-foreground = "${disabled}";
+        font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
+        font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
+
+        modules-right = "";
+        modules-left = "";
+        modules-center = "powermenu";
+        cursor-click = "pointer";
+        cursor-scroll = "ns-resize";
+        wm-restack = "i3";
+        enable-ipc = true;
+      };
+
+      "module/launcher" = {
+        type = "custom/text";
+        format-padding = 1;
+        label = "󰀻";
+        click-left = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
+        label-background = background-alt;
+        label-font = 3;
       };
 
       "module/tray" = {
@@ -89,14 +240,6 @@ in {
         #format-margin = "8px";
         format-background = background-alt;
         format-underline = quaternary;
-      };
-
-      "module/os" = {
-        type = "custom/text";
-        format = "<label>";
-        label = "󰀻";
-        label-font = "3";
-        click-left = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
       };
 
       "module/xworkspaces" = {
@@ -147,10 +290,10 @@ in {
         interval = 5;
         date = "%a %b %d %l:%M %p";
         label = "%date%";
-        label-padding-x = 0;
+        label-font = 2;
         #label-foreground = "${primary}";
-        label-background = background-alt;
-        label-underline = quaternary;
+        #label-background = background-alt;
+        #label-underline = quaternary;
       };
 
       "module/memory" = {
@@ -234,8 +377,8 @@ in {
 
         label = " ";
         click-left = "~/.local/bin/powermenu.sh";
-        label-background = background-alt;
-        label-underline = quaternary;
+        #label-background = background-alt;
+        #label-underline = quaternary;
       };
 
       "module/filesystem" = {
@@ -261,6 +404,22 @@ in {
 
         label-disconnected = "󰲛 OFFLINE";
         label-disconnected-foreground = alert;
+      };
+
+      "module/volume" = {
+        type = "internal/pulseaudio";
+        click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
+
+        format-volume = "vol <ramp-volume> <label-volume>";
+        format-volume-padding = 1;
+        label-muted = " ";
+        label-muted-foreground = alert;
+        format-muted-padding = 1;
+        label-volume = "%percentage%%";
+        ramp-volume-0 = "🔈";
+        ramp-volume-1 = "🔉";
+        ramp-volume-2 = "🔊";
+        ramp-volume-font = 4;
       };
 
       "settings" = {
@@ -299,6 +458,15 @@ in {
         format = "<label>";
         label = "%output%";
         label-font = 2;
+      };
+
+      "module/weather" = {
+        type = "custom/script";
+        exec = "~/.local/bin/weather.sh";
+        tail = false;
+        interval = 960;
+        label = "%output%";
+        label-font = 1;
       };
     };
   };

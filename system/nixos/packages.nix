@@ -53,5 +53,6 @@
     lact
     cmatrix
     rose-pine-icon-theme
+    bc
   ];
 }

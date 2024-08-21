@@ -19,6 +19,9 @@
     material-icons
     source-code-pro
     source-sans-pro
+    weather-icons
+    corefonts
+    vistafonts
   ];
 
   fonts.enableDefaultPackages = true;

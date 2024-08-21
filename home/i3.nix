@@ -39,7 +39,7 @@ in {
       gaps = {
         inner = 5;
         outer = 5;
-        top = 45;
+        top = 48;
         #left = 5;
         #right = 5;
         #bottom = 5;
@@ -202,22 +202,29 @@ in {
         }
       ];
     };
+    extraConfig = ''
+      # Center a specific dialog horizontally and position it 45px from the top
+      for_window [class="^my-calendar-class$"] floating enable
+    '';
   };
 
   home.packages = with pkgs; [
     (writeShellScriptBin "polybar-check" ''
       #!/usr/bin/env bash
-
-      # Check if Polybar is running
-      if pgrep -x "polybar" > /dev/null; then
-          echo "Polybar is running. Reloading configuration..."
+      killall -9 ."polybar-wrappe"
+      #jif pgrep -x ".polybar-wrappe" > /dev/null; then
+      #    echo "Polybar is running. Reloading configuration..."
           # Reload Polybar configuration
-          pkill -USR1 polybar
-      else
-          echo "Polybar is not running. Starting Polybar..."
+      #     pkill -USR1 -x .polybar-wrappe
+      # else
+      #    echo "Polybar is not running. Starting Polybar..."
           # Start Polybar (adjust "mybar" to your configuration name)
-          polybar -q -r top &
-      fi
+          polybar -q -r launcher &
+          polybar -q -r left &
+          polybar -q -r middle &
+          polybar -q -r right &
+          polybar -q -r powermenu &
+      #fi
     '')
   ];
 }
