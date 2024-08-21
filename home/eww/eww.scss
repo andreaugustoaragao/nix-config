@@ -1,0 +1,22 @@
+.powerbutton {
+ all: unset;
+  font-family: 'RobotoMono Nerd Font', sans-serif;
+  font-size: 72px;
+  background-color: inherit;
+  padding: 10px;
+  color: white;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  min-height: 70px;
+  min-width: 70px;
+  margin: 10px;
+  &:hover,
+  &:focus {
+    //background-color: #555
+    border: none;
+    color: yellow;
+    outline: none;  /* Remove default focus outline */
+  }
+}

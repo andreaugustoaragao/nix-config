@@ -1,0 +1,27 @@
+(defwindow powermenu
+           :id powermenu
+           :monitor 0
+           :geometry (geometry :x "-15px"
+                               :y "55px"
+                               :width "500px"
+                               :height "120px"
+                               :anchor "top right")
+           :stacking "fg"
+           :windowtype "normal"
+           :focusable false
+           :wm-ignore false
+           (powermenu)
+  )
+
+(defwidget powermenu []
+  (box :orientation "horizontal"
+       :space-evenly false
+       :spacing 15
+
+    (button :onclick "systemctl poweroff" :class "powerbutton" :tooltip "shutdown" "")
+    (button :onclick "systemctl reboot" :class "powerbutton" :tooltip "reboot" "")
+    (button :onclick "xset s activate" :class "powerbutton" :tooltip "lock" "")
+    (button :onclick "systemctl suspend" :class "powerbutton" :tooltip "suspend" "")
+    (button :onclick "eww close powermenu-window && i3-msg exit||swaymsg exit" :class "powerbutton" :tooltip "logout" "")
+  )
+)

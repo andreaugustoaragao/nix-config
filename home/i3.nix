@@ -155,7 +155,7 @@ in {
         }
 
         {
-          command = "xset s 180 10";
+          command = "xset s 600";
           always = false;
           notification = false;
         }
@@ -181,13 +181,8 @@ in {
           notification = true;
         }
         {
-          command = "systemctl --user restart polybar.service";
-          always = true;
-          notification = false;
-        }
-        {
           command = "${pkgs.feh}/bin/feh --randomize --bg-fill ${rose-pine-wallpapers}";
-          always = true;
+          always = false;
           notification = false;
         }
         {
@@ -198,6 +193,11 @@ in {
         {
           command = "1password --silent";
           always = false;
+          notification = true;
+        }
+        {
+          command = "eww kill && eww daemon";
+          always = true;
           notification = true;
         }
       ];
@@ -219,11 +219,12 @@ in {
       # else
       #    echo "Polybar is not running. Starting Polybar..."
           # Start Polybar (adjust "mybar" to your configuration name)
+
+          polybar -q -r powermenu &
           polybar -q -r launcher &
           polybar -q -r left &
           polybar -q -r middle &
           polybar -q -r right &
-          polybar -q -r powermenu &
       #fi
     '')
   ];

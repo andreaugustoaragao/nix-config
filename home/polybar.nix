@@ -39,7 +39,7 @@ in {
         fixed-center = false;
         override-redirect = true;
         width = "2%";
-        offset-x = "0.5%";
+        offset-x = "15px";
         offset-y = "0.2%";
         height = 45;
         radius = 15;
@@ -175,7 +175,7 @@ in {
         separator = " ";
         separator-foreground = "${disabled}";
         font-0 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
-        font-1 = "JetbrainsMono Nerd Font:size=12:weight=bold;4";
+        font-1 = "JetbrainsMono Nerd Fot:size=12:weight=bold;4";
         font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
         font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
 
@@ -188,14 +188,15 @@ in {
 
       "bar/powermenu" = {
         bottom = false;
-        fixed-center = false;
+        fixed-center = true;
         override-redirect = true;
         width = "2%";
-        offset-x = "97.5%";
+        offset-x = "100%:-90px";
         offset-y = "0.2%";
         height = 45;
         radius = 15;
         background = "${background-transparent}";
+        #background = "#00000000";
         foreground = "${foreground}";
         line-size = "2pt";
         border-size = "0pt";
@@ -215,9 +216,8 @@ in {
         font-2 = "JetbrainsMono Nerd Font Mono:size=20:weight=bold;5";
         font-3 = "JetbrainsMono Nerd Font Mono:size=19:weight=bold;5";
 
-        modules-right = "";
-        modules-left = "";
         modules-center = "powermenu";
+        modules-left = "";
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         wm-restack = "i3";
@@ -376,9 +376,11 @@ in {
         format-padding = 1;
 
         label = " ";
+        #label-padding = "20px";
         click-left = "~/.local/bin/powermenu.sh";
-        #label-background = background-alt;
+        #label-background = "#ff0000ff";
         #label-underline = quaternary;
+        label-font = 3;
       };
 
       "module/filesystem" = {
