@@ -182,7 +182,7 @@ in {
         }
         {
           command = "${pkgs.feh}/bin/feh --randomize --bg-fill ${rose-pine-wallpapers}";
-          always = false;
+          always = true;
           notification = false;
         }
         {
