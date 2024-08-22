@@ -4,7 +4,7 @@
   ...
 }: {
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack"];})
+    (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack" "RobotoMono"];})
     #nerdfonts
     dejavu_fonts
     noto-fonts
