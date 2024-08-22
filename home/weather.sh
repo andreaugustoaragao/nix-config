@@ -3,7 +3,7 @@
 
 # API settings ________________________________________________________________
 
-APIKEY=$(cat "$HOME"/.local/bin/.owm-key)
+APIKEY=04ded8195fffcc7a2da850b218e574b0
 CITY_NAME=Broomfield,CO #$(cat "$HOME"/.local/bin/.owm-city)       # London
 COUNTRY_CODE=US         #$(cat "$HOME"/.local/bin/.owm-country) # UK
 # Desired output language
@@ -24,7 +24,7 @@ COLOR_TEXT=""
 # Polybar settings
 
 # Font for the weather icons
-WEATHER_FONT_CODE=6
+WEATHER_FONT_CODE=3
 
 # Font for the thermometer icon
 TEMP_FONT_CODE=1

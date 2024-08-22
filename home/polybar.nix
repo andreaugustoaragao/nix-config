@@ -71,7 +71,7 @@ in {
         font-2 = "Weather Icons:size=12;4";
         modules-left = "launcher date weather";
         modules-center = "xworkspaces";
-        modules-right = "cpu memory filesystem volume notifications tray time powermenu";
+        modules-right = "cpu temperature memory filesystem network volume notifications tray time powermenu";
         background = transparent_background;
         foreground = transparent_foreground;
         line-size = 4;
@@ -209,11 +209,19 @@ in {
       "module/cpu" = {
         type = "internal/cpu";
         "inherit" = "module/base";
-
         interval = "3";
         format = "%{T2}󰻠 %{T-}<label>";
         format-foreground = rose;
         label = "%percentage%%";
+      };
+
+      "module/temperature" = {
+        type = "internal/temperature";
+        "inherit" = "module/base";
+        interval = 3;
+        hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon4/temp2_input";
+        format-foreground = rose;
+        label = "%{T2}%{T-} %temperature-c%";
       };
 
       "module/filesystem" = {
@@ -230,6 +238,24 @@ in {
         label-mounted-overline = muted;
         label-mounted-underline = muted;
         label-mounted-padding = "15px";
+      };
+
+      "module/network" = {
+        type = "internal/network";
+        "inherit" = "module/base";
+        interface-type = "wired";
+        interval = "3.0";
+        label-connected = "%{T2}󰛴 %{T-}%downspeed% %{T2}󰛶 %{T-}%upspeed%";
+        label-connected-font = 1;
+        label-connected-underline = muted;
+        label-connected-overline = muted;
+        label-connected-background = surface;
+        label-connected-foreground = iris;
+        label-connected-padding = "15px";
+
+        label-disconnected = "󰲛 OFFLINE";
+        label-disconnected-foreground = love;
+        label-disconnected-padding = "15px";
       };
 
       "module/tray" = {
@@ -373,5 +399,10 @@ in {
   home.file.".local/bin/powermenu.rasi" = {
     source = "${__curDir}/powermenu.rasi";
     executable = false;
+  };
+
+  home.file.".local/bin/weather.sh" = {
+    source = "${__curDir}/weather.sh";
+    executable = true;
   };
 }
