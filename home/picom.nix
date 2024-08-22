@@ -5,12 +5,12 @@
 }: {
   services.picom = {
     enable = true;
-    package = pkgs.picom-pijulius;
+    package = pkgs.picom;
     settings = {
       backend =
         if builtins.getEnv "HOSTNAME" == "workstation"
         then "glx"
-        else "xrender";
+        else "glx";
       vsync = true;
       fading = true;
       fade-delta = 5;
