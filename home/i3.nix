@@ -110,7 +110,7 @@ in {
           }
         ];
         "5" = [{class = "jetbrains-goland";} {class = "jetbrains-idea";}];
-        "8" = [
+        "7" = [
           {
             instance = "music.youtube.com";
             class = "Brave-browser";
@@ -119,8 +119,12 @@ in {
             instance = "youtube.com";
             class = "Brave-browser";
           }
+          {
+            instance = "www.amazon.com__gp_video_storefront";
+            class = "Brave-browser";
+          }
         ];
-        "9" = [
+        "8" = [
           {
             instance = "chat.openai.com";
             class = "Brave-browser";

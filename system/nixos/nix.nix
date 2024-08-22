@@ -29,8 +29,7 @@
     enable = true;
     flake = inputs.self.outPath;
     flags = [
-      "--update-input"
-      "nixpkgs"
+      "--flake .#$(hostname)"
       "-L" # print build logs
     ];
     dates = "02:00";

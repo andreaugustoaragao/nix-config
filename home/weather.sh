@@ -1,11 +1,11 @@
 #!/bin/bash
 # SETTINGS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
+#set -x
 # API settings ________________________________________________________________
 
 APIKEY=04ded8195fffcc7a2da850b218e574b0
-CITY_NAME=Broomfield,CO #$(cat "$HOME"/.local/bin/.owm-city)       # London
-COUNTRY_CODE=US         #$(cat "$HOME"/.local/bin/.owm-country) # UK
+CITY_NAME=Erie,CO #$(cat "$HOME"/.local/bin/.owm-city)       # London
+COUNTRY_CODE=US   #$(cat "$HOME"/.local/bin/.owm-country) # UK
 # Desired output language
 LANG=en #$(cat "$HOME"/.local/bin/.owm-lang) # en
 # UNITS can be "metric", "imperial" or "kelvin". Set KNOTS to "yes" if you
@@ -27,12 +27,12 @@ COLOR_TEXT=""
 WEATHER_FONT_CODE=3
 
 # Font for the thermometer icon
-TEMP_FONT_CODE=1
+TEMP_FONT_CODE=3
 
 # Wind settings
 
 # Display info about the wind or not. yes/no
-DISPLAY_WIND="yes"
+DISPLAY_WIND="no"
 
 # Display in knots. yes/no
 KNOTS="yes"
@@ -103,7 +103,7 @@ if [ $ICON_COLORS = "yes" ]; then
   COLOR_FOG=${color0}
   COLOR_TORNADO=${color7}
   COLOR_SUN=${color3}
-  COLOR_MOON=${foreground}
+  COLOR_MOON=#9ccfd8
   COLOR_ERR=${color2}
   COLOR_WIND=${color4}
   COLOR_COLD=${color15}
@@ -121,12 +121,12 @@ else
   COLOR_SNOW=${foreground}
   COLOR_FOG=${foreground}
   COLOR_TORNADO=${foreground}
-  COLOR_SUN=${foreground}
-  COLOR_MOON=${foreground}
+  COLOR_SUN=#f6c177
+  COLOR_MOON=#9ccfd8
   COLOR_ERR=${foreground}
   COLOR_WIND=${foreground}
   COLOR_COLD=${foreground}
-  COLOR_HOT=${foreground}
+  COLOR_HOT=#ebbcba
   COLOR_NORMAL_TEMP=${foreground}
 fi
 
@@ -212,10 +212,15 @@ function setIcons {
     #Snow
     ICON_COLOR=$COLOR_SNOW
     ICON=""
+  elif [ "$WID" -le 721 ]; then
+    #haze
+    ICON_COLOR=#c4a7e7
+    ICON=""
   elif [ "$WID" -le 771 ]; then
     #Fog
     ICON_COLOR=$COLOR_FOG
     ICON=""
+
   elif [ "$WID" -eq 781 ]; then
     #Tornado
     ICON_COLOR=$COLOR_TORNADO
@@ -233,10 +238,10 @@ function setIcons {
     # Few clouds
     if [ "$DATE" -ge "$SUNRISE" ] && [ "$DATE" -le "$SUNSET" ]; then
       ICON_COLOR=$COLOR_SUN
-      ICON=""
+      ICON=""
     else
       ICON_COLOR=$COLOR_MOON
-      ICON=""
+      ICON=""
     fi
   elif [ "$WID" -le 804 ]; then
     # Overcast
@@ -285,8 +290,7 @@ function setIcons {
   if [ "$UNITS" = "metric" ]; then
     TEMP_ICON="糖"
   elif [ "$UNITS" = "imperial" ]; then
-    TEMP_ICON="宅"
-    TEMP_ICON="F"
+    TEMP_ICON=""
   else
     TEMP_ICON="洞"
   fi
@@ -294,11 +298,11 @@ function setIcons {
   TEMP=$(echo "$TEMP" | cut -d "." -f 1)
 
   if [ "$TEMP" -le $COLD_TEMP ]; then
-    TEMP="%{F$COLOR_COLD}%{T$TEMP_FONT_CODE}%{T-}%{F-} $COLOR_TEXT_BEGIN$TEMP%{T$TEMP_FONT_CODE}$TEMP_ICON%{T-}$COLOR_TEXT_END"
+    TEMP="%{F$COLOR_COLD}%{T$TEMP_FONT_CODE}%{T-}%{F-} $COLOR_TEXT_BEGIN$TEMP%{T$TEMP_FONT_CODE} $TEMP_ICON%{T-}$COLOR_TEXT_END"
   elif [ "$(echo "$TEMP >= $HOT_TEMP" | bc)" -eq 1 ]; then
-    TEMP="%{F$COLOR_HOT}%{T$TEMP_FONT_CODE}%{T-}%{F-} $COLOR_TEXT_BEGIN$TEMP%{T$TEMP_FONT_CODE}$TEMP_ICON%{T-}$COLOR_TEXT_END"
+    TEMP="%{F$COLOR_HOT}%{T$TEMP_FONT_CODE}%{T-}%{F-} $COLOR_TEXT_BEGIN$TEMP%{T$TEMP_FONT_CODE} $TEMP_ICON%{T-}$COLOR_TEXT_END"
   else
-    TEMP="%{F$COLOR_NORMAL_TEMP}%{T$TEMP_FONT_CODE}%{T-}%{F-} $COLOR_TEXT_BEGIN$TEMP%{T$TEMP_FONT_CODE}$TEMP_ICON%{T-}$COLOR_TEXT_END"
+    TEMP="%{F$COLOR_NORMAL_TEMP}%{T$TEMP_FONT_CODE}%{T-}%{F-} $COLOR_TEXT_BEGIN$TEMP%{T$TEMP_FONT_CODE} $TEMP_ICON%{T-}$COLOR_TEXT_END"
   fi
 }
 

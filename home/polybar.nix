@@ -68,7 +68,7 @@ in {
         override-redirect = true;
         font-0 = "RobotoMono Nerd Font Mono:size=12:weight=regular;2";
         font-1 = "RobotoMono Nerd Font Mono:size=18:weight=regular;4";
-        font-2 = "Weather Icons:size=12;4";
+        font-2 = "Weather Icons:size=12;0";
         modules-left = "launcher date weather";
         modules-center = "xworkspaces";
         modules-right = "cpu temperature memory filesystem network volume notifications tray time powermenu";
@@ -77,6 +77,7 @@ in {
         line-size = 4;
         module-margin-right = "10px";
         wm-restack = "i3";
+        cursor-click = "pointer";
       };
 
       "module/base" = {
@@ -96,11 +97,11 @@ in {
 
         ws-icon-0 = "1;  "; # terminal
         ws-icon-1 = "2; 󰖟 "; # browser
-        ws-icon-2 = "3; 󰊻 "; # teams
-        ws-icon-3 = "4; 󰴢 "; # outlocker
-        ws-icon-4 = "5;  "; # idea
+        ws-icon-2 = "3; 󰭹 "; # teams
+        ws-icon-3 = "4; 󰇮 "; # email
+        ws-icon-4 = "5;  "; # ide
         ws-icon-5 = "6; 󱔘 "; # documents: pdfs and books and images and powerpoint and excel
-        ws-icon-6 = "7;  "; # music
+        ws-icon-6 = "7;  "; # youtube
         ws-icon-7 = "8; 󱜸 "; # chat gpt
         ws-icon-default = "  ";
 
@@ -162,7 +163,7 @@ in {
         exec = "~/.local/bin/weather.sh";
         tail = false;
         interval = 960;
-        label = "%output%";
+        label = "%{A3:${pkgs.brave}/bin/brave --app=https\\://openweathermap.org/city/5576859:}%output%%{A}";
       };
 
       "module/volume" = {
@@ -210,7 +211,7 @@ in {
         type = "internal/cpu";
         "inherit" = "module/base";
         interval = "3";
-        format = "%{T2}󰻠 %{T-}<label>";
+        format = "%{A3:${pkgs.alacritty}/bin/alacritty -e ${pkgs.bottom}/bin/btm:}%{T2}󰻠 %{T-}<label>%{A}";
         format-foreground = rose;
         label = "%percentage%%";
       };
@@ -231,13 +232,14 @@ in {
         fixed-values = false;
         format-mounted = "<label-mounted>";
 
-        label-mounted = "%{T2}󰋊 %{T-}%percentage_used%%";
+        label-mounted = "%{A3:${pkgs.alacritty}/bin/alacritty -e ${pkgs.gdu}/bin/gdu /:}%{T2}󰋊 %{T-}%percentage_used%%%{A}";
         label-mounted-font = 1;
         label-mounted-foreground = gold;
         label-mounted-background = surface;
         label-mounted-overline = muted;
         label-mounted-underline = muted;
         label-mounted-padding = "15px";
+        click-left = "${pkgs.gdu}/bin/gdu";
       };
 
       "module/network" = {
@@ -253,9 +255,13 @@ in {
         label-connected-foreground = iris;
         label-connected-padding = "15px";
 
-        label-disconnected = "󰲛 OFFLINE";
+        label-disconnected = "%{T2}󰲛 %{T-}OFFLINE";
         label-disconnected-foreground = love;
         label-disconnected-padding = "15px";
+        label-disconnected-background = surface;
+        label-disconnected-underline = muted;
+        label-disconnected-overline = muted;
+        label-disconnected-font = 1;
       };
 
       "module/tray" = {
@@ -337,30 +343,6 @@ in {
     #h        ramp-capacity-2 = "";
     #h        ramp-capacity-3 = "";
     #h        ramp-capacity-4 = "";
-    #h      };
-    #h
-    #h      "module/network" = {
-    #h        type = "internal/network";
-    #h        # interface = "enp4s0";
-    #h        interface-type = "wired";
-    #h        interval = "3.0";
-    #h        label-connected = "%ifname%: %{T4}󰛴 %{T-}%downspeed% %{T4}󰛶 %{T-}%upspeed%";
-    #h        label-connected-font = 2;
-    #h        label-connected-underline = quaternary;
-    #h        label-connected-background = background-alt;
-    #h
-    #h        label-disconnected = "󰲛 OFFLINE";
-    #h        label-disconnected-foreground = alert;
-    #h      };
-    #h
-    #h
-    #h      "module/temperature" = {
-    #h        type = "internal/temperature";
-    #h        interval = 1;
-    #h        hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon4/temp2_input";
-    #h        label = " %temperature-c%";
-    #h        label-background = background-alt;
-    #h        label-underline = quaternary;
     #h      };
     #h
     #h      "module/avaya" = {

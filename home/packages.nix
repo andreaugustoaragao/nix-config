@@ -70,7 +70,6 @@ in {
     jq
     yq
     gdu
-    #obsidian
     zathura
     asciinema
     flameshot
@@ -83,7 +82,6 @@ in {
     gimp
     calibre
     #zoom-us
-
     cheese
   ];
 }
