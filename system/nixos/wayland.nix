@@ -10,9 +10,35 @@ in {
   programs.sway = {
     enable = true;
     package = pkgs.swayfx;
+    extraSessionCommands = ''
+      export SDL_VIDEODRIVER=wayland
+      # needs qt5.qtwayland in systemPackages
+      export QT_QPA_PLATFORM=wayland
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+      # Fix for some Java AWT applications (e.g. Android Studio),
+      # use this if they aren't displayed properly:
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      export XDG_SESSION_TYPE=wayland
+      export XDG_CURRENT_DESKTOP=sway
+      export QT_AUTO_SCREEN_SCALE_FACTOR=0
+      export QT_SCALE_FACTOR=1
+      export GDK_SCALE=1
+      export GDK_DPI_SCALE=1
+      export MOZ_ENABLE_WAYLAND=1
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      #export SWAYSOCK=(ls /run/user/1000/sway-ipc.* | head -n 1)
+      export NIXOS_OZONE_WL=1
+    '';
   };
   programs.hyprland.enable = true;
-
+  services.greetd = {
+    enable = false;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time";
+      };
+    };
+  };
   security.pam.services.swaylock = {};
   xdg.portal = {
     enable = true;
@@ -34,7 +60,7 @@ in {
     displayManager.sddm = {
       enable = true;
       enableHidpi = true;
-      wayland.enable = false;
+      wayland.enable = true;
       theme = "catppuccin-mocha";
       package = pkgs.kdePackages.sddm;
       settings = {
@@ -135,6 +161,7 @@ in {
   #programs.xss-lock.lockerCommand = "export XSECURELOCK_SAVER=saver_xscreensaver; ${pkgs.xsecurelock}/bin/xsecurelock";
   #programs.xss-lock.extraOptions = ["-n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer" "-l"];
   security.pam.services.lightdm.enableGnomeKeyring = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
   programs = {
     thunar = {
       enable = true;

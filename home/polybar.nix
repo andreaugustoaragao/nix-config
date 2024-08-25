@@ -1,29 +1,5 @@
 {pkgs, ...}: let
-  #  #background = "#282A2E";
-  #  #background-alt = "#373B41";
-  #  #foreground = "#C5C8C6";
-  #  #primary = "#F0C674";
-  #  #secondary = "#8ABEB7";
-  #  #alert = "#A54242";
-  #  #disabled = "#707880";
-  #  background = "#FF191724";
-  #  background-transparent = "#191724";
-  #  background-alt = "#26233a";
-  #  foreground = "#e0def4"; #e0def4
-  #  #background-transparent = "#faf4ed"; #faf4ed
-  #  #foreground = "#191724";
-  #  #https://materialpalettes.com/
-  #  primary = "#f6c177";
-  #  secondary = "#124d63";
-  #  tertiary = "#31748f";
-  #  quaternary = "#5b96b2";
-  #  quinary = "#b4def0";
-  #
-  #  alert = "#eb6f92";
-  #  disabled = "#6e6a86";
-  #  background-modules = "#21202e";
-  #
-  #ROSE PINE
+  # ROSE PINE
   # Base Colors
   base = "#191724"; # The main background color (very dark purple)
   surface = "#1f1d2e"; # A slightly lighter background (dark purple)

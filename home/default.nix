@@ -44,13 +44,13 @@
     recursive = true;
   };
   services.blueman-applet.enable = true;
-  services.xscreensaver = {
-    enable = true;
-    settings = {
-      timeout = 1;
-      mode = "blank";
-    };
-  };
+  #services.xscreensaver = {
+  #  enable = true;
+  #   settings = {
+  #    timeout = 1;
+  #    mode = "blank";
+  #  };
+  #};
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
@@ -62,4 +62,6 @@
     enable = true;
     configDir = ./eww;
   };
+
+  services.playerctld.enable = true;
 }

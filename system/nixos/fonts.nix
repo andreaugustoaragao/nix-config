@@ -20,6 +20,7 @@
     source-code-pro
     source-sans-pro
     weather-icons
+    font-awesome
     corefonts
     vistafonts
   ];

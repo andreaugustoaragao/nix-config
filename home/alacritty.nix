@@ -50,6 +50,7 @@ in {
       shell = {program = "${pkgs.fish}/bin/fish";};
 
       colors = {
+        transparent_background_colors = false;
         primary = {
           foreground = "#e0def4";
           background = "#191724";

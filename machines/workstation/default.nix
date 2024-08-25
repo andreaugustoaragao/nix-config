@@ -74,7 +74,7 @@ in {
   };
   boot = {
     plymouth = {
-      enable = true;
+      enable = false;
       #theme = "abstract_ring";
       theme = "catppuccin-macchiato";
       themePackages = with pkgs; [

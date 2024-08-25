@@ -64,6 +64,7 @@ in {
 
     # DEFAULT
     pavucontrol
+    pamixer
     neovide
     fd
     libnotify
@@ -83,5 +84,7 @@ in {
     calibre
     #zoom-us
     cheese
+    cava
+    protonmail-desktop
   ];
 }
