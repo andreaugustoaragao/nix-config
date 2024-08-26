@@ -1,115 +1,110 @@
-# machine specific configuration goes here
-{
-  lib,
-  inputs,
-  system,
-  config,
-  pkgs,
-  ...
-}: let
-  __curDir = builtins.toString ./.;
-in {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
+    ../../system/nixos/nix.nix
+    ./ethernet.nix
+    ./unbound.nix
+    ./adguard.nix
+    ./nginx.nix
+    ./editor.nix
+    ./tmux.nix
   ];
 
-  # Hostname
-  networking.hostName = "maui";
+  networking.hostName = "maui"; # Define your hostname.
 
-  hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = [pkgs.mesa.drivers pkgs.virglrenderer];
-  #hardware.opengl.driSupport = true;
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-  virtualisation.libvirtd.enable = true;
-  virtualisation.libvirtd.qemu.package = pkgs.qemu_kvm;
-  services.qemuGuest.enable = true;
+  # Set your time zone.
+  time.timeZone = "America/Denver";
 
-  # sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.main = {
+    isNormalUser = true;
+    description = "main";
+    extraGroups = ["networkmanager" "wheel"];
+    packages = with pkgs; [];
+  };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    git
+    htop
+    entr
+    fd
+    alejandra
+    nil
+    ripgrep
+    black
+    codespell
+    isort
+    jq
+    shfmt
+    busybox
+  ];
+
+  programs.htop = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-  };
-
-  environment.variables = {
-    MESA_GL_VERSION_OVERRIDE = "3.3";
-    MESA_GLSL_VERSION_OVERRIDE = "330";
-  };
-
-  services.upower.enable = true;
-  systemd.services.plymouth-quit-wait = {
-    wantedBy = ["multi-user.target"];
-    after = ["systemd-user-sessions.service"];
-  };
-  boot = {
-    plymouth = {
-      enable = true;
-      #theme = "abstract_ring";
-      theme = "catppuccin-macchiato";
-      themePackages = with pkgs; [
-        catppuccin-plymouth
-        # By default we would install all themes
-        (adi1090x-plymouth-themes.override {
-          selected_themes = ["abstract_ring"];
-        })
-      ];
+    settings = {
+      hide_kernel_threads = true;
+      hide_userland_threads = true;
     };
+  };
 
-    initrd.enable = true;
-    # Enable "Silent Boot"
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "$vt_hadoff"
-      "boot.shell_on_fail"
-      "loglevel=3"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
+  programs.fzf = {
+    keybindings = true;
+    fuzzyCompletion = true;
+  };
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  networking.firewall = {
+    enable = true;
+    interfaces."eth0".allowedTCPPorts = [80 443];
+  };
+
+  services.kmscon = {
+    enable = true;
+    fonts = [
+      {
+        name = "DroidSansM Nerd Font Mono";
+        package = pkgs.nerdfonts;
+      }
     ];
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    # It will just not appear on screen unless a key is pressed
-    # :loader.timeout = 0;
+    extraOptions = ''
+    '';
+    hwRender = true;
+    extraConfig = ''
+      font-size=12
+    '';
   };
-  boot.loader.systemd-boot.enable = false;
-  boot.initrd.systemd.enable = true;
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot";
-
-    grub = {
-      efiInstallAsRemovable = false;
-      enable = true;
-      devices = ["nodev"];
-      efiSupport = true;
-      useOSProber = true;
-      backgroundColor = "#24273a";
-      splashImage = "${__curDir}/grub-background.png";
-      gfxmodeEfi = "2560x1440";
-      gfxpayloadEfi = "keep";
-      extraEntries = ''
-      '';
-    };
-  };
-  services.xserver.videoDrivers = ["modesetting"];
-  services.xserver.resolutions = [
-    {
-      x = "3456";
-      y = "2160";
-    }
-    {
-      x = 3840;
-      y = 2160;
-    }
-  ];
-
-  services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --auto
-  '';
+  system.stateVersion = "24.05";
 }

@@ -14,6 +14,12 @@
 
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+
+    nixvim = {
+	    url = "github:nix-community/nixvim";
+	    inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -22,6 +28,7 @@
     home-manager,
     darwin,
     nix-index-database,
+    nixvim,
     ...
   }: let
     userDetails = {
