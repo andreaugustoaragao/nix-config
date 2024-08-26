@@ -50,8 +50,8 @@ in {
       window.border = 4;
       window.titlebar = false;
       gaps = {
-        inner = 5;
-        outer = 5;
+        inner = 10;
+        outer = 10;
       };
       window.hideEdgeBorders = "smart";
       focus.newWindow = "focus";

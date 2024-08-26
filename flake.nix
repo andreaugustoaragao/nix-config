@@ -85,6 +85,16 @@
         ];
       };
 
+      maui = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./machines/maui
+        ];
+      };
+
       utm-dev = nixpkgs.lib.nixosSystem rec {
         system = "aarch_64-linux"; # Corrected architecture
         specialArgs = {
