@@ -79,7 +79,6 @@ in {
     inkscape-with-extensions
     libreoffice
     _1password-gui
-    teams-for-linux
     gimp
     calibre
     #zoom-us

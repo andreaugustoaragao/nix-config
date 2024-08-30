@@ -111,6 +111,13 @@ in {
       icon = "ms-outlook";
     };
 
+    teams = {
+      name = "Teams";
+      genericName = "Microsoft Teams";
+      exec = "brave -app=https://teams.microsoft.com";
+      icon = "teams";
+    };
+
     music = {
       name = "Youtube Music";
       genericName = "Youtube Music";
