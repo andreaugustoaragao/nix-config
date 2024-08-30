@@ -31,6 +31,7 @@
     ./go.nix
     ./gpg.nix
     ./file-managers.nix
+    ./mail.nix
   ];
   xsession.enable = true;
   home.sessionVariables = {

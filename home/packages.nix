@@ -85,6 +85,5 @@ in {
     #zoom-us
     cheese
     cava
-    protonmail-desktop
   ];
 }

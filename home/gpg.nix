@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   programs.gpg.enable = true;
@@ -17,7 +18,7 @@
     defaultCacheTtlSsh = 60 * 60 * 8;
     enableSshSupport = true;
     enableScDaemon = false; #no smart card
-#    pinentryFlavor = "tty";
+    pinentryPackage = pkgs.pinentry-curses;
     sshKeys = [
       "7E94299ADBECE24CBF21A28F5A6877BAE2EADC11"
     ];

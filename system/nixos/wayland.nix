@@ -56,7 +56,7 @@ in {
     )
   ];
   services = {
-    displayManager.defaultSession = "sway";
+    displayManager.defaultSession = "none+i3";
     displayManager.sddm = {
       enable = true;
       enableHidpi = true;

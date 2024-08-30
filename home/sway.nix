@@ -32,6 +32,12 @@ in {
           max_render_time = "7";
           bg = wallpaper;
         };
+        "Virtual-1" = {
+          position = "0,0";
+          mode = "3546x2160";
+          bg = wallpaper;
+          adaptive_sync = "no";
+        };
       };
       modifier = "Mod1";
       bars = [];
