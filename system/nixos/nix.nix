@@ -20,6 +20,9 @@
     '';
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-29.4.6"
+  ];
   nixpkgs.config.allowUnfree = true;
 
   system.autoUpgrade = {
