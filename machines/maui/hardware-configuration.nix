@@ -2,50 +2,57 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
+  config,
   lib,
   modulesPath,
   ...
 }: {
   imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  #  disabledModules = [
+  #    (modulesPath + "/profiles/all-hardware.nix")
+  #    (modulesPath + "/profiles/base.nix")
+  #  ];
 
-  boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
+  boot.consoleLogLevel = 0;
+  boot.initrd.verbose = false;
+  boot.initrd.includeDefaultModules = false;
+
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.grub.efiInstallAsRemovable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.devices = ["nodev"];
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.configurationLimit = 20;
+  boot.loader.grub.backgroundColor = "#24273a";
+
+  boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci"];
+  boot.initrd.kernelModules = ["ext4" "dm-snapshot"];
+  boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/680762a1-2e20-4507-b923-bbe891cdb8d4";
+    device = "/dev/disk/by-label/NIXROOT";
     fsType = "ext4";
   };
-  boot.initrd.luks.devices."luks-793d3832-ceb7-4bad-b04c-b246cb599469".device = "/dev/disk/by-uuid/793d3832-ceb7-4bad-b04c-b246cb599469";
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/boot/crypto_keyfile.bin" = null;
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/NIXBOOT";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
   };
 
-  boot.loader.grub.enableCryptodisk = true;
-
-  boot.initrd.luks.devices."luks-cd485ba8-eea9-4c2f-a5d8-3f0d46092eff".keyFile = "/boot/crypto_keyfile.bin";
-  boot.initrd.luks.devices."luks-793d3832-ceb7-4bad-b04c-b246cb599469".keyFile = "/boot/crypto_keyfile.bin";
-
-  boot.initrd.luks.devices."luks-cd485ba8-eea9-4c2f-a5d8-3f0d46092eff".device = "/dev/disk/by-uuid/cd485ba8-eea9-4c2f-a5d8-3f0d46092eff";
-
   swapDevices = [
-    {device = "/dev/disk/by-uuid/074aa96b-a4ba-4eb3-8e10-b6c713f756ed";}
+    {device = "/dev/disk/by-label/SWAP";}
   ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  # networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

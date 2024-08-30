@@ -21,15 +21,12 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
 
   system.autoUpgrade = {
     enable = true;
     flake = inputs.self.outPath;
     flags = [
-      "--flake .#$(hostname)"
+      "--flake .#$(/run/current-system/sw/bin/hostname)"
       "-L" # print build logs
     ];
     dates = "02:00";
@@ -37,6 +34,10 @@
   };
 
   systemd.services.nixos-upgrade.onFailure = ["notify-failure@nixos-upgrade.service"];
+  environment.systemPackages = [
+    pkgs.mailutils
+  ];
+  services.postfix.enable = true;
   systemd.services."notify-failure@" = {
     enable = true;
     description = "Failure notification for %i";
@@ -49,7 +50,7 @@
       done
       ${pkgs.mailutils}/bin/mail \
       --subject="Service $unit failed on $2" \
-      recipient@example.com \
+      andre-a-o-aragao@proton.me \
       <<EOF
       $(systemctl status -n 1000000 "$unit")
       $extra_information

@@ -15,10 +15,9 @@
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-
     nixvim = {
-	    url = "github:nix-community/nixvim";
-	    inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -92,7 +91,7 @@
         ];
       };
 
-      maui = nixpkgs.lib.nixosSystem rec {
+      maui = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;

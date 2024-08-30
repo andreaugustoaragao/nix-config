@@ -1,44 +1,48 @@
 {
-	services.nginx={
-		enable=true; 
+  services.nginx = {
+    enable = true;
+    resolver.ipv4 = true;
+    resolver.ipv6 = false;
+    resolver.addresses = ["127.0.0.1"];
+    recommendedOptimisation = true;
+    recommendedTlsSettings = true;
 
-		virtualHosts={
-		        "faragao.net"={
-			 serverAliases = ["*.faragao.net"];
-			 locations."/.well-known/acme-challenge" = {
-			  root="/var/lib/acme/.challenges";
-			  }; 
-			  locations."/"={
-			      return = "301 https://$host$request_uri";
-			  };
-			};
+    virtualHosts = {
+      "faragao.net" = {
+        serverAliases = ["*.faragao.net"];
+        #locations."/.well-known/acme-challenge" = {
+        #  root = "/var/lib/acme/.challenges";
+        #};
+        locations."/" = {
+          return = "301 https://$host$request_uri";
+        };
+      };
 
-			"adguard.faragao.net"={
-				forceSSL = true;
-				useACMEHost = "faragao.net";
+      "adguard.faragao.net" = {
+        #onlySSL = true;
+        #useACMEHost = "faragao.net";
 
-				locations."/" = {
-					extraConfig = ''
-						proxy_pass http://127.0.0.1:3002;
-					proxy_set_header Host $host;
-					proxy_set_header X-Real-IP $remote_addr;
-					proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-					allow 192.168.0.0/24; 
-					deny all;
-					'';
-				};
-			};
-		};
-	};
+        locations."/" = {
+          extraConfig = ''
+            proxy_pass http://127.0.0.1:3002;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            allow 192.168.0.0/24;
+            deny all;
+          '';
+        };
+      };
+    };
+  };
 
-	security.acme.acceptTerms=true;
-	security.acme.certs."faragao.net" = {
-	   webroot="/var/lib/acme/.challenges";
-	   email="admin@faragao.net";
-	   group="nginx";
-	   server	="https://acme-staging-v02.api.letsencrypt.org/directory";
-	};
+  #security.acme.acceptTerms = true;
+  #security.acme.certs."faragao.net" = {
+  #  webroot = "/var/lib/acme/.challenges";
+  #  email = "admin@faragao.net";
+  #  group = "nginx";
+  #  server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+  #};
 
-	users.users.nginx.extraGroups=["acme"];
-
+  #users.users.nginx.extraGroups = ["acme"];
 }

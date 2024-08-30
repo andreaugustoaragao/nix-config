@@ -1,5 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}: {
   imports = [
+    #(modulesPath + "/profiles/headless.nix")
+    #(modulesPath + "/profiles/minimal.nix")
+
     ./hardware-configuration.nix
     ../../system/nixos/nix.nix
     ./ethernet.nix
@@ -9,11 +17,6 @@
     ./editor.nix
     ./tmux.nix
   ];
-
-  networking.hostName = "maui"; # Define your hostname.
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Denver";
@@ -34,7 +37,7 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.main = {
+  users.users.adm = {
     isNormalUser = true;
     description = "main";
     extraGroups = ["networkmanager" "wheel"];
@@ -43,10 +46,14 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  xdg.icons.enable = false;
+  xdg.mime.enable = false;
+  xdg.sounds.enable = false;
+  documentation.man.enable = false;
+  environment.defaultPackages = lib.mkForce [];
   environment.systemPackages = with pkgs; [
+    fastfetch
+    fortune
     git
     htop
     entr
@@ -75,22 +82,13 @@
     fuzzyCompletion = true;
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  #services.dbus.enable = lib.mkForce true;
+  #security.polkit.enable = lib.mkForce false;
 
-  networking.firewall = {
-    enable = true;
-    interfaces."eth0".allowedTCPPorts = [80 443];
-  };
-
+  #to enable special font in kmscon
+  fonts.fontconfig.enable = lib.mkForce true;
   services.kmscon = {
     enable = true;
     fonts = [
@@ -106,5 +104,21 @@
       font-size=12
     '';
   };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      fish_vi_key_bindings
+      function fish_greeting
+        fastfetch
+        fortune
+      end
+    '';
+  };
+
+  programs.starship = {
+    enable = true;
+  };
+
   system.stateVersion = "24.05";
 }

@@ -1,18 +1,21 @@
-{lib,...}:
-{
-  networking.usePredictableInterfaceNames = false;
-  
-  systemd.network.networks={ 
-	  "20-ethernet"={
-		  enable = true;
-		  name = "eth0";
-		  domains = ["lan.faragao.net"];
-		  networkConfig = {
-			  DHCP="yes";
-		  };	
-	  };
-  };
+{lib, ...}: {
+  networking.hostName = "maui"; # Define your hostname.
+  networking.networkmanager.enable = true;
+  networking.interfaces.enp2s0.ipv4.addresses = [
+    {
+      address = "192.168.0.3";
+      prefixLength = 24;
+    }
+  ];
+  networking.defaultGateway = "192.168.0.1";
+  networking.nameservers = [
+    "127.0.0.1"
+  ];
+  networking.enableIPv6 = false;
+  networking.useDHCP = lib.mkForce false;
+  networking.wireless.enable = false;
 
-  networking.enableIPv6=false;
-  systemd.network.wait-online.anyInterface = true;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedUDPPorts = [53];
 }
