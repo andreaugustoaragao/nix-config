@@ -47,14 +47,18 @@
 
   services.grafana = {
     enable = true;
-    domain = "monitoring.faragao.net";
-    port = 2342;
-    addr = "127.0.0.1";
+    settings.server.domain = "monitoring.faragao.net";
+    settings.server.http_port = 2342;
+    settings.server.http_addr = "127.0.0.1";
   };
 
-  services.nginx.virtualHosts.${config.services.grafana.domain} = {
+  services.nginx.virtualHosts.${config.services.grafana.settings.server.domain} = {
+    forceSSL = true;
+    useACMEHost = "faragao.net";
+    #sslCertificate = "/data/services/nginx/cloudflare/certs/origin_cert.pem";
+    #sslCertificateKey = "/data/services/nginx/cloudflare/certs/origin_private.pem";
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
+      proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
       proxyWebsockets = true;
       recommendedProxySettings = true;
     };

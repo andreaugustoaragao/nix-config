@@ -19,6 +19,7 @@
     ./smb.nix
     ./monitoring.nix
     ./vaultwarden.nix
+    ./certs.nix
   ];
 
   # Set your time zone.
@@ -39,7 +40,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.adm = {
     isNormalUser = true;
     description = "main";
@@ -47,7 +47,6 @@
     packages = with pkgs; [];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   xdg.icons.enable = false;
   xdg.mime.enable = false;
@@ -70,6 +69,8 @@
     jq
     shfmt
     busybox
+    btrfs-progs
+    eza
   ];
 
   programs.htop = {
@@ -117,11 +118,29 @@
         fortune
       end
     '';
+    shellAliases = {
+      ls = "eza --icons";
+      ll = "eza --icons --group-directories-first -al";
+      vi = "nvim";
+      v = "nvim";
+      vim = "nvim";
+    };
   };
 
   programs.starship = {
     enable = true;
   };
 
+  #  programs.eza = {
+  #    enable = true;
+  #    enableBashIntegration = true;
+  #    enableFishIntegration = true;
+  #    icons = true;
+  #    extrasOptions = [
+  #      "--group-directories-first"
+  #      "--header"
+  #    ];
+  #  };
+  #
   system.stateVersion = "24.05";
 }
