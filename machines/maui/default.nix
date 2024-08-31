@@ -16,6 +16,9 @@
     ./nginx.nix
     ./editor.nix
     ./tmux.nix
+    ./smb.nix
+    ./monitoring.nix
+    ./vaultwarden.nix
   ];
 
   # Set your time zone.

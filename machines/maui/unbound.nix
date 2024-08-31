@@ -8,6 +8,7 @@
     settings = {
       remote-control.control-enable = true;
       server = {
+        extended-statistics = true;
         interface = ["127.0.0.1"];
         port = 5335;
         access-control = ["127.0.0.1 allow"];
@@ -34,11 +35,13 @@
           "\"router.faragao.net. IN A 192.168.0.1\""
           "\"maui.faragao.net. IN A 192.168.0.3\""
           "\"adguard.faragao.net. IN A 192.168.0.3\""
+          "\"monitoring.faragao.net. IN A 192.168.0.3\""
         ];
         local-data-ptr = [
           "\"192.168.0.1 router.faragao.net.\""
           "\"192.168.0.3 maui.faragao.net.\""
           "\"192.168.0.3 adguard.faragao.net.\""
+          "\"192.168.0.3 monitoring.faragao.net.\""
         ];
       };
     };
