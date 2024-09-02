@@ -5,10 +5,17 @@
     customPaneNavigationAndResize = false;
     newSession = true;
     extraConfig = ''
+      set-option -g set-titles on
+      set-option -g set-titles-string "tmux: #S / #(tmux-window-icons #W)"
+      set -ga terminal-features ",xterm-256color:RGB"
+      set-option -g default-terminal "screen-256color"
+      set -s escape-time 0
+
       set-option -g default-shell ${pkgs.fish}/bin/fish
-      set-option -sg escape-time 10
       set-option -g focus-events on
       set-option -g mouse on
+      set-option -g status-position top
+      set-option -g mode-keys vi
       # vim-like pane switching
       bind -r ^ last-window
       bind -r k select-pane -U
@@ -21,7 +28,6 @@
 
     '';
     plugins = [
-      pkgs.tmuxPlugins.rose-pine
       pkgs.tmuxPlugins.vim-tmux-navigator
     ];
   };

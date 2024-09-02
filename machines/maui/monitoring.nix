@@ -7,6 +7,7 @@
     enable = true;
     port = 9102;
   };
+
   services.prometheus.exporters.node = {
     enable = true;
     port = 9100;
@@ -25,6 +26,7 @@
   services.prometheus = {
     enable = true;
     globalConfig.scrape_interval = "10s"; # "1m"
+    retentionTime = "30d";
     scrapeConfigs = [
       {
         job_name = "node";

@@ -37,13 +37,19 @@
           "\"adguard.faragao.net. IN A 192.168.0.3\""
           "\"monitoring.faragao.net. IN A 192.168.0.3\""
           "\"vw.faragao.net. IN A 192.168.0.3\""
+          "\"teka.faragao.net. IN A 192.168.0.10\""
+          "\"teka-public.faragao.net. IN A 192.168.0.3\""
+          "\"workstation.faragao.net. IN A 192.168.0.20\""
         ];
         local-data-ptr = [
           "\"192.168.0.1 router.faragao.net.\""
           "\"192.168.0.3 maui.faragao.net.\""
+          "\"192.168.0.10 teka.faragao.net.\""
+          "\"192.168.0.3 synology.faragao.net.\""
           "\"192.168.0.3 adguard.faragao.net.\""
           "\"192.168.0.3 monitoring.faragao.net.\""
           "\"192.168.0.3 vw.faragao.net.\""
+          "\"192.168.0.20 workstation.faragao.net.\""
         ];
       };
     };

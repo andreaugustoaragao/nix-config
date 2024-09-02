@@ -6,7 +6,7 @@
     defaults.environmentFile = "/data/services/acme/cr.env";
     defaults.dnsProvider = "cloudflare";
     defaults.dnsResolver = "1.1.1.1";
-    defaults.validMinDays = 89;
+    defaults.validMinDays = 88;
     certs."faragao.net" = {
       extraDomainNames = [
         "*.faragao.net"

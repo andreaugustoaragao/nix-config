@@ -18,6 +18,13 @@
           return = "301 https://$host$request_uri";
         };
       };
+      "teka-public.faragao.net" = {
+        forceSSL = true;
+        useACMEHost = "faragao.net";
+        locations."/" = {
+          proxyPass = "https://192.168.0.10:5001";
+        };
+      };
     };
   };
 

@@ -40,7 +40,6 @@
   environment.systemPackages = [
     pkgs.mailutils
   ];
-  services.postfix.enable = true;
   systemd.services."notify-failure@" = {
     enable = true;
     description = "Failure notification for %i";

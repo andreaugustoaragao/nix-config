@@ -49,6 +49,17 @@
     options = ["fmask=0022" "dmask=0022"];
   };
 
+  fileSystems."/data" = {
+    device = "/dev/sdb";
+    fsType = "btrfs";
+    options = ["compress=zstd" "noatime" "autodefrag" "subvol=/" "nofail" "space_cache=v2"];
+  };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = ["/data"];
+  };
+
   swapDevices = [
     {device = "/dev/disk/by-label/SWAP";}
   ];

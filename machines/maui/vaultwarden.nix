@@ -16,6 +16,12 @@
     environmentFile = "/data/services/vw/vw.env";
     backupDir = "/data/services/vw/backup";
   };
+
+  systemd.services.vaultwarden = {
+    after = ["data.mount"];
+    requires = ["data.mount"];
+  };
+
   services.nginx.virtualHosts."vw.faragao.net" = {
     forceSSL = true;
     useACMEHost = "faragao.net";
