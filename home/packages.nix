@@ -40,7 +40,6 @@ in {
     shellcheck
     lazygit
     stylua
-    nodePackages.eslint
     codespell
     # kafka
     avro-tools
@@ -83,6 +82,9 @@ in {
     calibre
     #zoom-us
     cheese
+    bitwarden-desktop
+    goldwarden
+    bitwarden-desktop
     cava
   ];
 }

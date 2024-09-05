@@ -23,14 +23,14 @@ in {
     pkgs.mesa.drivers
     pkgs.vaapiVdpau
     pkgs.libvdpau-va-gl
-    pkgs.amdvlk
+    # pkgs.amdvlk
     pkgs.rocmPackages.clr.icd
     pkgs.vulkan-loader
     #pkgs.vulkan-validation-layers
     pkgs.vulkan-extension-layer
   ];
   hardware.graphics.extraPackages32 = [
-    pkgs.driversi686Linux.amdvlk
+    #pkgs.driversi686Linux.amdvlk
   ];
   hardware.amdgpu.initrd.enable = true;
   hardware.amdgpu.amdvlk.enable = true;
@@ -106,6 +106,9 @@ in {
     # :loader.timeout = 0;
   };
   boot.loader.systemd-boot.enable = false;
+  security.pki.certificateFiles = [
+    /home/aragao/.config/protonmail/cert.pem
+  ];
   #boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;

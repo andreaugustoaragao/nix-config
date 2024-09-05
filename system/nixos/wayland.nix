@@ -1,22 +1,18 @@
 {
-  config,
   pkgs,
-  userDetails,
   desktopDetails,
   ...
 }: let
   wallpaper = pkgs.callPackage ../../home/wallpapers.nix {} + "/field.jpg";
 in {
   programs.sway = {
-    enable = true;
+    enable = false;
     package = pkgs.swayfx;
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
       # needs qt5.qtwayland in systemPackages
       export QT_QPA_PLATFORM=wayland
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-      # Fix for some Java AWT applications (e.g. Android Studio),
-      # use this if they aren't displayed properly:
       export _JAVA_AWT_WM_NONREPARENTING=1
       export XDG_SESSION_TYPE=wayland
       export XDG_CURRENT_DESKTOP=sway
@@ -30,7 +26,7 @@ in {
       export NIXOS_OZONE_WL=1
     '';
   };
-  programs.hyprland.enable = true;
+  programs.hyprland.enable = false;
   services.greetd = {
     enable = false;
     settings = {
@@ -123,7 +119,6 @@ in {
           pavucontrol
           obsidian
           zathura
-          #flameshot
           evince
           foliate
           inkscape-with-extensions
@@ -156,10 +151,6 @@ in {
     touchpad.disableWhileTyping = false;
     touchpad.clickMethod = "clickfinger";
   };
-  #programs.xss-lock.enable = true;
-
-  #programs.xss-lock.lockerCommand = "export XSECURELOCK_SAVER=saver_xscreensaver; ${pkgs.xsecurelock}/bin/xsecurelock";
-  #programs.xss-lock.extraOptions = ["-n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer" "-l"];
   security.pam.services.lightdm.enableGnomeKeyring = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
   programs = {
@@ -174,11 +165,4 @@ in {
     };
     dconf.enable = true;
   };
-
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = [
-  #     pkgs.xdg-desktop-portal-kde
-  #   ];
-  # };
 }

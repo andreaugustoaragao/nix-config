@@ -7,7 +7,9 @@
   userDetails,
   desktopDetails,
   ...
-}: {
+}: let
+  xresources = import ./xresources.nix {inherit desktopDetails;};
+in {
   #home-manager.users.${userDetails.userName} = {
   imports = [
     ./firefox-webapp.nix
@@ -24,7 +26,7 @@
     ./nvim.nix
     ./git.nix
     ./xdg.nix
-    ./xresources.nix
+    xresources
     ./screen-capture.nix
     ./qt.nix
     ./zathura.nix
@@ -40,18 +42,12 @@
     DOCKER_CONFIG = "$HOME/.config/docker";
     AZURE_CONFIG_DIR = "$HOME/.config/azure";
   };
+
   xdg.configFile.".minikube/certs" = {
     source = ../system/nixos/certs;
     recursive = true;
   };
   services.blueman-applet.enable = true;
-  #services.xscreensaver = {
-  #  enable = true;
-  #   settings = {
-  #    timeout = 1;
-  #    mode = "blank";
-  #  };
-  #};
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];

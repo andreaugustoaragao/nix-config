@@ -34,7 +34,7 @@
       fullName = "Andre Aragao";
       userName = "aragao";
     };
-    desktopDetails = {dpi = 96;};
+    desktopDetails = {dpi = 120;};
     homeManagerStateVersion = "24.05";
 
     rootUserHomeManagerConfig = {
@@ -67,10 +67,11 @@
     nixosConfigurations = {
       workstation = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
+
         specialArgs = {
           inherit inputs;
           inherit userDetails;
-          inherit desktopDetails;
+          desktopDetails = {dpi = 120;};
         };
         modules = [
           home-manager.nixosModules.home-manager
@@ -78,6 +79,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
+              extraSpecialArgs = {inherit desktopDetails;};
               users.${userDetails.userName} = commonUserHomeManagerConfig {
                 userDetails = userDetails;
                 system = system;

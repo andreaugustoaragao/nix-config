@@ -8,8 +8,14 @@
   config,
   pkgs,
   userDetails,
+  desktopDetails,
   ...
-}: {
+}: let
+  wayland = import ./wayland.nix {
+    inherit pkgs;
+    inherit desktopDetails;
+  };
+in {
   imports = [
     ./nix.nix
     ./packages.nix
@@ -18,7 +24,7 @@
     ./kernel.nix
     ./certs.nix
     #./x11.nix
-    ./wayland.nix
+    wayland
     ./tmux
     ./openssh.nix
   ];

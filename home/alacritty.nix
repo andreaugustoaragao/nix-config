@@ -43,11 +43,19 @@ in {
           else "Bold Italic";
         size =
           if isLinux
-          then 13
+          then 12
           else 12;
       };
 
-      shell = {program = "${pkgs.fish}/bin/fish";};
+      shell = {
+        program = "${pkgs.tmux}/bin/tmux";
+        args = [
+          "new-session"
+          "-s"
+          "default"
+          "-A"
+        ];
+      };
 
       colors = {
         transparent_background_colors = false;

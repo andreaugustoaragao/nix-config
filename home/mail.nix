@@ -23,6 +23,8 @@
   };
 
   programs.mbsync.enable = true;
+  programs.mbsync.extraConfig = ''
+  '';
   programs.msmtp.enable = true;
   programs.notmuch = {
     enable = true;
@@ -30,10 +32,21 @@
       preNew = "mbsync --all";
     };
   };
+  programs.neomutt = {
+    enable = true;
+  };
   accounts.email = {
-    accounts.posteo = {
+    #openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
+    #certificatesFile = "${config.home.homeDirectory}/.config/protonmail/cert.pem";
+    accounts.proton = {
       address = "andre-a-o-aragao@proton.me";
-      imap.host = "127.0.0.1:1143";
+      imap.host = "127.0.0.1";
+      imap.port = 1143;
+      imap.tls.enable = true;
+      imap.tls.useStartTls = true;
+      imap.tls.certificatesFile = "${config.home.homeDirectory}/.config/protonmail/cert.pem";
+
+      neomutt.enable = true;
       mbsync = {
         enable = true;
         create = "maildir";
@@ -47,9 +60,10 @@
         '';
         showSignature = "append";
       };
-      passwordCommand = "mail-password";
+      passwordCommand = "~/.config/protonmail/get-bridge-pwd.sh";
       smtp = {
-        host = "127.0.0.1:1125";
+        host = "127.0.0.1";
+        port = 1025;
       };
       userName = "andre-a-o-aragao@proton.me";
     };

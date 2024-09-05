@@ -4,17 +4,17 @@
   ...
 }: {
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack" "RobotoMono"];})
-    #nerdfonts
+    (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack" "RobotoMono" "Terminus"];})
     dejavu_fonts
     noto-fonts
     noto-fonts-cjk
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     terminus_font
     roboto
     roboto-mono
     roboto-slab
     hasklig
+    inter
     material-design-icons
     material-icons
     source-code-pro
@@ -33,11 +33,14 @@
     };
     subpixel.rgba = "rgb";
     subpixel.lcdfilter = "default";
+    includeUserConf = false;
+    antialias = true;
     enable = true;
     defaultFonts = {
-      monospace = ["Roboto Mono 13"];
-      sansSerif = ["Roboto 13"];
-      serif = ["Roboto Slab 13"];
+      monospace = ["Roboto Mono 12"];
+      sansSerif = ["Roboto 12"];
+      serif = ["Roboto Slab 12"];
+      emoji = ["Noto Color Emoji"];
     };
   };
 }

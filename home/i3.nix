@@ -39,7 +39,7 @@ in {
       gaps = {
         inner = 5;
         outer = 5;
-        top = 45;
+        top = 40;
         #left = 5;
         #right = 5;
         #bottom = 5;
@@ -51,8 +51,8 @@ in {
       floating.titlebar = false;
       fonts = {
         names = ["RobotoMono"];
-        style = "Bold";
-        size = 12.0;
+        style = "Medium";
+        size = 10.0;
       };
       keybindings = lib.mkOptionDefault {
         "XF86AudioMute" = "exec amixer set Master toggle";

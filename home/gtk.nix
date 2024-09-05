@@ -1,8 +1,6 @@
 {
-  gtk-nix,
   config,
   pkgs,
-  lib,
   ...
 }: {
   home.pointerCursor = {
