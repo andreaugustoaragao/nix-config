@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  chromiumWideVine = pkgs.chromium.overrideAttrs {
+  chromiumWideVine = pkgs.brave.overrideAttrs {
     enableWideVine = true;
     enableVaapi = true;
   };
@@ -23,7 +23,7 @@ in {
   ];
   programs.chromium = {
     enable = true;
-    package = pkgs.brave; #pkgs.chromium;
+    package = chromiumWideVine; #pkgs.chromium;
     dictionaries = [
       pkgs.hunspellDictsChromium.en_US
     ];
@@ -35,16 +35,18 @@ in {
       "--enable-gpu-rasterization"
       "--enable-parallel-downloading"
       "--disable-native-brave-wallet"
-      "--enable-features=TabHoverCardImages,SmoothScrolling,WindowsScrollingPersonality"
+      "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder,TabHoverCardImages,SmoothScrolling,WindowsScrollingPersonality"
       "--ozone-platform-hint=auto"
     ];
     extensions = [
       #{id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} #ublock origin
-      {id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";} #1password
+      #{id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";} #1password
       {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} #vimium
       {id = "noimedcjdohhokijigpfcbjcfcaaahej";} #rose-pine theme
-      {id = "danncghahncanipdoajmakdbeaophenb";} #auto group tabs
-      {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} #dark reader
+      #{id = "danncghahncanipdoajmakdbeaophenb";} #auto group tabs
+      #{id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} #dark reader
+      {id = "nngceckbapebfimnlniiiahkandclblb";} #bitwarden
+      {id = "ljjmnbjaapnggdiibfleeiaookhcodnl";} #darktheme
     ];
   };
   nixpkgs.config.enableWideWine = true;

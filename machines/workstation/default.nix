@@ -8,16 +8,13 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./fix-suspend.nix
+    ./ethernet.nix
   ];
 
   # Hostname
-  networking.hostName = "workstation";
-  networking.wireless.enable = false;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   hardware.graphics.enable = true;
-
-  hardware.display.outputs."HDMI-1".mode = "d";
 
   hardware.graphics.extraPackages = [
     pkgs.mesa.drivers
@@ -68,10 +65,11 @@ in {
   #${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --mode "3840x2160" --rate 144
   #'';
 
-  systemd.services.plymouth-quit-wait = {
-    wantedBy = ["multi-user.target"];
-    after = ["systemd-user-sessions.service"];
-  };
+  #  systemd.services.plymouth-quit-wait = {
+  #    wantedBy = ["multi-user.target"];
+  #    after = ["systemd-user-sessions.service"];
+  #  };
+
   boot = {
     plymouth = {
       enable = false;
@@ -106,9 +104,6 @@ in {
     # :loader.timeout = 0;
   };
   boot.loader.systemd-boot.enable = false;
-  security.pki.certificateFiles = [
-    /home/aragao/.config/protonmail/cert.pem
-  ];
   #boot.initrd.systemd.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
