@@ -18,11 +18,27 @@
           return = "301 https://$host$request_uri";
         };
       };
-      "teka-public.faragao.net" = {
+      "teka-web.faragao.net" = {
         forceSSL = true;
         useACMEHost = "faragao.net";
         locations."/" = {
-          proxyPass = "https://192.168.0.10:5001";
+          proxyPass = "https://192.168.40.4:5001";
+        };
+      };
+      "tamatoa-mgmt.faragao.net" = {
+        forceSSL = true;
+        useACMEHost = "faragao.net";
+        locations."/" = {
+          proxyPass = "https://192.168.0.1";
+        };
+      };
+      "chief-tui-mgmt.faragao.net" = {
+        forceSSL = true;
+        useACMEHost = "faragao.net";
+        locations."/" = {
+          proxyPass = "https://192.168.0.2";
+          proxyWebsockets = true;
+          recommendedProxySettings = true;
         };
       };
     };
