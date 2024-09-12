@@ -1,18 +1,48 @@
 {lib, ...}: {
-  networking.hostName = "workstation"; # Define your hostname.
-  networking.domain = "faragao.net";
-  networking.networkmanager.enable = true;
-  networking.interfaces.enp4s0.ipv4.addresses = [
-    {
-      address = "192.168.0.20";
-      prefixLength = 24;
-    }
-  ];
-  networking.defaultGateway = "192.168.0.1";
-  networking.nameservers = [
-    "192.168.0.3"
-  ];
-  networking.enableIPv6 = false;
-  networking.useDHCP = lib.mkForce false;
-  networking.wireless.enable = false;
+  #networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  #systemd.network.wait-online.enable = false;
+  #systemd.services.NetworkManager-wait-online.enable = false;
+  networking = {
+    hostName = "workstation";
+    domain = "faragao.net";
+    useDHCP = lib.mkForce false;
+    firewall.enable = false;
+
+    wireless.enable = lib.mkForce false;
+    enableIPv6 = lib.mkForce false;
+  };
+
+  systemd.network = {
+    enable = true;
+    wait-online.enable = false;
+    #wait-online.anyInterface = true;
+    networks = {
+      "10-enp9s0f0" = {
+        matchConfig.Name = "enp9s0f0";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = false;
+        };
+      };
+    };
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+
+  systemd.services = {
+    modem-manager = {
+      enable = false;
+      restartIfChanged = false;
+    };
+  };
+
+  systemd.services = {
+    wpa_supplicant = {
+      enable = false;
+      restartIfChanged = false;
+    };
+  };
 }

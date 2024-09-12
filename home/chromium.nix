@@ -35,7 +35,7 @@ in {
       "--enable-gpu-rasterization"
       "--enable-parallel-downloading"
       "--disable-native-brave-wallet"
-      "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder,TabHoverCardImages,SmoothScrolling,WindowsScrollingPersonality"
+      #"--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder,TabHoverCardImages,SmoothScrolling,WindowsScrollingPersonality"
       "--ozone-platform-hint=auto"
     ];
     extensions = [

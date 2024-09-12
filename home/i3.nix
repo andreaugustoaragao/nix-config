@@ -195,7 +195,7 @@ in {
           notification = true;
         }
         {
-          command = "1password --silent";
+          command = "bitwarden --silent";
           always = false;
           notification = true;
         }

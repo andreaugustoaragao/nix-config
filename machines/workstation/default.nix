@@ -9,6 +9,7 @@ in {
     ./hardware-configuration.nix
     ./fix-suspend.nix
     ./ethernet.nix
+    ./sleep.nix
   ];
 
   # Hostname
@@ -138,11 +139,6 @@ in {
   services.printing.enable = true;
   services.printing.drivers = [pkgs.hplip];
   services.printing.startWhenNeeded = true; # optional
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [pkgs.sane-airscan];
   hardware.sane.disabledDefaultBackends = ["escl"];

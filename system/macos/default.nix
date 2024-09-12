@@ -111,9 +111,6 @@
   system.defaults.dock.appswitcher-all-displays = true;
   system.defaults.dock.show-recents = false;
 
-  # below cannot be changed in Avaya laptops - this should be placed on its own separate file
-  # system.defaults.alf.globalstate = 0;
-
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.QuitMenuItem = true;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;

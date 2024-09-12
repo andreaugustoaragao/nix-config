@@ -29,10 +29,13 @@
     enable = true;
     flake = inputs.self.outPath;
     flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
       "--flake .#$(/run/current-system/sw/bin/hostname)"
       "-L" # print build logs
     ];
-    dates = "02:00";
+    dates = "17:00";
     randomizedDelaySec = "45min";
   };
 

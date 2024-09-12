@@ -32,12 +32,6 @@ in {
     inputs.nurpkgs.overlay
   ];
 
-  # NETWORK
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  systemd.network.wait-online.enable = false;
-  systemd.services.NetworkManager-wait-online.enable = false;
-  programs.nm-applet.enable = false;
-
   # SECURITY
   security.polkit.enable = true;
   security.rtkit.enable = true;
@@ -45,13 +39,6 @@ in {
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
   security.sudo.wheelNeedsPassword = false;
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-    polkitPolicyOwners = ["${userDetails.userName}"];
-  };
 
   # USER SETUP
   users.users = {
@@ -85,9 +72,6 @@ in {
   location.provider = "geoclue2";
   services.localtimed.enable = true;
 
-  # MISC
-  documentation.man.generateCaches = true;
-
   programs.nix-ld.enable = true;
 
   programs.command-not-found.enable = false;
@@ -105,5 +89,4 @@ in {
   services.envfs.enable = true;
 
   system.stateVersion = "24.05"; # Do not change this number?
-  #github.com/R-VdP/nixos-config
 }

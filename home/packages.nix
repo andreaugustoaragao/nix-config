@@ -80,7 +80,7 @@ in {
     _1password-gui
     gimp
     calibre
-    #zoom-us
+    zoom-us
     cheese
     bitwarden-desktop
     goldwarden

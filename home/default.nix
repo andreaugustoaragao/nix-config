@@ -47,7 +47,7 @@ in {
     source = ../system/nixos/certs;
     recursive = true;
   };
-  services.blueman-applet.enable = true;
+  services.blueman-applet.enable = false;
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
