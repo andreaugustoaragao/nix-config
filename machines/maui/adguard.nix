@@ -1,5 +1,4 @@
 {
-  networking.firewall.allowedUDPPorts = [53];
   services.adguardhome = {
     enable = true;
     host = "127.0.0.1";
@@ -19,6 +18,7 @@
       theme = "dark";
       schema_version = 20;
       dns = {
+        port = 53;
         ratelimit = 0;
         bind_hosts = ["0.0.0.0"];
         bootstrap_dns = [
@@ -29,10 +29,15 @@
         ];
         private_networks = [
           "192.168.0.1/24"
+          "192.168.10.1/24"
+          "192.168.20.1/24"
+          "192.168.30.1/24"
+          "192.168.40.1/24"
         ];
         use_private_ptr_resolvers = true;
         local_ptr_upstreams = [
           "127.0.0.1:5335"
+          "192.168.0.2:53"
         ];
       };
       filtering = {
@@ -52,7 +57,8 @@
     locations."/" = {
       proxyPass = "http://127.0.0.1:3002";
       extraConfig = ''
-        allow 192.168.0.0/24;
+        allow 192.168.20.0/24;
+        allow 192.168.10.0/24;
         deny all;
       '';
       recommendedProxySettings = true;

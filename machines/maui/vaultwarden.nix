@@ -6,7 +6,7 @@
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = "8000";
       SIGNUPS_ALLOWED = false;
-      SIGNUPS_DOMAINS_WHITELIST = "faragao.net";
+      #SIGNUPS_DOMAINS_WHITELIST = "faragao.net";
       INVITATIONS_ALLOWED = false;
       PUSH_ENABLED = true;
       PUSH_INSTALLATION_ID = "866aa8fa-021b-44cc-bad7-b1dd01818d12";

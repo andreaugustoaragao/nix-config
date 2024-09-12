@@ -44,7 +44,18 @@
     isNormalUser = true;
     description = "main";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
+  };
+
+  users.users.tehfiti = {
+    isNormalUser = true;
+    description = "goddess";
+    extraGroups = ["networkmanager" "wheel"];
+  };
+
+  users.users.backup = {
+    isNormalUser = true;
+    description = "";
+    extraGroups = [];
   };
 
   nixpkgs.config.allowUnfree = true;

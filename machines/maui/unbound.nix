@@ -32,24 +32,18 @@
         local-zone = "\"faragao.net.\" static"; # Define your local zone
         # Define local DNS records
         local-data = [
-          "\"router.faragao.net. IN A 192.168.0.1\""
-          "\"maui.faragao.net. IN A 192.168.0.3\""
-          "\"adguard.faragao.net. IN A 192.168.0.3\""
-          "\"monitoring.faragao.net. IN A 192.168.0.3\""
-          "\"vw.faragao.net. IN A 192.168.0.3\""
-          "\"teka.faragao.net. IN A 192.168.0.10\""
-          "\"teka-public.faragao.net. IN A 192.168.0.3\""
-          "\"workstation.faragao.net. IN A 192.168.0.20\""
+          "\"maui.faragao.net.            IN A 192.168.40.3\""
+          "\"teka.faragao.net.            IN A 192.168.40.4\""
+          "\"adguard.faragao.net.         IN A 192.168.40.3\""
+          "\"monitoring.faragao.net.      IN A 192.168.40.3\""
+          "\"vw.faragao.net.              IN A 192.168.40.3\""
+          "\"tamatoa-mgmt.faragao.net.    IN A 192.168.40.3\""
+          "\"chief-tui-mgmt.faragao.net.  IN A 192.168.40.3\""
+          "\"teka-web.faragao.net.        IN A 192.168.40.3\""
         ];
         local-data-ptr = [
-          "\"192.168.0.1 router.faragao.net.\""
-          "\"192.168.0.3 maui.faragao.net.\""
-          "\"192.168.0.10 teka.faragao.net.\""
-          "\"192.168.0.3 synology.faragao.net.\""
-          "\"192.168.0.3 adguard.faragao.net.\""
-          "\"192.168.0.3 monitoring.faragao.net.\""
-          "\"192.168.0.3 vw.faragao.net.\""
-          "\"192.168.0.20 workstation.faragao.net.\""
+          "\"192.168.40.3  maui.faragao.net.\""
+          "\"192.168.40.4  teka.faragao.net.\""
         ];
       };
     };
