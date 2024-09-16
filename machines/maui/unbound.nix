@@ -12,11 +12,15 @@
         interface = ["127.0.0.1"];
         port = 5335;
         access-control = ["127.0.0.1 allow"];
-
+        qname-minimisation = true;
+        aggressive-nsec = true;
+        neg-cache-size = "4M";
+        minimal-responses = true;
         harden-glue = true;
         harden-dnssec-stripped = true;
         use-caps-for-id = false;
         prefetch = true;
+        prefetch-key = true;
         edns-buffer-size = 1232;
 
         hide-identity = true;

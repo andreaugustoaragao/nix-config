@@ -29,7 +29,7 @@
         forceSSL = true;
         useACMEHost = "faragao.net";
         locations."/" = {
-          proxyPass = "https://192.168.0.1";
+          proxyPass = "https://192.168.100.1";
         };
       };
       "chief-tui-mgmt.faragao.net" = {

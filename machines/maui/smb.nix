@@ -1,25 +1,24 @@
 {
   services.samba = {
     enable = true;
-    securityType = "user";
+    smbd.enable = true;
     openFirewall = true;
-    extraConfig = ''
-      workgroup = FARAGAO
-      server string = maui
-      netbios name = maui
-      security = user
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.10. 192.168.20 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
+    settings = {
+      global = {
+        workgroup = "FARAGAO";
+        "server string" = "maui";
+        "netbios name" = "maui";
+        #use sendfile = yes
+        #max protocol = smb2
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "192.168.10. 192.168.20 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
       timemachine = {
         path = "/data/timemachine";
-        validUsers = ["backup"];
+        "valid users" = "backup";
         public = "no";
         writeable = "yes";
         guestOk = false;
