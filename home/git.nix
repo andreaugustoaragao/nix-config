@@ -6,7 +6,7 @@
   isLinux = pkgs.stdenv.hostPlatform.isLinux;
 in {
   programs.git = {
-    package = pkgs.gitFull;
+    #package = pkgs.gitFull;
     enable = true;
     aliases = {
       ci = "commit";

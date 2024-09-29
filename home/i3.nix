@@ -1,8 +1,7 @@
 {
   pkgs,
-  desktopDetails,
-  config,
   lib,
+  osConfig,
   ...
 }: let
   rose-pine-wallpapers = pkgs.callPackage ./wallpapers.nix {} + "/rocks.jpg";
@@ -15,12 +14,20 @@ in {
     ./dunst.nix
   ];
   xsession.windowManager.i3 = {
-    enable = true;
+    enable = osConfig.machine.x11.enable;
+
     package = pkgs.i3-gaps;
 
     config = rec {
       modifier = "Mod1";
-      bars = [];
+      bars = [
+        {
+          command = "${pkgs.polybar}/bin/polybar -q -r top";
+          hiddenState = "hide";
+          mode = "hide";
+          position = "top";
+        }
+      ];
       #https://github.com/nix-community/home-manager/blob/master/modules/services/window-managers/i3-sway/lib/options.nix
       colors = {
         focused = {
@@ -39,7 +46,7 @@ in {
       gaps = {
         inner = 5;
         outer = 5;
-        top = 40;
+        top = 30;
         #left = 5;
         #right = 5;
         #bottom = 5;

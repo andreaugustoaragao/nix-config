@@ -1,11 +1,10 @@
-{ config, pkgs, lib, ... }: {
-  security.pki.certificateFiles = [
-    ./certs/avayaitrootca2.pem
-    ./certs/avayaitrootca.pem
-    ./certs/avayaitserverca2.pem
-    ./certs/zscalerrootcertificate-2048-sha256.pem
-  ];
-
+{
+  config,
+  pkgs,
+  lib,
+  server ? false,
+  ...
+}: {
   #  environment.variables.JAVAX_NET_SSL_TRUSTSTORE =
   #	  let
   #	    caBundle = config.environment.etc."ssl/certs/ca-bundle.crt".source;
@@ -26,5 +25,4 @@
   #  };
 
   #discourse.nixos.org/t/custom-ssl-certificates-for-jdk/1897/8
-
 }

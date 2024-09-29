@@ -1,92 +1,120 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 {
   lib,
-  inputs,
-  system,
-  config,
   pkgs,
   userDetails,
-  desktopDetails,
+  config,
   ...
-}: let
-  wayland = import ./wayland.nix {
-    inherit pkgs;
-    inherit desktopDetails;
-  };
-in {
+}: {
   imports = [
     ./nix.nix
-    ./packages.nix
-    ./fonts.nix
-    ./locale.nix
-    ./kernel.nix
-    ./certs.nix
-    #./x11.nix
-    wayland
-    ./tmux
     ./openssh.nix
-  ];
-  nixpkgs.overlays = [
-    inputs.nurpkgs.overlay
+    ./display-manager.nix
+    ./cli.nix
+    ./x11.nix
+    ./wayland.nix
   ];
 
-  # SECURITY
-  security.polkit.enable = true;
-  security.rtkit.enable = true;
-  programs.seahorse.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  security.sudo.wheelNeedsPassword = false;
+  options.machine.role = lib.mkOption {
+    type = lib.types.enum ["server" "pc"];
+    default = "pc";
+    description = "Specify the role of the machine as either 'server' or 'pc'.";
+  };
 
-  # USER SETUP
-  users.users = {
-    ${userDetails.userName} = {
-      createHome = true;
-      description = "${userDetails.fullName}";
-      isNormalUser = true;
-      extraGroups = ["wheel" "docker" "networkmanager" "lp" "scanner" "libvirtd" "video" "input"];
-      shell = pkgs.fish;
-      password = "password";
+  config = {
+    # SECURITY
+    security.polkit.enable = true;
+    security.rtkit.enable = true;
+    security.sudo.wheelNeedsPassword = false;
+
+    # USER SETUP
+    users.users = {
+      ${userDetails.userName} = {
+        createHome = true;
+        description = "${userDetails.fullName}";
+        isNormalUser = true;
+        extraGroups = ["wheel" "docker" "networkmanager" "lp" "scanner" "libvirtd" "video" "input"];
+        password = "password";
+      };
     };
+
+    users.mutableUsers = true;
+
+    services.geoclue2.enable = true;
+    location.provider = "geoclue2";
+    services.localtimed.enable = true;
+
+    #KERNEL
+    boot.kernelPackages = pkgs.linuxPackages_zen;
+
+    boot.kernel.sysctl = {
+      "vm.overcommit_memory" = 1;
+    };
+
+    #LOCALE
+    time.timeZone = "America/Denver";
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEFONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
+
+    security.pki.certificateFiles = lib.mkIf (config.machine.role == "pc") [
+      ./certs/avayaitrootca2.pem
+      ./certs/avayaitrootca.pem
+      ./certs/avayaitserverca2.pem
+      ./certs/zscalerrootcertificate-2048-sha256.pem
+    ];
+
+    fonts = lib.mkIf (config.machine.role == "pc") {
+      packages = with pkgs; [
+        (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack" "RobotoMono" "Terminus"];})
+        dejavu_fonts
+        noto-fonts
+        noto-fonts-cjk
+        noto-fonts-color-emoji
+        terminus_font
+        roboto
+        roboto-mono
+        roboto-slab
+        hasklig
+        inter
+        material-design-icons
+        material-icons
+        source-code-pro
+        source-sans-pro
+        weather-icons
+        font-awesome
+        corefonts
+        vistafonts
+      ];
+
+      enableDefaultPackages = true;
+      fontconfig = {
+        hinting = {
+          enable = true;
+          style = "slight";
+        };
+        subpixel.rgba = "rgb";
+        subpixel.lcdfilter = "default";
+        includeUserConf = false;
+        antialias = true;
+        enable = true;
+        defaultFonts = {
+          monospace = ["Roboto Mono 10"];
+          sansSerif = ["Roboto 10"];
+          serif = ["Roboto Slab 10"];
+          emoji = ["Noto Color Emoji"];
+        };
+      };
+    };
+    system.stateVersion = "24.05"; # Do not change this number
   };
-  users.mutableUsers = true;
-  programs.fish.enable =
-    true; # make shell assertion happy, it doesn't know about home manager.
-  environment.pathsToLink = ["/libexec"];
-  environment.binsh = "${pkgs.dash}/bin/dash"; #faster, consumes less memory
-  environment.sessionVariables = {
-    MOZ_USE_XINPUT2 = "1";
-  };
-  # DOCKER and MINIKUBE
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  environment.systemPackages = with pkgs; [
-    docker-credential-helpers
-  ];
-
-  # LOCATION SERVICES
-  services.geoclue2.enable = true;
-  location.provider = "geoclue2";
-  services.localtimed.enable = true;
-
-  programs.nix-ld.enable = true;
-
-  programs.command-not-found.enable = false;
-
-  environment.variables = {
-    XSECURELOCK_SAVER = "saver_xscreensaver";
-    #GDK_SCALE = "2";
-    #GDK_DPI_SCALE = "0.5";
-    #_JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
-    #QT_SCALE_FACTOR = "1";
-  };
-
-  environment.localBinInPath = true;
-
-  services.envfs.enable = true;
-
-  system.stateVersion = "24.05"; # Do not change this number?
 }

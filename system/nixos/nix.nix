@@ -1,14 +1,12 @@
 {
-  lib,
   inputs,
-  system,
-  config,
   pkgs,
   ...
 }: {
   nix = {
     package = pkgs.nixFlakes;
     optimise.automatic = true;
+
     gc = {
       automatic = true;
       dates = "weekly";
@@ -21,8 +19,9 @@
   };
 
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-29.4.6"
+    #  "electron-29.4.6"
   ];
+
   nixpkgs.config.allowUnfree = true;
 
   system.autoUpgrade = {
@@ -37,12 +36,15 @@
     ];
     dates = "17:00";
     randomizedDelaySec = "45min";
+    persistent = true;
   };
 
   systemd.services.nixos-upgrade.onFailure = ["notify-failure@nixos-upgrade.service"];
+
   environment.systemPackages = [
     pkgs.mailutils
   ];
+
   systemd.services."notify-failure@" = {
     enable = true;
     description = "Failure notification for %i";

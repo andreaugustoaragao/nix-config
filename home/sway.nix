@@ -17,8 +17,12 @@ in {
     package = null;
     enable = true;
     config = rec {
-      terminal = "alacritty";
+      terminal = "footclient";
+
       output = {
+        "*" = {
+          bg = wallpaper;
+        };
         "DP-1" = {
           position = "0,0";
           #mode = "3840x2160@144Hz";
@@ -30,12 +34,10 @@ in {
           modeline = "1339.630 3840 3888 3920 4200 2160 2163 2168 2215 +hsync -vsync";
           render_bit_depth = "8";
           max_render_time = "7";
-          bg = wallpaper;
         };
         "Virtual-1" = {
           position = "0,0";
           mode = "3546x2160";
-          bg = wallpaper;
           adaptive_sync = "no";
         };
       };
@@ -56,47 +58,33 @@ in {
       window.border = 4;
       window.titlebar = false;
       gaps = {
-        inner = 10;
-        outer = 10;
+        inner = 5;
+        outer = 5;
       };
-      window.hideEdgeBorders = "smart";
+      #window.hideEdgeBorders = "smart";
       focus.newWindow = "focus";
       defaultWorkspace = "workspace number 1";
       fonts = {
         names = ["RobotoMono"];
         style = "Bold";
-        size = 12.0;
+        size = 10.0;
       };
       startup = [
         {
-          command = "${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -c 000000' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -c 000000'";
-        }
-        {
-          command = "exec waybar";
+          command = "exec ${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -c 000000' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -c 000000'";
         }
         {
           command = "exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh";
         }
         {
-          command = "exec 1password --silent";
-        }
-        {
-          command = "exec eww kill && eww daemon";
+          command = "exec foot --server";
         }
       ];
       floating.criteria = [{app_id = "org.pulseaudio.pavucontrol";} {class = "1Password";}];
       floating.titlebar = false;
       assigns = {
-        "1" = [
-          {
-            app_id = "alacritty_default_tmux";
-          }
-        ];
         "2" = [
           {app_id = "^firefox$";}
-          {
-            app_id = "brave-browser";
-          }
         ];
         "3" = [
           {
@@ -147,7 +135,8 @@ in {
         "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
-        "${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
+        #"${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
+        "${modifier}+Shift+Return" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -dpi -show drun -show-icons";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
@@ -166,6 +155,13 @@ in {
       corner_radius 10
       shadows enable
       default_dim_inactive 0.1
+      bar {
+        swaybar_command waybar
+        position top
+        hidden_state hide
+        mode hide
+        modifier Mod4
+      }
     '';
     wrapperFeatures = {
       base = true;

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # SETTINGS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 #set -x
 # API settings ________________________________________________________________

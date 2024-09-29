@@ -17,7 +17,7 @@ in {
           y = 5;
           x = 5;
         };
-        opacity = 0.95;
+        opacity = 0.92;
         dynamic_title = true;
         #dpi = 192;
       };
@@ -43,18 +43,19 @@ in {
           else "Bold Italic";
         size =
           if isLinux
-          then 12
-          else 12;
+          then 10
+          else 10;
       };
 
       shell = {
-        program = "${pkgs.tmux}/bin/tmux";
-        args = [
-          "new-session"
-          "-s"
-          "default"
-          "-A"
-        ];
+        #program = "${pkgs.tmux}/bin/tmux";
+        #args = [
+        #  "new-session"
+        #  "-s"
+        #  "default"
+        #  "-A"
+        #];
+        program = "${pkgs.fish}/bin/fish";
       };
 
       colors = {

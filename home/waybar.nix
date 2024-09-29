@@ -53,16 +53,17 @@ in {
     enable = true;
     settings = [
       {
+        ipc = true;
         layer = "top";
         position = "top";
-        auto-hide = false;
+        auto-hide = true;
         auto-hide-timeout = 10;
         margin-top = 5;
-        height = 40;
+        height = 30;
 
-        modules-left = ["clock#date" "mpris"];
-        modules-center = ["sway/workspaces"];
-        modules-right = ["cpu" "temperature" "memory" "disk" "network" "pulseaudio" "tray" "clock#time"];
+        modules-left = ["clock#date" "mpris" "sway/workspaces"];
+        #modules-center = ["sway/workspaces"];
+        modules-right = ["cpu" "temperature" "memory" "disk" "network" "pulseaudio" "battery" "tray" "clock#time"];
         fixed-center = true;
 
         "sway/workspaces" = {
@@ -82,6 +83,7 @@ in {
             "default" = "";
           };
         };
+
         "clock#date" = {
           format = "󰸗 {:%A, %B %d %Y}";
           tooltip-format = "<tt>{calendar}</tt>";
@@ -93,9 +95,11 @@ in {
             on-click-right = "mode";
           };
         };
+
         "clock#time" = {
           format = "󱑃 {:%I:%M %p}";
         };
+
         "tray" = {
           icon-size = 21;
           spacing = 10;
@@ -115,8 +119,8 @@ in {
         };
 
         "network" = {
-          interface = "enp*";
-          format-wifi = "<small>{bandwidthDownBytes}</small> {icon}";
+          #interface = "enp*";
+          format-wifi = "{icon} {bandwidthDownBytes} {bandwidthUpBytes}";
           min-length = 10;
           max-length = 40;
           format-ethernet = "󰈀 {bandwidthDownBytes} {bandwidthUpBytes}";
@@ -137,18 +141,28 @@ in {
 
         "memory" = {
           interval = "15";
-          format = " {percentage}% ";
+          format = " {used} GiB ";
           unit = "GB";
           tooltip-format = "ram: \t{used} GiB out of {total} GiB\nswap: \t{swapUsed} GiB out of {swapTotal} GiB";
         };
 
-        "temmperature" = {
+        "temperature" = {
         };
 
         "cpu" = {
           interval = "3";
           format = "󰻠 {usage}% (@ {avg_frequency}Ghz)";
           on-click-right = "alacritty -e btm";
+        };
+
+        "battery" = {
+          interval = "60";
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon} {capacity}% {time}";
+          format-icons = ["" "" "" "" ""];
         };
 
         mpris = {
@@ -168,26 +182,29 @@ in {
         };
       }
     ];
+
     style = ''
       * {
          font-family: "Material Design Icons", "RobotoMono Nerd Font Mono";
-         font-size: 16px;
+         font-size: 12px;
+         font-weight: bold;
          border: none;
       }
 
       window#waybar {
-         background-color: rgba(0, 0, 0, 0); /* fully transparent */
+         /* background-color: rgba(0, 0, 0, 0); */ /* fully transparent */
+         border-radius: 10px;
       }
 
       #clock.date
        {
          background-color:${surface};
          color:${love};
-         padding-left: 10px;
-         padding-right: 10px;
-         margin-left: 11px;
-         border-radius: 10px;
-         border: 4px solid ${muted};
+         padding-left: 5px;
+         padding-right: 5px;
+         margin-left: 5px;
+         /* border-radius: 10px; */
+         border: 0px solid ${muted};
       }
 
       #clock.time {
@@ -195,17 +212,17 @@ in {
          color:${gold};
          padding-left: 10px;
          padding-right: 10px;
-         margin-right: 11px;
+         margin-right: 5px;
          border-radius: 10px;
-         border: 4px solid ${muted};
+         border: 0px solid ${muted};
       }
 
       #workspaces {
          background-color:${surface};
          color:${love};
-         margin-left: 0px;
+         margin-left: 2px;
          border-radius: 10px;
-         border: 4px solid ${muted};
+         border: 0px solid ${muted};
       }
 
       #workspaces button {
@@ -218,14 +235,14 @@ in {
       }
 
       #workspaces label {
-        font-family: "JetbrainsMono";
-        font-size: 20px;
+      /*  font-family: "JetbrainsMono"; */
+        font-size: 16px;
         font-weight: normal;
       }
 
       #workspaces button.focused {
          background-color: ${highlightHigh};
-         border-radius: 0px;
+         border-radius: 10px
       }
 
       #workspaces button.focused label {
@@ -240,22 +257,22 @@ in {
       #pulseaudio,
       #mpris,
       #tray {
-         padding-right: 10px;
-         padding-left: 10px;
+         padding-right: 5px;
+         padding-left: 5px;
          background-color:${surface};
          border-radius: 10px;
-         margin-right: 10px;
-         border: 4px solid ${muted};
+         margin-right: 2px;
+         border: 0px solid ${muted};
       }
 
       #pulseaudio {
          color: ${foam};
-         font-size: 22px;
+         font-size: 16px;
       }
 
       #pulseaudio.muted {
          color: ${love};
-         font-size: 22px;
+         font-size: 16px;
       }
 
       #network {

@@ -7,7 +7,7 @@
   programs.rofi = {
     package = pkgs.rofi-wayland;
     enable = true;
-    font = "Jetbrains Mono Nerd Font SemiBold 14";
+    font = "Inter SemiBold 10";
     terminal = "${pkgs.alacritty}/bin/alacritty";
     extraConfig = {
       show-icons = true;
@@ -42,7 +42,7 @@
       };
 
       "element" = {
-        padding = mkLiteral "8 12";
+        padding = mkLiteral "8 10";
         background-color = mkLiteral "transparent";
         text-color = mkLiteral "@fg-alt";
       };
@@ -59,13 +59,13 @@
       };
 
       "element-icon" = {
-        size = 40;
+        size = 10;
         padding = mkLiteral "0 10 0 0";
         background-color = mkLiteral "transparent";
       };
 
       "entry" = {
-        padding = 12;
+        padding = 10;
         background-color = mkLiteral "@bg-alt";
         text-color = mkLiteral "@fg";
       };
@@ -88,7 +88,7 @@
 
       "prompt" = {
         enabled = true;
-        padding = mkLiteral "12 0 0 12";
+        padding = mkLiteral "10 0 0 10";
         background-color = mkLiteral "@bg-alt";
         text-color = mkLiteral "@fg";
       };

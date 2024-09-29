@@ -1,6 +1,18 @@
+# TODO -2024
+
+## what do we want to configure?
+
+I have two types of systems: servers and pcs.
+
+for pcs I want to configure:
+
+
+
+
+
+
 # TODO - 2023
 
-- [ ] fix git/seahorse git credentials/auto login
 - [x] get SSH to work correctly with github and bb
 - [ ] install vscode server
 - [x] configure GIT

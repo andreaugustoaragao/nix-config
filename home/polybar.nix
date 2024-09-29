@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  osConfig,
+  ...
+}: let
   # ROSE PINE
   # Base Colors
   base = "#191724"; # The main background color (very dark purple)
@@ -35,23 +39,24 @@ in {
     script = ''if [ "$XDG_SESSION_TYPE" = "x11" ]; then polybar-check ; fi'';
     config = {
       "bar/top" = {
+        dpi = osConfig.machine.x11.dpi;
         bottom = false;
         top = true;
         width = "100%:-22px";
-        height = 40;
+        #height = 35;
         offset-x = "11px";
         offset-y = "5px";
         override-redirect = true;
-        font-0 = "RobotoMono Nerd Font Mono:size=12:weight=regular;2";
-        font-1 = "RobotoMono Nerd Font Mono:size=18:weight=regular;4";
-        font-2 = "Weather Icons:size=12;0";
+        font-0 = "RobotoMono Nerd Font Mono:size=10:weight=regular;2";
+        font-1 = "RobotoMono Nerd Font Mono:size=13:weight=regular;4";
+        font-2 = "Weather Icons:size=9;1";
         modules-left = "launcher date weather";
         modules-center = "xworkspaces";
         modules-right = "cpu temperature memory filesystem network volume notifications tray time powermenu";
         background = transparent_background;
         foreground = transparent_foreground;
-        line-size = 4;
-        module-margin-right = "10px";
+        line-size = 2;
+        module-margin-right = "5px";
         wm-restack = "i3";
         cursor-click = "pointer";
       };
