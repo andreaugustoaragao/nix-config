@@ -37,5 +37,10 @@ in {
       {id = "ljjmnbjaapnggdiibfleeiaookhcodnl";} #darktheme
     ];
   };
+
   nixpkgs.config.enableWideWine = true;
+  home.file.".config/qutebrowser/config.py" = {
+    source = ./qutebrowser/config.py;
+    executable = false;
+  };
 }
