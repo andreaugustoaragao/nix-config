@@ -23,9 +23,24 @@
           DHCP = "ipv4";
           IPv6AcceptRA = false;
         };
+        dhcpV4Config = {
+          UseDNS = true;
+          UseRoutes = true;
+          UseNTP = true;
+          UseDomains = true;
+        };
       };
     };
   };
+
+  services.resolved = {
+    enable = true;
+    dnssec = "allow-downgrade";
+    llmnr = "false";
+    fallbackDns = [];
+  };
+
+  services.dnsmasq.enable = false;
 
   services.avahi = {
     enable = true;

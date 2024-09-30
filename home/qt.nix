@@ -1,11 +1,10 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   qt = {
     enable = true;
     platformTheme.name = "gtk";
-    style.name = "adwaita-dark";
+    style = {
+      name = "gtk2";
+      package = pkgs.libsForQt5.breeze-qt5;
+    };
   };
 }

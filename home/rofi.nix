@@ -7,7 +7,7 @@
   programs.rofi = {
     package = pkgs.rofi-wayland;
     enable = true;
-    font = "Inter SemiBold 10";
+    font = "Inter Display 10";
     terminal = "${pkgs.alacritty}/bin/alacritty";
     extraConfig = {
       show-icons = true;
@@ -59,7 +59,7 @@
       };
 
       "element-icon" = {
-        size = 10;
+        size = 25;
         padding = mkLiteral "0 10 0 0";
         background-color = mkLiteral "transparent";
       };

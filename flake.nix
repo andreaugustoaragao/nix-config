@@ -70,24 +70,22 @@
         specialArgs = {
           inherit inputs;
           inherit userDetails;
-          desktopDetails = {dpi = 120;};
         };
         modules = [
-          home-manager.nixosModules.home-manager
+          ./machines/workstation
+          ./system/nixos/default.nix
           {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {inherit desktopDetails;};
-              users.${userDetails.userName} = commonUserHomeManagerConfig {
-                userDetails = userDetails;
-                system = system;
+            machine = {
+              role = "pc";
+              x11 = {
+                enable = true;
+                dpi = 144;
               };
-              users.root = rootUserHomeManagerConfig;
+              wayland.enable = true;
             };
           }
-          ./machines/workstation
-          ./system/nixos
+          home-manager.nixosModules.home-manager
+          ./home
           nix-index-database.nixosModules.nix-index
         ];
       };

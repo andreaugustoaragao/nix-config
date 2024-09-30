@@ -16,7 +16,11 @@
     settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
+        document-font-name = "Inter Display 12";
+        monospace-font-name = "RobotoMono Nerd Font Bold 12";
+        gtk-theme = "${config.gtk.theme.name}";
       };
+
       "org/gtk/settings/file-chooser" = {
         show-type-column = true;
         sidebar-width = 152;
@@ -41,9 +45,11 @@
     enable = true;
 
     font = {
-      name = "Roboto Medium";
-      package = pkgs.roboto;
-      size = 13;
+      #name = "Roboto Medium";
+      #package = pkgs.to;
+      name = "Inter Display";
+      package = pkgs.inter;
+      size = 10;
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -77,6 +83,7 @@
     gtk3.extraConfig = {
       gtk-decoration-layout = "menu:close";
     };
+
     gtk4.extraConfig = {
       gtk-decoration-layout = ":close";
     };

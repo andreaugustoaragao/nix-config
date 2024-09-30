@@ -82,5 +82,14 @@ in {
       seahorse.enable = true;
       dconf.enable = true;
     };
+    xdg.portal = {
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      config = {
+        common = {
+          default = ["gtk"];
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+        };
+      };
+    };
   };
 }

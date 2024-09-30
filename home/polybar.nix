@@ -39,14 +39,15 @@ in {
     script = ''if [ "$XDG_SESSION_TYPE" = "x11" ]; then polybar-check ; fi'';
     config = {
       "bar/top" = {
+        enable-ipc = true;
         dpi = osConfig.machine.x11.dpi;
         bottom = false;
         top = true;
-        width = "100%:-22px";
-        #height = 35;
-        offset-x = "11px";
-        offset-y = "5px";
-        override-redirect = true;
+        #width = "100%:-10px";
+        height = "15pt";
+        #offset-x = "11px";
+        #offset-y = "5px";
+        override-redirect = false;
         font-0 = "RobotoMono Nerd Font Mono:size=10:weight=regular;2";
         font-1 = "RobotoMono Nerd Font Mono:size=13:weight=regular;4";
         font-2 = "Weather Icons:size=9;1";

@@ -20,15 +20,7 @@ in {
 
     config = rec {
       modifier = "Mod1";
-      bars = [
-        {
-          command = "${pkgs.polybar}/bin/polybar -q -r top";
-          hiddenState = "hide";
-          mode = "hide";
-          position = "top";
-        }
-      ];
-      #https://github.com/nix-community/home-manager/blob/master/modules/services/window-managers/i3-sway/lib/options.nix
+      bars = [];
       colors = {
         focused = {
           background = "#191724";
@@ -46,15 +38,11 @@ in {
       gaps = {
         inner = 5;
         outer = 5;
-        top = 30;
-        #left = 5;
-        #right = 5;
-        #bottom = 5;
       };
       #gaps.smartBorders = "off";
       window.hideEdgeBorders = "smart";
       defaultWorkspace = "workspace number 1";
-      floating.criteria = [{class = "pavucontrol";} {class = "1Password";}];
+      floating.criteria = [{class = "pavucontrol";} {class = "1Password";} {class = "Bitwarden";}];
       floating.titlebar = false;
       fonts = {
         names = ["RobotoMono"];
@@ -68,15 +56,19 @@ in {
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
         "${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
-        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
+
+        "${modifier}+Shift+Return" = "exec --no-startup-id ${pkgs.qutebrowser}/bin/qutebrowser";
+        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons -dpi ${toString osConfig.machine.x11.dpi}";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
         "${modifier}+b" = "split h";
         "${modifier}+Shift+4" = "exec flameshot gui";
-        "${modifier}+Shift+b" = "exec brave --new-tab httos://www.google.com";
         "${modifier}+Shift+p" = "exec sh -c ~/.local/bin/powermenu.sh";
+        "${modifier}+backslash" = "exec bitwarden --show";
+
+        "Mod4+b" = "exec polybar-toggle";
       };
       assigns = {
         "1" = [
@@ -155,11 +147,6 @@ in {
       focus.newWindow = "focus";
       startup = [
         {
-          command = "polybar-check";
-          always = true;
-          notification = false;
-        }
-        {
           command = "xset dpms 1800 1800 1800";
           always = false;
           notification = false;
@@ -197,18 +184,8 @@ in {
           notification = false;
         }
         {
-          command = "${pkgs.alacritty}/bin/alacritty --class Alacritty,default-tmux -e 'tmux' new-session -s default -A";
-          always = false;
-          notification = true;
-        }
-        {
           command = "bitwarden --silent";
           always = false;
-          notification = true;
-        }
-        {
-          command = "eww kill && eww daemon";
-          always = true;
           notification = true;
         }
       ];
@@ -220,19 +197,13 @@ in {
   };
 
   home.packages = with pkgs; [
-    (writeShellScriptBin "polybar-check" ''
+    (writeShellScriptBin "polybar-toggle" ''
       #!/usr/bin/env bash
-      killall -9 ."polybar-wrappe"
-      #jif pgrep -x ".polybar-wrappe" > /dev/null; then
-      #    echo "Polybar is running. Reloading configuration..."
-          # Reload Polybar configuration
-      #     pkill -USR1 -x .polybar-wrappe
-      # else
-      #    echo "Polybar is not running. Starting Polybar..."
-          # Start Polybar (adjust "mybar" to your configuration name)
-
+      if pgrep -x ".polybar-wrappe" > /dev/null; then
+          pkill -x ".polybar-wrappe"
+      else
           polybar -q -r top &
-      #fi
+      fi
     '')
   ];
 }
