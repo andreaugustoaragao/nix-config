@@ -81,7 +81,10 @@
                 enable = true;
                 dpi = 144;
               };
-              wayland.enable = true;
+              wayland = {
+                enable = true;
+                scale = 1.0;
+              };
             };
           }
           home-manager.nixosModules.home-manager
@@ -129,21 +132,17 @@
           inherit desktopDetails;
         };
         modules = [
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${userDetails.userName} = commonUserHomeManagerConfig {
-                userDetails = userDetails;
-                system = system;
-              };
-              users.root = rootUserHomeManagerConfig;
-            };
-          }
           ./machines/utm-dev
-          ./system/nixos
+          ./system/nixos/default.nix
+          {
+            machine.role = "pc";
+            machine.x11.enable = true;
+            machine.x11.dpi = 96;
+            machine.wayland.enable = true;
+          }
           nix-index-database.nixosModules.nix-index
+          home-manager.nixosModules.home-manager
+          ./home
         ];
       };
     };

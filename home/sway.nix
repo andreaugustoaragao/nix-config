@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
   wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/rocks.jpg stretch #000000";
@@ -22,13 +23,13 @@ in {
       output = {
         "*" = {
           bg = wallpaper;
+          scale = "${toString osConfig.machine.wayland.scale}";
         };
         "DP-1" = {
           position = "0,0";
           #mode = "3840x2160@144Hz";
           #mode = "2560x1440@120hz";
 
-          #scale = "1.5";
           adaptive_sync = "yes";
           subpixel = "rgb";
           modeline = "1339.630 3840 3888 3920 4200 2160 2163 2168 2215 +hsync -vsync";

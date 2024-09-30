@@ -6,6 +6,12 @@
 }:
 with lib; {
   options.machine.wayland.enable = lib.mkEnableOption "enables sway and desktop packages for this machine";
+
+  options.machine.wayland.scale = lib.mkOption {
+    type = lib.types.float;
+    default = 1.0;
+    description = "default scale to be used for wayland outputs";
+  };
   config = lib.mkIf config.machine.wayland.enable {
     programs.sway = {
       enable = true;
