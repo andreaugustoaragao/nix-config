@@ -3,15 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  rose-pine-wallpapers = pkgs.callPackage ../../home/wallpapers.nix {} + "/field.jpg";
-in {
+}: {
   options.machine.x11.enable = lib.mkEnableOption "enables x11, i3 and desktop packages for this machine";
   options.machine.x11.dpi = lib.mkOption {
     type = lib.types.int;
     default = 96;
     description = "default dpi to be used for X11";
+  };
+
+  options.machine.x11.rose-pine-wallpaper = lib.mkOption {
+    type = lib.types.str;
+    default = "flower.jpg";
+    description = "wallpaper to be used, based on the rose-pine list https://github.com/rose-pine/wallpapers";
   };
 
   config = lib.mkIf config.machine.x11.enable {
@@ -50,6 +53,14 @@ in {
             xss-lock
             libreoffice
             xorg.xdpyinfo
+            libsForQt5.qt5ct
+            libsForQt5.qtstyleplugin-kvantum
+            kdePackages.qt6ct
+            graphite-kde-theme
+            catppuccin-kvantum
+            dolphin
+            feh
+            mlterm
           ];
         };
         xkb.layout = "us";

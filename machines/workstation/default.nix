@@ -135,7 +135,7 @@ in {
     wireplumber.enable = true;
   };
   services.upower.enable = true;
-  services.blueman.enable = true;
+  #services.blueman.enable = true;
   services.printing.enable = true;
   services.printing.drivers = [pkgs.hplip];
   services.printing.startWhenNeeded = true; # optional
@@ -144,14 +144,14 @@ in {
   hardware.sane.disabledDefaultBackends = ["escl"];
   systemd.services.lactd = {
     description = "AMDGPU Control Daemon";
-    enable = true;
+    enable = false;
     serviceConfig = {
       ExecStart = "${pkgs.lact}/bin/lact daemon";
     };
     wantedBy = ["multi-user.target"];
   };
   services.kmscon = {
-    enable = true;
+    enable = false;
     fonts = [
       {
         name = "DroidSansM Nerd Font Mono";

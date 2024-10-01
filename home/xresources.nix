@@ -29,8 +29,8 @@
       "*.color7" = "#e0def4";
       "*.color15" = "#e0def4";
 
-      "XTerm*font" = "xft:JetbrainsMono Nerd Font:size=12";
-      "XTerm*saveLines" = "1000";
+      "XTerm*font" = "xft:JetbrainsMono Nerd Font:size=10";
+      "XTerm*saveLines" = "100000";
       "XTerm*scrollBar" = "false";
       "Xft.dpi" = osConfig.machine.x11.dpi;
       "*.dpi" = osConfig.machine.x11.dpi;

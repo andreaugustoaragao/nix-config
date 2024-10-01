@@ -1,7 +1,4 @@
 {lib, ...}: {
-  #networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  #systemd.network.wait-online.enable = false;
-  #systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
     hostName = "workstation";
     domain = "faragao.net";
@@ -14,7 +11,7 @@
 
   systemd.network = {
     enable = true;
-    wait-online.enable = false;
+    wait-online.enable = true;
     #wait-online.anyInterface = true;
     networks = {
       "10-enp9s0f0" = {
@@ -35,9 +32,9 @@
 
   services.resolved = {
     enable = true;
-    dnssec = "allow-downgrade";
+    #dnssec = "allow-downgrade";
     llmnr = "false";
-    fallbackDns = [];
+    fallbackDns = ["192.168.40.3"];
   };
 
   services.dnsmasq.enable = false;

@@ -9,17 +9,21 @@ with pkgs; let
       setuptools
       wheel
       twine
+      adblock
     ]);
 in {
   home.packages = with pkgs; [
+    # desktop
+    rbw
+    rofi-rbw
+    pinentry-gnome3
+
     # TERMINAL
-    any-nix-shell
     neofetch
     fastfetch
     escrotum # screen recording
     gnupg
     feh
-    cdrkit # to create iso files
     bluetuith
     # DEVELOPMENT
     #jetbrains.idea-ultimate

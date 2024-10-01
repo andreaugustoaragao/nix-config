@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  lib,
+  osConfig,
   ...
 }: {
   programs.rofi = {
@@ -15,6 +15,7 @@
       icon-theme = "rose-pine";
       drun-display-format = "{name}";
       columns = 2;
+      dpi = osConfig.machine.x11.dpi;
     };
 
     theme = let

@@ -3,14 +3,11 @@
     enableWideVine = true;
     enableVaapi = true;
   };
+  qutebrowserWideVine = pkgs.qutebrowser.overrideAttrs {
+    enableWideVine = true;
+    enableVulkan = true;
+  };
 in {
-  nixpkgs.config.overlays = [
-    (self: super: {
-      brave = super.brave.override {
-        commandLineArgs = "--password-store=basic";
-      };
-    })
-  ];
   programs.chromium = {
     enable = true;
     package = chromiumWideVine; #pkgs.chromium;
@@ -38,9 +35,12 @@ in {
     ];
   };
 
-  nixpkgs.config.enableWideWine = true;
+  nixpkgs.config.enableWideVine = true;
   home.file.".config/qutebrowser/config.py" = {
     source = ./qutebrowser/config.py;
     executable = false;
   };
+  home.packages = [
+    qutebrowserWideVine
+  ];
 }

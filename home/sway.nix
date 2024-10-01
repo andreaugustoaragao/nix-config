@@ -5,7 +5,7 @@
   osConfig,
   ...
 }: let
-  wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/rocks.jpg stretch #000000";
+  wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/" + osConfig.machine.wayland.rose-pine-wallpaper + " fill #000000";
 in {
   home.packages = with pkgs; [
     wl-color-picker
@@ -27,9 +27,6 @@ in {
         };
         "DP-1" = {
           position = "0,0";
-          #mode = "3840x2160@144Hz";
-          #mode = "2560x1440@120hz";
-
           adaptive_sync = "yes";
           subpixel = "rgb";
           modeline = "1339.630 3840 3888 3920 4200 2160 2163 2168 2215 +hsync -vsync";
@@ -60,7 +57,7 @@ in {
       window.titlebar = false;
       gaps = {
         inner = 5;
-        outer = 5;
+        outer = 0;
       };
       #window.hideEdgeBorders = "smart";
       focus.newWindow = "focus";
@@ -151,18 +148,18 @@ in {
       };
     };
     extraConfig = ''
-      blur enable
-      for_window [shell="xwayland"] title_format "[XWayland] %title"
-      corner_radius 10
-      shadows enable
-      default_dim_inactive 0.1
-      bar {
-        swaybar_command waybar
-        position top
-        hidden_state hide
-        mode hide
-        modifier Mod4
-      }
+      #      blur enable
+      #      for_window [shell="xwayland"] title_format "[XWayland] %title"
+      #      corner_radius 10
+      #      shadows enable
+      #      default_dim_inactive 0.1
+      #      bar {
+      #        swaybar_command waybar
+      #        position top
+      #        hidden_state hide
+      #        mode hide
+      #        modifier Mod4
+      #      }
     '';
     wrapperFeatures = {
       base = true;

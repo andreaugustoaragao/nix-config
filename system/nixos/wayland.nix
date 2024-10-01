@@ -12,13 +12,19 @@ with lib; {
     default = 1.0;
     description = "default scale to be used for wayland outputs";
   };
+
+  options.machine.wayland.rose-pine-wallpaper = lib.mkOption {
+    type = lib.types.str;
+    default = "flower.jpg";
+    description = "wallpaper to be used, based on the rose-pine list https://github.com/rose-pine/wallpapers";
+  };
+
   config = lib.mkIf config.machine.wayland.enable {
     programs.sway = {
       enable = true;
-      package = pkgs.swayfx;
+      package = pkgs.sway;
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland
-        # needs qt5.qtwayland in systemPackages
         export QT_QPA_PLATFORM=wayland
         export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
         export _JAVA_AWT_WM_NONREPARENTING=1
@@ -32,6 +38,7 @@ with lib; {
         export _JAVA_AWT_WM_NONREPARENTING=1
         #export SWAYSOCK=(ls /run/user/1000/sway-ipc.* | head -n 1)
         export NIXOS_OZONE_WL=1
+        export QT_SCALE_FACTOR_ROUDING_POLICY=RoundPreferFloor
       '';
       xwayland.enable = true;
       wrapperFeatures.gtk = true;
@@ -45,6 +52,7 @@ with lib; {
         wdisplays
         qutebrowser
         qt5.qtwayland
+        qt6.qtwayland
         glxinfo
         pavucontrol
         qutebrowser

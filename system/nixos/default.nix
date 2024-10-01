@@ -24,7 +24,8 @@
     # SECURITY
     security.polkit.enable = true;
     security.rtkit.enable = true;
-    security.sudo.wheelNeedsPassword = false;
+
+    security.sudo.wheelNeedsPassword = !(config.machine.role == "pc");
 
     # USER SETUP
     users.users = {
@@ -33,18 +34,18 @@
         description = "${userDetails.fullName}";
         isNormalUser = true;
         extraGroups = ["wheel" "docker" "networkmanager" "lp" "scanner" "libvirtd" "video" "input"];
-        password = "password";
+        hashedPassword = "$y$j9T$pWp.hZOPIktjMjkfox4jL1$HInH8LOOG9GsEV5bmbCLuhgB37Dzr1vfXUA1ka7EF59";
       };
     };
 
-    users.mutableUsers = true;
+    users.mutableUsers = false;
 
-    services.geoclue2.enable = true;
-    location.provider = "geoclue2";
-    services.localtimed.enable = true;
+    documentation.man.mandoc.enable = true;
+    documentation.man.generateCaches = false;
+    documentation.man.man-db.enable = false;
 
     #KERNEL
-    boot.kernelPackages = pkgs.linuxPackages_zen;
+    #boot.kernelPackages = pkgs.linuxPackages_zen;
 
     boot.kernel.sysctl = {
       "vm.overcommit_memory" = 1;
@@ -108,9 +109,9 @@
         antialias = true;
         enable = true;
         defaultFonts = {
-          monospace = ["Roboto Mono 10"];
-          sansSerif = ["Roboto 10"];
-          serif = ["Roboto Slab 10"];
+          monospace = ["Roboto Mono"];
+          sansSerif = ["Roboto"];
+          serif = ["Roboto Slab"];
           emoji = ["Noto Color Emoji"];
         };
       };

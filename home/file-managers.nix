@@ -26,6 +26,10 @@ in {
       esac
     '';
   };
+  home.packages = with pkgs; [
+    poppler_utils #pdftotext
+  ];
+
   xdg.configFile."lf/icons" = {source = lfIcons;};
   xdg.configFile."lf/colors" = {source = lfColors;};
   xdg.configFile."Thunar/uca.xml" = {source = ./uca.xml;};

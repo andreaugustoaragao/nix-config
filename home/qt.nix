@@ -1,10 +1,18 @@
 {pkgs, ...}: {
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "qt5ct";
     style = {
-      name = "gtk2";
-      package = pkgs.libsForQt5.breeze-qt5;
+      name = "kvantum";
     };
+  };
+
+  xdg.configFile = {
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=Catppuccin-Frape-Blue
+    '';
+
+    "Kvantum/Catppuccin-Frape-Blue".source = "${pkgs.catppuccin-kvantum}/share/Kvantum/Catppuccin-Frape-Blue";
   };
 }
