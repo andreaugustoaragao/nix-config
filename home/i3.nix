@@ -50,7 +50,7 @@ in {
         {class = "Bitwarden";}
         {class = "qutebrowser_edit";}
         {class = "Pinta";}
-        {class = "xdaliclock";}
+        {class = "Xdaliclock";}
       ];
       floating.titlebar = false;
       fonts = {

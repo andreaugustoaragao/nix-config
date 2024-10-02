@@ -1,6 +1,6 @@
 {
   services.logind.extraConfig = ''
-    IdleAction=hybrid-sleep
+    IdleAction=sleep
     IdleActionSec=30min
   '';
 }

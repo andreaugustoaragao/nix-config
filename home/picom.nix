@@ -4,7 +4,7 @@
   ...
 }: {
   services.picom = {
-    enable = false;
+    enable = true;
     package = pkgs.picom-pijulius;
     settings = {
       backend =
