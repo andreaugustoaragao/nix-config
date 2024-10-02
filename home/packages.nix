@@ -19,6 +19,7 @@ in {
     pinentry-gnome3
     xdaliclock
     wtype
+    alsa-utils
 
     # TERMINAL
     neofetch
