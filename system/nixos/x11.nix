@@ -67,8 +67,8 @@
       };
       gnome.gnome-keyring.enable = true;
       dbus.enable = true;
-      gvfs.enable = true;
-      tumbler.enable = true;
+      gvfs.enable = false;
+      tumbler.enable = false;
     };
 
     services.libinput = {

@@ -116,6 +116,7 @@
         };
       };
     };
+
     system.stateVersion = "24.05"; # Do not change this number
   };
 }

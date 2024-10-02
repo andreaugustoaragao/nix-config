@@ -74,8 +74,8 @@ with lib; {
       dbus = {
         enable = true;
       };
-      gvfs.enable = true;
-      tumbler.enable = true;
+      gvfs.enable = false;
+      tumbler.enable = false;
     };
 
     security.pam.services.greetd.enableGnomeKeyring = true;

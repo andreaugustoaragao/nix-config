@@ -71,9 +71,9 @@ in {
         {
           command = "exec ${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -c 000000' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -c 000000'";
         }
-        {
-          command = "exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh";
-        }
+        #{
+        #  command = "exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh";
+        #}
         {
           command = "exec foot --server";
         }

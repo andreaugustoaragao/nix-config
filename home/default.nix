@@ -59,6 +59,6 @@
       configDir = ./eww;
     };
 
-    services.playerctld.enable = true;
+    services.playerctld.enable = false;
   };
 }

@@ -4,8 +4,8 @@
   ...
 }: {
   services.picom = {
-    enable = true;
-    package = pkgs.picom;
+    enable = false;
+    package = pkgs.picom-pijulius;
     settings = {
       backend =
         if builtins.getEnv "HOSTNAME" == "workstation"

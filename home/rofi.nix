@@ -35,8 +35,8 @@
       };
 
       "window" = {
-        width = mkLiteral "25%";
-        height = mkLiteral "20%";
+        width = mkLiteral "57%";
+        height = mkLiteral "35%";
         background-color = mkLiteral "@bg";
         border = mkLiteral "2px solid "; # Adjust the size and color as needed
         border-radius = mkLiteral "5px"; # Optional: if you want rounded corners

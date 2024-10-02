@@ -1,5 +1,5 @@
 config.load_autoconfig()
-config.set("fonts.default_size", "12pt")
+config.set("fonts.default_size", "10pt")
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("tabs.show", "switching")
 config.set("statusbar.show", "in-mode")
@@ -15,7 +15,7 @@ c.qt.args = [
     "enable-accelerated-video-encode",
 ]
 c.content.pdfjs = True
-c.zoom.default = "125%"
+c.zoom.default = "110%"
 config.bind("<Ctrl-=>", "zoom-in")
 config.bind("<Ctrl-->", "zoom-out")
 c.downloads.location.directory = "~/downloads/"

@@ -15,13 +15,14 @@
   ];
 
   boot = {
-    plymouth.enable = true;
+    plymouth.enable = false;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    initrd.enable = true;
     initrd.verbose = false;
     consoleLogLevel = 0;
     kernelParams = [
-      "console=tty2" # make the boot really silent
+      "console=tty4" # make the boot really silent
       "quiet"
       "splash"
       "loglevel=3"
@@ -40,4 +41,5 @@
   };
 
   services.upower.enable = true;
+  services.fwupd.enable = true;
 }
