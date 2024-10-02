@@ -74,6 +74,8 @@
       ./certs/zscalerrootcertificate-2048-sha256.pem
     ];
 
+    services.fwupd.enable = true;
+
     fonts = lib.mkIf (config.machine.role == "pc") {
       packages = with pkgs; [
         (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack" "RobotoMono" "Terminus"];})
@@ -98,6 +100,7 @@
       ];
 
       enableDefaultPackages = true;
+
       fontconfig = {
         hinting = {
           enable = true;

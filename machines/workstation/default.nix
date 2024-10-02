@@ -13,8 +13,8 @@ in {
   ];
 
   # Hostname
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  # hardware.bluetooth.enable = true;
+  #hardware.bluetooth.powerOnBoot = true;
   hardware.graphics.enable = true;
 
   hardware.graphics.extraPackages = [
@@ -134,11 +134,11 @@ in {
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  services.upower.enable = true;
+  #services.upower.enable = true;
   #services.blueman.enable = true;
-  services.printing.enable = true;
-  services.printing.drivers = [pkgs.hplip];
-  services.printing.startWhenNeeded = true; # optional
+  #services.printing.enable = true;
+  #services.printing.drivers = [pkgs.hplip];
+  #services.printing.startWhenNeeded = true; # optional
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [pkgs.sane-airscan];
   hardware.sane.disabledDefaultBackends = ["escl"];

@@ -85,7 +85,7 @@
               };
               wayland = {
                 enable = true;
-                scale = 1.5;
+                scale = 1.0;
               };
             };
           }

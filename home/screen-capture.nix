@@ -30,5 +30,19 @@
 
       notify-send -a "screenshot"  -i $output "new" "$filename - click to edit" --action="open_pinta,Open with Pinta" && bash -c 'pinta "'"$output"'"'
     '')
+
+    (writeShellScriptBin "screenshot-sway" ''
+      #!/usr/bin/env bash
+      filename=$(date +%Y%m%d-%I%M%S-%N).png
+      output=${config.home.homeDirectory}/screenshots/$filename
+      set -x
+      set -e
+      case "$1" in
+        "full") ${pkgs.sway-contrib.grimshot}/bin/grimshot save screen "$output" || exit;;
+        "select") ${pkgs.sway-contrib.grimshot}/bin/grimshot save area "$output" || exit;;
+      esac
+
+      notify-send -a "screenshot"  -i $output "new" "$filename - click to edit" --action="open_pinta,Open with Pinta" && bash -c 'pinta "'"$output"'"'
+    '')
   ];
 }

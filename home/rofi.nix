@@ -15,7 +15,7 @@
       icon-theme = "rose-pine";
       drun-display-format = "{name}";
       columns = 2;
-      dpi = osConfig.machine.x11.dpi;
+      #dpi = osConfig.machine.x11.dpi;
     };
 
     theme = let
@@ -35,8 +35,8 @@
       };
 
       "window" = {
-        width = mkLiteral "57%";
-        height = mkLiteral "35%";
+        width = mkLiteral "20%";
+        height = mkLiteral "50%";
         background-color = mkLiteral "@bg";
         border = mkLiteral "2px solid "; # Adjust the size and color as needed
         border-radius = mkLiteral "5px"; # Optional: if you want rounded corners

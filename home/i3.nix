@@ -39,10 +39,19 @@ in {
         inner = 5;
         outer = 0;
       };
+
+      focus.followMouse = false;
       #gaps.smartBorders = "off";
       #window.hideEdgeBorders = "smart";
       defaultWorkspace = "workspace number 1";
-      floating.criteria = [{class = "pavucontrol";} {class = "1Password";} {class = "Bitwarden";} {class = "qutebrowser_edit";} {class = "Pinta";}];
+      floating.criteria = [
+        {class = "pavucontrol";}
+        {class = "1Password";}
+        {class = "Bitwarden";}
+        {class = "qutebrowser_edit";}
+        {class = "Pinta";}
+        {class = "xdaliclock";}
+      ];
       floating.titlebar = false;
       fonts = {
         names = ["RobotoMono"];
@@ -65,6 +74,7 @@ in {
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
         "${modifier}+b" = "split h";
+        "Mod4+c" = "exec --no-startup-id xdaliclock";
         "${modifier}+Shift+s" = "exec --no-startup-id screenshot-x11 select";
         "${modifier}+Shift+Print" = "exec --no-startup-id screenshot-x11 select";
         "Print" = "exec --no-startup-id screenshot-x11 full";

@@ -17,6 +17,8 @@ in {
     rbw
     rofi-rbw
     pinentry-gnome3
+    xdaliclock
+    wtype
 
     # TERMINAL
     neofetch
