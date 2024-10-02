@@ -11,9 +11,9 @@
     description = "default dpi to be used for X11";
   };
 
-  options.machine.x11.rose-pine-wallpaper = lib.mkOption {
+  options.machine.x11.wallpaper = lib.mkOption {
     type = lib.types.str;
-    default = "flower.jpg";
+    default = "landscapes/Clearday.jpg";
     description = "wallpaper to be used, based on the rose-pine list https://github.com/rose-pine/wallpapers";
   };
 
@@ -23,7 +23,12 @@
       #displayManager.autoLogin.user = "${userDetails.userName}";
       displayManager.defaultSession = "none+i3";
       xserver = {
-        displayManager.startx.enable = true;
+        displayManager = {
+          startx.enable = true;
+          sessionCommands = ''
+            ${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources
+          '';
+        };
         dpi = config.machine.x11.dpi;
         enable = true;
         windowManager.i3 = {
@@ -61,6 +66,7 @@
             dolphin
             feh
             mlterm
+            picom-pijulius
           ];
         };
         xkb.layout = "us";

@@ -32,7 +32,12 @@
       "XTerm*font" = "xft:JetbrainsMono Nerd Font:size=10";
       "XTerm*saveLines" = "100000";
       "XTerm*scrollBar" = "false";
+      "XTerm*termName" = "xterm-256color";
+      "XTerm*backarrowKey" = "false";
+      "XTerm*selectToClipboard" = "true";
+      "Xterm.ttyModes" = "erase ^?";
       "Xft.dpi" = osConfig.machine.x11.dpi;
+      "Cairo.dpi" = osConfig.machine.x11.dpi;
       "*.dpi" = osConfig.machine.x11.dpi;
     };
   };

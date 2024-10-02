@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: let
-  rose-pine-wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/" + osConfig.machine.x11.rose-pine-wallpaper;
+  rose-pine-wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/" + osConfig.machine.x11.wallpaper;
 in {
   imports = [
     ./rofi.nix
@@ -179,7 +179,7 @@ in {
         }
 
         {
-          command = "exec i3-msg workspace 1";
+          command = "i3-msg workspace 1";
           always = false;
           notification = false;
         }
@@ -189,15 +189,10 @@ in {
         #          notification = true;
         #        }
         {
-          command = "${pkgs.feh}/bin/feh --randomize --bg-fill ${rose-pine-wallpaper}";
+          command = "${pkgs.feh}/bin/feh --nofehbg --bg-max ${rose-pine-wallpaper}";
           always = true;
           notification = false;
         }
-        #        {
-        #          command = "bitwarden --silent";
-        #          always = false;
-        #          notification = true;
-        #        }
       ];
     };
     extraConfig = ''

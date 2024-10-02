@@ -20,6 +20,7 @@ in {
     xdaliclock
     wtype
     alsa-utils
+    gnome-clocks
 
     # TERMINAL
     neofetch

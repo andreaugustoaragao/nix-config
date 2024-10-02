@@ -116,8 +116,28 @@
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       fish_vi_key_bindings
       function fish_greeting
-         fastfetch
+          fastfetch_with_logo
          fortune|lolcat
+      end
+
+      function is_alacritty
+          # Check if TERM_PROGRAM is set to "Alacritty"
+          if test "$TERM_PROGRAM" = "Alacritty"
+              return 0
+          # Alternatively, check if ALACRITTY_LOG is set
+          else if set -q ALACRITTY_LOG
+              return 0
+          else
+              return 1
+          end
+      end
+
+      function fastfetch_with_logo
+         if is_alacritty || set -q SSH_CONNECTION
+              fastfetch --logo-height 10 -s os:kernel:wm:terminal:cpu:gpu:memory:disk:localip:dns:battery:uptime
+          else
+              fastfetch --sixel ${./nixos-frosty.png} --logo-height 13 --logo-preserve-aspect-ratio -s os:kernel:wm:terminal:cpu:gpu:memory:disk:localip:dns:battery:uptime
+          end
       end
 
       function cd --description 'Change directory smartly with tmux sessions'
@@ -137,6 +157,7 @@
            end
        end
     '';
+
     shellAliases = {
       ls = "eza --icons";
       ll = "eza --icons --group-directories-first -al";

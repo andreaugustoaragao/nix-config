@@ -1,34 +1,50 @@
 {
-  pkgs,
-  config,
+  osConfig,
+  lib,
   ...
 }: {
-  services.picom = {
-    enable = true;
-    package = pkgs.picom-pijulius;
-    settings = {
-      backend =
-        if builtins.getEnv "HOSTNAME" == "workstation"
-        then "glx"
-        else "glx";
-      vsync = true;
-      fading = true;
-      fade-delta = 5;
-      shadow = false;
-      animations = true;
-      # `auto`, `none`, `fly-in`, `zoom`, `slide-down`, `slide-up`, `slide-left`, `slide-right` `slide-in`, `slide-out`
-      animation-for-transient-window = "fly-in";
-      animation-for-open-window = "zoom";
-      animation-for-unmap-window = "zoom";
-      animation-for-workspace-switch-in = "fly-in";
-      # animation-stiffness = 350
-      animation-dampening = 20;
-      # animation-window-mass = 0.5
-      # animation-delta = 8
-      animation-clamping = true;
-    };
+  xdg.configFile."picom/picom.conf" = lib.mkIf osConfig.machine.x11.enable {
+    text = builtins.readFile ./picom.conf;
+  };
 
-    /*
+  xsession.windowManager.i3.config.startup = lib.mkIf osConfig.machine.x11.enable [
+    {
+      command = "picom";
+      always = false;
+      notification = false;
+    }
+  ];
+
+  #  services.picom = {
+  #    enable = false;
+  #    package = pkgs.picom-pijulius;
+  #    settings = {
+  #      backend =
+  #        if builtins.getEnv "HOSTNAME" == "workstation"
+  #        then "glx"
+  #        else "glx";
+  #      vsync = true;
+  #      fading = true;
+  #      fade-delta = 5;
+  #      shadow = false;
+  #      #animations = true;
+  #      animations = {
+  #        triggers = ["workspace-out"];
+  #      };
+  #      # `auto`, `none`, `fly-in`, `zoom`, `slide-down`, `slide-up`, `slide-left`, `slide-right` `slide-in`, `slide-out`
+  #      animation-for-transient-window = "fly-in";
+  #      animation-for-open-window = "zoom";
+  #      animation-for-unmap-window = "zoom";
+  #      #      animation-for-workspace-switch-in = "fly-in";
+  #      # animation-stiffness = 350
+  #      animation-dampening = 20;
+  #      # animation-window-mass = 0.5
+  #      # animation-delta = 8
+  #      animation-clamping = true;
+  #      corner-radius = 10;
+  #    };
+  #
+  /*
       settings = {
         corner-radius = 25;
         #corner-radius-exclude = [ "window_class = 'Polybar'" ];
@@ -98,6 +114,7 @@
         dnd = {shadow = false;};
       };
     };
-    */
   };
+
+  */
 }

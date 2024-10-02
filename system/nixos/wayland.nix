@@ -18,9 +18,9 @@ in
       description = "default scale to be used for wayland outputs";
     };
 
-    options.machine.wayland.rose-pine-wallpaper = lib.mkOption {
+    options.machine.wayland.wallpaper = lib.mkOption {
       type = lib.types.str;
-      default = "flower.jpg";
+      default = "os/nix-magenta-blue-1920x1080.png";
       description = "wallpaper to be used, based on the rose-pine list https://github.com/rose-pine/wallpapers";
     };
 

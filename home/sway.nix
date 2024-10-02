@@ -5,7 +5,7 @@
   osConfig,
   ...
 }: let
-  wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/" + osConfig.machine.wayland.rose-pine-wallpaper + " fill #000000";
+  wallpaper = pkgs.callPackage ./wallpapers.nix {} + "/" + osConfig.machine.wayland.wallpaper + " fill #000000";
 in {
   wayland.windowManager.sway = {
     checkConfig = false;
@@ -23,9 +23,9 @@ in {
           position = "0,0";
           adaptive_sync = "yes";
           subpixel = "rgb";
-          #modeline = "1339.630 3840 3888 3920 4200 2160 2163 2168 2215 +hsync -vsync";
+          modeline = "1339.630 3840 3888 3920 4200 2160 2163 2168 2215 +hsync -vsync";
           #modeline = "870.20 2560 2800 3096 3728 1440 1441 1444 1621 -hsync +vsync";
-          mode = "2560x1440@120Hz";
+          #mode = "2560x1440@120Hz";
           render_bit_depth = "8";
           max_render_time = "7";
         };
@@ -67,13 +67,12 @@ in {
 
       startup = [
         {
-          command = "exec ${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -c 000000' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -c 000000'";
+          command = "${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -c 000000' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -c 000000'";
+          always = false;
         }
-        #{
-        #  command = "exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh";
-        #}
         {
-          command = "exec foot --server";
+          command = "foot --server";
+          always = false;
         }
       ];
 
