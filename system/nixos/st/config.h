@@ -5,9 +5,28 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
- static char *font = "FiraCode Nerd Font Mono:style=Regular:pixelsize=18:antialias=true:autohint=true";
+ static char *font = "FiraCode Nerd Font:style=Regular:pixelsize=10:antialias=true:autohint=true";
 
  static int borderpx = 2;
+
+/*
++ * Override/adjust fontsize of chosen monitors:
++ */
+MonitorConfig monitors_config[] = {
+	// skip = fixed relative points size (monitor dpi)
+	//   =0 : fixed absolute pixel size (default screen dpi)
+	//   >0 : auto absolute pixel size (monitor dpi)
+	//   <0 : auto relative points size (monitor dpi)
+	// {"DP-1", 0}, // BUG:(size=0): not restored to default after back'n'forth
+	{"DisplayPort-0",-10},
+	{"HDMI-0~1", -20},  // BUG:(ignored DPI=220): = 20 is eqv to 10pt (DPI=110)
+	{"HDMI-0~2", -14},
+};
+float winmovethreshold = 0.6;
+
+ /*
+  * What program is execed by st depends of these precedence rules:
+  * 1: program passed with -e
 
  /*
   * What program is execed by st depends of these precedence rules:
