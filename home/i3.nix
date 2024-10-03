@@ -64,9 +64,9 @@ in {
         "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
-        #"${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
+        "${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
 
-        "${modifier}+Return" = " exec ${pkgs.mlterm}/bin/mlterm -e fish";
+        #"${modifier}+Return" = " exec ${pkgs.mlterm}/bin/mlterm -e fish";
         "${modifier}+Shift+Return" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons -dpi ${toString osConfig.machine.x11.dpi}";
         "${modifier}+h" = "focus left";

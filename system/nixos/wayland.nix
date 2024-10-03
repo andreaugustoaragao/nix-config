@@ -45,7 +45,7 @@ in
            export NIXOS_OZONE_WL=1
           # export QT_SCALE_FACTOR_ROUDING_POLICY=RoundPreferFloor
         '';
-        xwayland.enable = true;
+        xwayland.enable = false;
         wrapperFeatures.gtk = true;
         extraPackages = with pkgs; [
           swaylock

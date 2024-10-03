@@ -42,8 +42,4 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
-
-  home.sessionPath = [
-    "$HOME/.local/share/go/bin"
-  ];
 }

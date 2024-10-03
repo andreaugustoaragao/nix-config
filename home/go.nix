@@ -53,5 +53,9 @@ with lib; {
     home.sessionVariables = {
       GOPATH = "${config.xdg.dataHome}/go";
     };
+
+    home.sessionPath = [
+      "$HOME/.local/share/go/bin"
+    ];
   };
 }

@@ -108,5 +108,40 @@
         };
       };
     };
+
+    #TERMINAL
+    environment.systemPackages = with pkgs; [
+      (st.overrideAttrs (oldAttrs: rec {
+        # ligatures dependency
+        buildInputs = oldAttrs.buildInputs ++ [harfbuzz imlib2];
+        patches = [
+          # boxdraw
+          (fetchpatch {
+            url = "https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.5.diff";
+            sha256 = "WN/R6dPuw1eviHOvVVBw2VBSMDtfi1LCkXyX36EJKi4=";
+          })
+
+          # ligatures patch
+          (fetchpatch {
+            url = "https://st.suckless.org/patches/ligatures/0.8.3/st-ligatures-20200430-0.8.3.diff";
+            sha256 = "vKiYU0Va/iSLhhT9IoUHGd62xRD/XtDDjK+08rSm1KE=";
+          })
+
+          # alpha
+          (fetchpatch {
+            url = "https://st.suckless.org/patches/alpha/st-alpha-osc11-20220222-0.8.5.diff";
+            sha256 = "Y8GDatq/1W86GKPJWzggQB7O85hXS0SJRva2atQ3upw=";
+          })
+
+          # bold is not bright
+          (fetchpatch {
+            url = "https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff";
+            sha256 = "IhrTgZ8K3tcf5HqSlHm3GTacVJLOhO7QPho6SCGXTHw=";
+          })
+        ];
+        configFile = writeText "config.def.h" (builtins.readFile ./st/config.h);
+        postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
+      }))
+    ];
   };
 }
