@@ -78,7 +78,7 @@ in {
 
       floating.criteria = [
         {app_id = "org.pulseaudio.pavucontrol";}
-        {class = "1Password";}
+        {app_id = "1Password";}
         {app_id = "Bitwarden";}
         {app_id = "xdaliclock";}
         {app_id = "pinta";}
@@ -94,10 +94,6 @@ in {
           {
             app_id = "brave-teams.microsoft.com";
           }
-          {
-            instance = "teams-for-linux";
-            class = "teams-for-linux";
-          }
         ];
         "4" = [
           {
@@ -107,7 +103,6 @@ in {
             app_id = "brave-mail.google.com";
           }
         ];
-        "5" = [{class = "jetbrains-goland";} {class = "jetbrains-idea";}];
         "7" = [
           {
             app_id = "brave-music.youtube.com";
