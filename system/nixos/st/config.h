@@ -5,7 +5,7 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
- static char *font = "FiraCode Nerd Font:style=Regular:pixelsize=10:antialias=true:autohint=true";
+ static char *font = "FiraCode Nerd Font:style=Retina:pixelsize=10:antialias=true:autohint=true";
 
  static int borderpx = 2;
 
@@ -18,7 +18,7 @@ MonitorConfig monitors_config[] = {
 	//   >0 : auto absolute pixel size (monitor dpi)
 	//   <0 : auto relative points size (monitor dpi)
 	// {"DP-1", 0}, // BUG:(size=0): not restored to default after back'n'forth
-	{"DisplayPort-0",-10},
+	{"DisplayPort-0",-11},
 	{"HDMI-0~1", -20},  // BUG:(ignored DPI=220): = 20 is eqv to 10pt (DPI=110)
 	{"HDMI-0~2", -14},
 };
@@ -126,8 +126,9 @@ const int boxdraw_braille = 0;
  unsigned int tabspaces = 2;
 
  /* bg opacity */
- float alpha = 0.9;
+ float alpha = 0.80;
 
+ /*
 static const char *colorname[] = {
     "#26233a",
     "#eb6f92",
@@ -146,10 +147,36 @@ static const char *colorname[] = {
     "#ebbcba",
     "#e0def4",
     [255] = 0,
-    /* more colors can be added after 255 to use with DefaultXX */
     [256] = "#191724",
 };
+*/
 
+static const char *colorname[] = {
+    /* Normal colors */
+    "#1d1f21", /* black */
+    "#cc6666", /* red */
+    "#b5bd68", /* green */
+    "#fcc177", /* yellow */
+    "#81a2be", /* blue */
+    "#b294bb", /* magenta */
+    "#0dcdcd", /* cyan */
+    "#c5c8c6", /* white */
+
+    /* Bright colors */
+    "#969896", /* bright black */
+    "#cc6666", /* bright red */
+    "#b5bd68", /* bright green */
+    "#f0c674", /* bright yellow */
+    "#81a2be", /* bright blue */
+    "#b294bb", /* bright magenta */
+    "#0dcdcd", /* bright cyan */
+    "#ffffff", /* bright white */
+
+    [255] = 0,
+    /* more colors can be added after 255 to use with DefaultXX */
+    [256] = "#000000", /* background */
+    [257] = "#dddddd", /* foreground (text color) */
+};
 
 /*
  * Default colors (colorname index)

@@ -116,7 +116,9 @@
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       fish_vi_key_bindings
       function fish_greeting
-          fastfetch_with_logo
+          #fastfetch_with_logo
+
+         fastfetch --logo-height 10 -s os:kernel:wm:terminal:cpu:gpu:memory:disk:localip:dns:battery:uptime
          fortune|lolcat
       end
 
@@ -133,7 +135,7 @@
       end
 
       function fastfetch_with_logo
-         if is_alacritty || set -q SSH_CONNECTION
+         if is_alacritty || set -q SSH_CONNECTION || is_st
               fastfetch --logo-height 10 -s os:kernel:wm:terminal:cpu:gpu:memory:disk:localip:dns:battery:uptime
           else
               fastfetch --sixel ${./nixos-frosty.png} --logo-height 13 --logo-preserve-aspect-ratio -s os:kernel:wm:terminal:cpu:gpu:memory:disk:localip:dns:battery:uptime

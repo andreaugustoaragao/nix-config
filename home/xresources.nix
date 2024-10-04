@@ -36,6 +36,8 @@
       "XTerm*backarrowKey" = "false";
       "XTerm*selectToClipboard" = "true";
       "Xterm.ttyModes" = "erase ^?";
+      "Xterm*cursorTheme" = "Bibata-Modern-Classic";
+      "XTerm*pointerShape" = "left_ptr";
       "Xft.dpi" = osConfig.machine.x11.dpi;
       "Cairo.dpi" = osConfig.machine.x11.dpi;
       "*.dpi" = osConfig.machine.x11.dpi;

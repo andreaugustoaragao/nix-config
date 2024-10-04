@@ -26,7 +26,9 @@
         displayManager = {
           startx.enable = true;
           sessionCommands = ''
+            ${pkgs.xrandr}/bin/xrandr
             ${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources
+            export XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 xsecurelock
           '';
         };
         dpi = config.machine.x11.dpi;
@@ -68,14 +70,23 @@
             mlterm
             picom-pijulius
             unclutter-xfixes
+            xscreensaver
           ];
         };
         xkb.layout = "us";
       };
+
       gnome.gnome-keyring.enable = true;
       dbus.enable = true;
       gvfs.enable = false;
       tumbler.enable = false;
+    };
+
+    security.wrappers.xscreensaver-auth = {
+      setuid = true;
+      owner = "root";
+      group = "root";
+      source = "${pkgs.xscreensaver}/libexec/xscreensaver/xscreensaver-auth";
     };
 
     services.libinput = {
@@ -83,7 +94,7 @@
       touchpad.tapping = true;
       touchpad.naturalScrolling = false;
       touchpad.scrollMethod = "twofinger";
-      touchpad.disableWhileTyping = false;
+      touchpad.disableWhileTyping = true;
       touchpad.clickMethod = "clickfinger";
     };
 
