@@ -28,7 +28,7 @@
           sessionCommands = ''
             ${pkgs.xrandr}/bin/xrandr
             ${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources
-            export XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 xsecurelock
+            # export XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 xsecurelock
           '';
         };
         dpi = config.machine.x11.dpi;
@@ -65,9 +65,7 @@
             kdePackages.qt6ct
             graphite-kde-theme
             catppuccin-kvantum
-            dolphin
             feh
-            mlterm
             picom-pijulius
             unclutter-xfixes
             xscreensaver
@@ -82,12 +80,12 @@
       tumbler.enable = false;
     };
 
-    security.wrappers.xscreensaver-auth = {
-      setuid = true;
-      owner = "root";
-      group = "root";
-      source = "${pkgs.xscreensaver}/libexec/xscreensaver/xscreensaver-auth";
-    };
+    #    security.wrappers.xscreensaver-auth = {xscreensaver
+    #      setuid = true;
+    #      owner = "root";
+    #      group = "root";
+    #      source = "${pkgs.xscreensaver}/libexec/xscreensaver/xscreensaver-auth";
+    #    };
 
     services.libinput = {
       enable = true;
@@ -111,6 +109,7 @@
       seahorse.enable = true;
       dconf.enable = true;
     };
+
     xdg.portal = {
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
       config = {
@@ -119,6 +118,49 @@
           "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
         };
       };
+    };
+
+    xdg.mime.defaultApplications = let
+      browser = ["org.qutebrowser.qutebrowser.desktop"];
+      lf = ["lf.desktop"];
+      nvim = ["nvim.desktop"];
+    in {
+      "application/json" = nvim;
+      "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
+      "application/epub+zip" = "org.pwmt.zathura.desktop";
+
+      "text/html" = browser;
+      "text/xml" = nvim;
+      "text/plain" = nvim;
+      "text/markdown" = nvim;
+      "text/x-go" = nvim;
+      "text/x-java" = nvim;
+      "text/x-python" = nvim;
+      "application/x-shellscript" = nvim;
+      "application/yaml" = nvim;
+      "application/xml" = browser;
+      "application/xhtml+xml" = browser;
+      "application/xhtml_xml" = browser;
+      "application/rdf+xml" = browser;
+      "application/rss+xml" = browser;
+      "application/x-extension-htm" = browser;
+      "application/x-extension-html" = browser;
+      "application/x-extension-shtml" = browser;
+      "application/x-extension-xht" = browser;
+      "application/x-extension-xhtml" = browser;
+
+      "x-scheme-handler/about" = browser;
+      "x-scheme-handler/ftp" = browser;
+      "x-scheme-handler/http" = browser;
+      "x-scheme-handler/https" = browser;
+      "x-scheme-handler/unknown" = nvim;
+      "inode/directory" = "thunar.desktop";
+      "image/*" = "feh.desktop";
+      "image/png" = "feh.desktop";
+    };
+
+    xdg.mime.removedAssociations = {
+      "image/png" = "brave-browser.desktop";
     };
 
     #TERMINAL

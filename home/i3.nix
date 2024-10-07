@@ -167,27 +167,28 @@ in {
           always = false;
           notification = false;
         }
-        {
-          command = "xscreensaver --no-splash";
-          always = false;
-          notification = false;
-        }
+        #     {
+        #       command = "xscreensaver --no-splash";
+        #       always = false;
+        #       notification = false;
+        #     }
         {
           command = "unclutter";
           always = true;
           notification = false;
         }
-        {
-          command = "xss-lock -n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer -l -- ${pkgs.xsecurelock}/bin/xsecurelock";
-          always = false;
-          notification = false;
-        }
 
         #{
-        #command = "xautolock -time 10 -locker 'i3lock -c 000000' -detectsleep";
+        #command = "xss-lock -n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer -l -- ${pkgs.xsecurelock}/bin/xsecurelock";
         #always = false;
         #notification = false;
         #}
+
+        {
+          command = "xautolock -time 10 -locker 'i3lock -c 000000' -detectsleep";
+          always = false;
+          notification = false;
+        }
 
         {
           command = "i3-msg workspace 1";

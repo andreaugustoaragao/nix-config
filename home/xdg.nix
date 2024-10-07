@@ -44,12 +44,13 @@ in {
     mimeApps = {
       enable = true;
       defaultApplications = let
-        browser = ["brave.desktop"];
+        browser = ["org.qutebrowser.qutebrowser.desktop"];
         lf = ["lf.desktop"];
         nvim = ["nvim.desktop"];
       in {
         "application/json" = nvim;
         "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
+        "application/epub+zip" = "org.pwmt.zathura.desktop";
 
         "text/html" = browser;
         "text/xml" = nvim;
@@ -77,11 +78,12 @@ in {
         "x-scheme-handler/https" = browser;
         "x-scheme-handler/unknown" = nvim;
         "inode/directory" = "thunar.desktop";
-        "image/*" = browser;
+        "image/*" = "feh.desktop";
+        "image/png" = "feh.desktop";
       };
 
       associations.removed = {
-        # ......
+        "image/png" = "brave-browser.desktop";
       };
     };
 

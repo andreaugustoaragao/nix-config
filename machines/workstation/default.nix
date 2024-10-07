@@ -13,8 +13,8 @@ in {
   ];
 
   # Hostname
-  # hardware.bluetooth.enable = true;
-  #hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   hardware.graphics.enable = true;
 
   hardware.graphics.extraPackages = [
@@ -73,7 +73,7 @@ in {
 
   boot = {
     plymouth = {
-      enable = false;
+      enable = true;
       #theme = "abstract_ring";
       theme = "catppuccin-macchiato";
       themePackages = with pkgs; [
@@ -90,6 +90,7 @@ in {
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = [
+      "console=tty4"
       "quiet"
       "splash"
       "$vt_hadoff"
@@ -134,11 +135,11 @@ in {
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  #services.upower.enable = true;
+  services.upower.enable = true;
   #services.blueman.enable = true;
   #services.printing.enable = true;
   #services.printing.drivers = [pkgs.hplip];
-  #services.printing.startWhenNeeded = true; # optional
+  services.printing.startWhenNeeded = true; # optional
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [pkgs.sane-airscan];
   hardware.sane.disabledDefaultBackends = ["escl"];
@@ -151,7 +152,7 @@ in {
     wantedBy = ["multi-user.target"];
   };
   services.kmscon = {
-    enable = false;
+    enable = true;
     fonts = [
       {
         name = "DroidSansM Nerd Font Mono";

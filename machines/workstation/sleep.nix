@@ -1,6 +1,7 @@
 {
   services.logind.extraConfig = ''
-    IdleAction=sleep
+    HandlePowerKey=hibernate
+    IdleAction=hibernate
     IdleActionSec=30min
   '';
 }

@@ -18,7 +18,7 @@ MonitorConfig monitors_config[] = {
 	//   >0 : auto absolute pixel size (monitor dpi)
 	//   <0 : auto relative points size (monitor dpi)
 	// {"DP-1", 0}, // BUG:(size=0): not restored to default after back'n'forth
-	{"DisplayPort-0",-11},
+	{"DisplayPort-0",-10},
 	{"HDMI-0~1", -20},  // BUG:(ignored DPI=220): = 20 is eqv to 10pt (DPI=110)
 	{"HDMI-0~2", -14},
 };

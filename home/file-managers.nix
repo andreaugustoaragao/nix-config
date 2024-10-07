@@ -25,13 +25,50 @@ in {
           *) bat --color=always "$1";;
       esac
     '';
+    keybindings = {
+      m = null;
+      o = null;
+      d = null;
+      n = null;
+
+      "." = "set hidden!";
+      DD = "delete";
+      x = "cut";
+      y = "copy";
+      p = "paste; clear";
+      r = "reload";
+      C = "clear";
+      enter = "open";
+
+      gD = "cd ~/downloads";
+      gc = "cd ~/.config";
+      gs = "cd ~/screenshots";
+      gn = "cd ~/projects/personal/nix-config";
+      gw = "cd ~/projects/work";
+      gp = "cd ~/projects/personal";
+    };
+    extraConfig = ''
+      set period 5
+      set info size
+      set dircounts
+      set scrolloff 10
+    '';
   };
+
   home.packages = with pkgs; [
     poppler_utils #pdftotext
+    ueberzugpp #image visualization
+    yazi #yazi file manager
+    exiftool
+    chafa
+    imagemagick
+    ffmpegthumbnailer
   ];
 
   xdg.configFile."lf/icons" = {source = lfIcons;};
   xdg.configFile."lf/colors" = {source = lfColors;};
   xdg.configFile."Thunar/uca.xml" = {source = ./uca.xml;};
   xdg.configFile."xfce4/xfconf/xfce-perchannel-xml/thunar.xml" = {source = ./thunar.xml;};
+  xdg.configFile."yazi/yazi.toml" = {source = ./yazi.toml;};
+  xdg.configFile."yazi/theme.toml" = {source = ./catppuccin-mocha.yazi;};
 }

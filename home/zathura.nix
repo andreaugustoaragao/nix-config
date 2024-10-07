@@ -6,10 +6,10 @@
   programs.zathura = {
     enable = true;
     options = {
-      recolor-lightcolor = "rgba(0,0,0,0)";
-      default-bg = "rgba(0,0,0,0.7)";
+      # recolor-lightcolor = "rgba(0,0,0,0)";
+      default-bg = "rgba(0,0,0,0.9)";
 
-      font = "Inter 12";
+      #font = "Inter 12";
       selection-notification = true;
 
       selection-clipboard = "clipboard";
@@ -19,10 +19,11 @@
       scroll-full-overlap = "0.01";
       scroll-step = "100";
       zoom-min = "10";
+      guioptions = "";
+      show-recent = 10;
     };
 
-    extraConfig =
-      "include catppuccin-mocha";
+    #extraConfig = "include catppuccin-mocha";
   };
 
   xdg.configFile = {

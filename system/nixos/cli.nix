@@ -113,6 +113,7 @@
 
   programs.fish = {
     interactiveShellInit = ''
+      zoxide init fish | source
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       fish_vi_key_bindings
       function fish_greeting
@@ -146,18 +147,27 @@
            if set -q TMUX && [ (count $argv) -eq 0 ]
                set -l tmux_root_dir (tmux show-environment TMUX_SESSION_ROOT_DIR 2>/dev/null | sed -n 's/^TMUX_SESSION_ROOT_DIR=//p')
                if test -n "$tmux_root_dir" -a -d "$tmux_root_dir"
-                   builtin cd $tmux_root_dir
+                   z $tmux_root_dir
                    # echo "Changed to TMUX session root directory: $tmux_root_dir"
                else
                    # echo "TMUX_SESSION_ROOT_DIR is not set or is not a valid directory."
-                   builtin cd
+                   z
                end
            else
                # If arguments are provided or not in a tmux session, use regular cd
-               builtin cd $argv
+               z $argv
                # echo "Changed to directory: $argv"
            end
        end
+
+      function y
+       set tmp (mktemp -t "yazi-cwd.XXXXXX")
+       yazi $argv --cwd-file="$tmp"
+       if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        builtin cd -- "$cwd"
+       end
+       rm -f -- "$tmp"
+      end
     '';
 
     shellAliases = {
@@ -165,6 +175,7 @@
       ll = "eza --icons --group-directories-first -al";
       v = "nvim";
       fz = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'";
+      cd = "z";
     };
   };
 
@@ -246,6 +257,7 @@
     bat
     alejandra
     nixfmt-classic
+    zoxide
   ];
 
   programs.mtr.enable = true;
