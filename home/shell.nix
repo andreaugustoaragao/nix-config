@@ -35,6 +35,10 @@
       icons = true;
       git = false;
     };
+
+    starship = {
+      enable = true;
+    };
   };
 
   home.sessionVariables = {

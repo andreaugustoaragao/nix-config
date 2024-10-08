@@ -17,8 +17,9 @@ in {
           y = 5;
           x = 5;
         };
-        opacity = 0.92;
+        opacity = 0.90;
         dynamic_title = true;
+        decorations = "Buttonless";
         #dpi = 192;
       };
 

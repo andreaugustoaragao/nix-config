@@ -6,7 +6,6 @@
   programs.nix-index.enableFishIntegration = true;
 
   #services.envfs.enable = true;
-  environment.localBinInPath = true;
 
   programs.starship = {
     enable = true;
@@ -261,6 +260,6 @@
   ];
 
   programs.mtr.enable = true;
-
+  environment.localBinInPath = true;
   environment.binsh = "${pkgs.dash}/bin/dash"; #faster, consumes less memory
 }

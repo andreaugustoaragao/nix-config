@@ -15,9 +15,9 @@
   ];
 
   options.machine.role = lib.mkOption {
-    type = lib.types.enum ["server" "pc"];
+    type = lib.types.enum ["server" "pc" "mac_pc"];
     default = "pc";
-    description = "Specify the role of the machine as either 'server' or 'pc'.";
+    description = "Specify the role of the machine as either 'server', 'pc' or 'mac_pc'";
   };
 
   config = {
