@@ -1,5 +1,14 @@
-# THIS IS HERE BECAUSE DARWIN NIX DOESjjjjjjjjjjNOT HAVE programs.neovim LIKE NIXOS
-{pkgs, ...}: {
+{pkgs, ...}: let
+  qutebrowserWideVine = pkgs.qutebrowser.overrideAttrs {
+    enableWideVine = true;
+    enableVulkan = true;
+  };
+in {
+  imports = [
+    ../go.nix
+    ../git.nix
+  ];
+
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
@@ -117,8 +126,15 @@
     chafa
     imagemagick
     ffmpegthumbnailer
+    neovide
+    #qutebrowserWideVine
   ];
 
   xdg.configFile."yazi/yazi.toml" = {source = ../yazi.toml;};
   xdg.configFile."yazi/theme.toml" = {source = ../catppuccin-mocha.yazi;};
+  xdg.configFile."qutebrowser/config.py" = {
+    source = ../qutebrowser/config.py;
+    executable = false;
+  };
+  xdg.configFile."aerospace/aerospace.toml" = {source = ./aerospace.toml;};
 }

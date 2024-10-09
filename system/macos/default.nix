@@ -22,7 +22,6 @@
   };
 
   programs = {
-    fish.enable = true;
     zsh.enable = true;
   };
 
@@ -43,7 +42,9 @@
   ];
 
   programs.fish = {
+    enable = true;
     interactiveShellInit = ''
+      /opt/homebrew/bin/brew shellenv|source
       source (/etc/profiles/per-user/aragao/bin/starship init fish --print-full-init | psub)
       zoxide init fish | source
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
@@ -282,6 +283,7 @@
   services.jankyborders.inactive_color = "0x00FFFFFF";
   services.jankyborders.blacklist = [
     "System Settings"
+    "App Store"
   ];
   system.stateVersion = 5;
 
