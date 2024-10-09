@@ -17,11 +17,11 @@ in {
     #  signByDefault = if isLinux then true else false;
     #  key = "0xDDD13A55026CFA51";
     #};
-    extraConfig = {
-      credential.helper = "${
-        pkgs.git.override {withLibsecret = true;}
-      }/bin/git-credential-libsecret";
-    };
+    #    extraConfig = {
+    #      credential.helper = "${
+    #        pkgs.git.override {withLibsecret = true;}
+    #      }/bin/git-credential-libsecret";
+    #    };
 
     includes = [
       {

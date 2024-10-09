@@ -36,6 +36,7 @@ in {
   };
 
   nixpkgs.config.enableWideVine = true;
+
   home.file.".config/qutebrowser/config.py" = {
     source = ./qutebrowser/config.py;
     executable = false;

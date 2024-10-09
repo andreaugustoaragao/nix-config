@@ -7,6 +7,7 @@ in {
   imports = [
     ../go.nix
     ../git.nix
+    ../vscode.nix
   ];
 
   programs.zoxide = {
@@ -127,6 +128,7 @@ in {
     imagemagick
     ffmpegthumbnailer
     neovide
+    flameshot
     #qutebrowserWideVine
   ];
 

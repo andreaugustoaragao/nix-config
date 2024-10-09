@@ -147,7 +147,6 @@
     nodePackages.bash-language-server
     nixd
     gdu
-
     inetutils
     unzip
     zip
