@@ -45,7 +45,7 @@ in {
         size =
           if isLinux
           then 10
-          else 10;
+          else 12;
       };
 
       shell = {
@@ -169,5 +169,30 @@ in {
       ];
     };
   };
-  programs.kitty.enable = true;
+
+  programs.kitty = {
+    enable = true;
+    darwinLaunchOptions = [
+      "--single-instance"
+    ];
+    #font.name = "FiraCodeNFM-Reg";
+    font.name = "family='Menlo'";
+    font.size = 12;
+    settings = {
+      confirm_os_window_close = 0;
+      mouse_hide_wait = "1.0";
+      dynamic_background_opacity = true;
+      scrollback_lines = 100000;
+      enable_audio_bell = false;
+      update_check_interval = 0; #no phone home
+      #hide_window_decorations = true;
+      active_border_color = "#FFFFFF";
+      hide_window_decorations = "titlebar-only";
+      macos_show_window_title_in = "none";
+      shell = "${pkgs.fish}/bin/fish";
+      background_opacity = 0.80;
+    };
+    shellIntegration.enableFishIntegration = true;
+    themeFile = "Github_Dark";
+  };
 }

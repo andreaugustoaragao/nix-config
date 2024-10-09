@@ -42,8 +42,99 @@
     roboto-mono
   ];
 
+  programs.fish = {
+    interactiveShellInit = ''
+      source (/etc/profiles/per-user/aragao/bin/starship init fish --print-full-init | psub)
+      zoxide init fish | source
+      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+      fish_vi_key_bindings
+      function fish_greeting
+         fastfetch --logo-height 10 -s os:kernel:wm:terminal:cpu:gpu:memory:disk:localip:dns:battery:uptime
+         fortune|lolcat
+      end
+
+      function cd --description 'Change directory smartly with tmux sessions'
+           if set -q TMUX && [ (count $argv) -eq 0 ]
+               set -l tmux_root_dir (tmux show-environment TMUX_SESSION_ROOT_DIR 2>/dev/null | sed -n 's/^TMUX_SESSION_ROOT_DIR=//p')
+               if test -n "$tmux_root_dir" -a -d "$tmux_root_dir"
+                   z $tmux_root_dir
+                   # echo "Changed to TMUX session root directory: $tmux_root_dir"
+               else
+                   # echo "TMUX_SESSION_ROOT_DIR is not set or is not a valid directory."
+                   z
+               end
+           else
+               # If arguments are provided or not in a tmux session, use regular cd
+               z $argv
+               # echo "Changed to directory: $argv"
+           end
+       end
+
+      function y
+       set tmp (mktemp -t "yazi-cwd.XXXXXX")
+       yazi $argv --cwd-file="$tmp"
+       if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        builtin cd -- "$cwd"
+       end
+       rm -f -- "$tmp"
+      end
+    '';
+
+    shellAliases = {
+      ls = "eza --icons";
+      ll = "eza --icons --group-directories-first -al";
+      v = "nvim";
+      fz = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'";
+      cd = "z";
+    };
+  };
+
+  programs.tmux = {
+    enable = true;
+    enableFzf = true;
+    enableMouse = true;
+    enableSensible = true;
+    enableVim = true;
+    /*
+    plugins = with pkgs; [
+      tmuxPlugins.better-mouse-mode
+      tmuxPlugins.sensible
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.resurrect
+      tmuxPlugins.tmux-fzf
+      tmuxPlugins.continuum
+    ];
+    */
+    extraConfig = builtins.readFile ../tmux/tmux.conf;
+  };
+
   ## PACKAGES
   environment.systemPackages = with pkgs; [
+    (
+      let
+        scriptContent = builtins.readFile ../tmux/tmux-sessionizer;
+      in
+        writeShellScriptBin "tmux-sessionizer" scriptContent
+    )
+    (
+      let
+        scriptContent = builtins.readFile ../tmux/tmux-window-icons;
+      in
+        writeShellScriptBin "tmux-window-icons" scriptContent
+    )
+    (
+      let
+        scriptContent = builtins.readFile ../tmux/tmux-right-status;
+      in
+        writeShellScriptBin "tmux-right-status" scriptContent
+    )
+    (
+      let
+        scriptContent = builtins.readFile ../tmux/tmux-git-status;
+      in
+        writeShellScriptBin "tmux-git-status" scriptContent
+    )
+
     ripgrep
     fd
     less
@@ -92,6 +183,17 @@
     nixfmt-classic
     zoxide
     fastfetch
+
+    lazygit
+
+    # cloud
+    kubectl
+    stern
+    kubelogin
+    kubernetes-helm
+    k9s
+    azure-cli
+    lazydocker
   ];
 
   ## HOMEBREW
@@ -107,10 +209,6 @@
     taps = [
       "FelixKratz/formulae"
     ];
-    brews = [
-      "borders"
-      "cava"
-    ];
     casks = [
       "stats"
       "brave-browser"
@@ -121,6 +219,7 @@
       "obsidian"
       "flameshot"
       "alacritty"
+      "raycast"
       #"qutebrowser"
       #"bitwarden"
       "nikitabobko/tap/aerospace"
@@ -178,6 +277,12 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
   security.pam.enableSudoTouchIdAuth = true;
+
+  services.jankyborders.enable = true;
+  services.jankyborders.inactive_color = "0x00FFFFFF";
+  services.jankyborders.blacklist = [
+    "System Settings"
+  ];
   system.stateVersion = 5;
 
   #https://github.com/FelixKratz/dotfiles/tree/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b
