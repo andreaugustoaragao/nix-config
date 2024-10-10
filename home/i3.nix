@@ -13,6 +13,7 @@ in {
     ./redshift.nix
     ./dunst.nix
   ];
+
   xsession.windowManager.i3 = {
     enable = osConfig.machine.x11.enable;
 
@@ -37,13 +38,18 @@ in {
       window.titlebar = false;
       gaps = {
         inner = 5;
-        outer = 0;
+        outer = 5;
+        bottom = 5;
+        top = 5;
+        left = 5;
+        right = 5;
       };
 
       focus.followMouse = false;
       #gaps.smartBorders = "off";
       #window.hideEdgeBorders = "smart";
       defaultWorkspace = "workspace number 1";
+
       floating.criteria = [
         {class = "pavucontrol";}
         {class = "1Password";}
@@ -52,12 +58,15 @@ in {
         {class = "Pinta";}
         {class = "Xdaliclock";}
       ];
+
       floating.titlebar = false;
+
       fonts = {
         names = ["RobotoMono"];
         style = "Medium";
         size = 10.0;
       };
+
       keybindings = lib.mkOptionDefault {
         "XF86AudioMute" = "exec amixer set Master toggle";
         "XF86AudioLowerVolume" = "exec amixer set Master 4%-";
@@ -81,6 +90,7 @@ in {
         "${modifier}+backslash" = "exec --no-startup-id rofi-rbw --no-folder";
         "Mod4+b" = "exec polybar-toggle";
       };
+
       assigns = {
         "1" = [
           {

@@ -195,6 +195,6 @@ in {
       background_opacity = 0.80;
     };
     shellIntegration.enableFishIntegration = true;
-    themeFile = "Github_Dark";
+    themeFile = "GitHub_Dark";
   };
 }
