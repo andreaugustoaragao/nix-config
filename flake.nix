@@ -38,33 +38,6 @@
     };
     desktopDetails = {dpi = 96;};
     homeManagerStateVersion = "24.05";
-
-    rootUserHomeManagerConfig = {
-      home.username = "root";
-      home.homeDirectory = "/root";
-      home.stateVersion = homeManagerStateVersion;
-      programs.home-manager.enable = true;
-      imports = [./home/shell.nix];
-    };
-
-    commonUserHomeManagerConfig = {
-      userDetails,
-      system,
-    }: {
-      home = {
-        username = userDetails.userName;
-        homeDirectory =
-          if builtins.match ".*darwin.*" system != null
-          then "/Users/${userDetails.userName}"
-          else "/home/${userDetails.userName}";
-        stateVersion = homeManagerStateVersion;
-      };
-      imports =
-        if builtins.match ".*darwin.*" system != null
-        then [./home/shell.nix ./home/alacritty.nix]
-        else [./home];
-      programs.home-manager.enable = true;
-    };
   in {
     nixosConfigurations = {
       workstation = nixpkgs.lib.nixosSystem rec {
@@ -152,6 +125,10 @@
     darwinConfigurations = {
       A2130862 = darwin.lib.darwinSystem rec {
         system = "aarch64-darwin";
+        specialArgs = {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs;
+        };
         modules = [
           ./system/macos
           home-manager.darwinModules.home-manager
@@ -159,9 +136,18 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.aragao = commonUserHomeManagerConfig {
-                userDetails = userDetails;
-                system = system;
+              users.aragao = {
+                home = {
+                  username = userDetails.userName;
+                  homeDirectory = "/Users/${userDetails.userName}";
+                  stateVersion = homeManagerStateVersion;
+                };
+                programs.home-manager.enable = true;
+                imports = [
+                  ./home/macos/neovim.nix
+                  ./home/alacritty.nix
+                  ./home/shell.nix
+                ];
               };
             };
           }

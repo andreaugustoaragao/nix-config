@@ -16,6 +16,8 @@
       pkief.material-icon-theme
       humao.rest-client
       ms-azuretools.vscode-docker
+      github.github-vscode-theme
+      jnoortheen.nix-ide
     ];
 
     userSettings = {
@@ -35,7 +37,12 @@
 
       workbench = {
         iconTheme = "material-icon-theme";
-        colorTheme = "Rosé Pine"; # Material Theme Ocean High Contrast
+        #colorTheme = "Rosé Pine"; # Material Theme Ocean High Contrast
+        colorTheme = "GitHub Dark";
+      };
+      nix = {
+        enableLanguageServer = true;
+        serverPath = "nixd";
       };
     };
   };

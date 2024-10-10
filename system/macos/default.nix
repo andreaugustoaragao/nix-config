@@ -37,6 +37,7 @@
       fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono"];
     })
     dejavu_fonts
+    fira-code
     roboto
     roboto-mono
   ];

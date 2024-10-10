@@ -1,5 +1,7 @@
 config.load_autoconfig()
-config.set("fonts.default_size", "10pt")
+
+config.set("fonts.default_size", "11pt")
+config.set("fonts.default_family", "Fira Code")
 config.set("colors.webpage.preferred_color_scheme", "dark")
 config.set("tabs.show", "switching")
 config.set("statusbar.show", "in-mode")
@@ -35,14 +37,16 @@ c.content.blocking.method = "both"
 
 
 import os
+import ssl
 from urllib.request import urlopen
 
 # load your autoconfig, use this, if the rest of your config is empty!
 config.load_autoconfig()
+ssl_context = ssl._create_unverified_context()
 
 if not os.path.exists(config.configdir / "theme.py"):
     theme = "https://raw.githubusercontent.com/catppuccin/qutebrowser/main/setup.py"
-    with urlopen(theme) as themehtml:
+    with urlopen(theme, context=ssl_context) as themehtml:
         with open(config.configdir / "theme.py", "a") as file:
             file.writelines(themehtml.read().decode("utf-8"))
 

@@ -134,7 +134,7 @@ in {
 
   xdg.configFile."yazi/yazi.toml" = {source = ../yazi.toml;};
   xdg.configFile."yazi/theme.toml" = {source = ../catppuccin-mocha.yazi;};
-  xdg.configFile."qutebrowser/config.py" = {
+  home.file.".qutebrowser/config.py" = {
     source = ../qutebrowser/config.py;
     executable = false;
   };

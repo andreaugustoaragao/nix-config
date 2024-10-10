@@ -176,7 +176,9 @@ in {
       "--single-instance"
     ];
     #font.name = "FiraCodeNFM-Reg";
-    font.name = "family='Menlo'";
+    #font.name = "family='Menlo'";
+    #font.name = "JetBrainsMonoNFM-Regular";
+    font.name = "FiraCodeRoman-Regular";
     font.size = 12;
     settings = {
       confirm_os_window_close = 0;
