@@ -136,7 +136,7 @@
       in
         writeShellScriptBin "tmux-git-status" scriptContent
     )
-
+    tenki
     ripgrep
     fd
     less
@@ -240,6 +240,8 @@
   system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode2 = true;
+
+  system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   system.defaults.LaunchServices.LSQuarantine = false;
   system.defaults.NSGlobalDomain.AppleFontSmoothing = 2;
@@ -267,10 +269,16 @@
   system.defaults.finder.QuitMenuItem = true;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;
   system.defaults.finder.CreateDesktop = false;
-  system.defaults.finder.FXPreferredViewStyle = "Nlsv";
+  system.defaults.finder.FXPreferredViewStyle = "nlsv";
   system.defaults.finder._FXSortFoldersFirst = true;
 
   system.defaults.WindowManager.StandardHideDesktopIcons = true;
+  system.defaults.dock.wvous-bl-corner = 1;
+  system.defaults.dock.wvous-br-corner = 1;
+  system.defaults.dock.wvous-tl-corner = 1;
+  system.defaults.dock.wvous-tr-corner = 1;
+
+  system.defaults.screencapture.location = "~/screenshots";
 
   system.defaults.trackpad.Clicking = true;
   system.defaults.trackpad.TrackpadThreeFingerDrag = true;
