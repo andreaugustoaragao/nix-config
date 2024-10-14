@@ -134,6 +134,8 @@ in {
 
   xdg.configFile."yazi/yazi.toml" = {source = ../yazi.toml;};
   xdg.configFile."yazi/theme.toml" = {source = ../catppuccin-mocha.yazi;};
+
+  xdg.configFile."yazi/keymap.toml" = {source = ../yazi_keymap.toml;};
   home.file.".qutebrowser/config.py" = {
     source = ../qutebrowser/config.py;
     executable = false;

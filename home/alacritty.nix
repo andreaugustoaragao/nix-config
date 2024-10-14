@@ -181,6 +181,8 @@ in {
     font.name = "FiraCodeRoman-Regular";
     font.size = 12;
     settings = {
+      #window_margin_width = 10;
+      window_padding_width = 5;
       confirm_os_window_close = 0;
       mouse_hide_wait = "1.0";
       dynamic_background_opacity = true;

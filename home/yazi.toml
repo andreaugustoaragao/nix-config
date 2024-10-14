@@ -10,4 +10,5 @@
 
 [preview]
   wrap = "yes"
+  tab_size = 2
 

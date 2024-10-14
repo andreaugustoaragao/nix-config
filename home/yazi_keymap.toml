@@ -1,0 +1,16 @@
+[[manager.prepend_keymap]]
+on = [ "g", "s" ]
+run = "cd ~/screenshots"
+desc = "cd to screenshots"
+
+[[manager.prepend_keymap]]
+on = [ "g", "w" ]
+run = "cd ~/projects/work"
+desc = "cd to work projects"
+
+[[manager.prepend_keymap]]
+on = [ "g", "p" ]
+run = "cd ~/projects/personal"
+desc = "cd to personal projects"
+
+
