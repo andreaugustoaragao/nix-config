@@ -13,4 +13,9 @@ on = [ "g", "p" ]
 run = "cd ~/projects/personal"
 desc = "cd to personal projects"
 
+[[manager.prepend_keymap]]
+  on   = "!"
+  run  = 'shell "$SHELL" --block --confirm'
+  desc = "Open shell here"
+
 

@@ -3,12 +3,7 @@
   sort_dir_first = true
   linemode = "size"
 
-[[manager.prepend_keymap]]
-  on   = "!"
-  run  = 'shell "$SHELL" --block --confirm'
-  desc = "Open shell here"
-
-[preview]
-  wrap = "yes"
-  tab_size = 2
+#[preview]
+#  wrap = "yes"
+#  tab_size = 2
 

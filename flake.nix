@@ -145,8 +145,6 @@
                 programs.home-manager.enable = true;
                 imports = [
                   ./home/macos/neovim.nix
-                  ./home/alacritty.nix
-                  ./home/shell.nix
                 ];
               };
             };

@@ -38,7 +38,7 @@
   };
 
   home.sessionVariables = {
-    PAGER = "less";
+    PAGER = "less -R";
     EDITOR = "nvim";
     VISUAL = "nvim";
   };

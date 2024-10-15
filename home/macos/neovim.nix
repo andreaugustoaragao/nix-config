@@ -1,13 +1,11 @@
-{pkgs, ...}: let
-  qutebrowserWideVine = pkgs.qutebrowser.overrideAttrs {
-    enableWideVine = true;
-    enableVulkan = true;
-  };
-in {
+{pkgs, ...}: {
   imports = [
+    ../shell.nix
     ../go.nix
     ../git.nix
     ../vscode.nix
+    ../alacritty.nix
+    ../gpg.nix
   ];
 
   programs.zoxide = {
