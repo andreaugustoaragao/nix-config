@@ -26,6 +26,7 @@ function Lsp()
 			-- add any global capabilities here
 			capabilities = {},
 			servers = {
+				marksman = {},
 				lua_ls = {
 					settings = {
 						Lua = {

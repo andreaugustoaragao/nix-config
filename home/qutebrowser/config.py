@@ -30,7 +30,7 @@ c.editor.command = [
     "qutebrowser_edit",
 ]
 
-c.colors.webpage.bg = ""  # use theme's colors if bg is not set
+#c.colors.webpage.bg = ""  # use theme's colors if bg is not set
 c.content.blocking.method = "both"
 # c.fileselect.folder.command = ['alacritty','-e','lf']
 # c.fileselect.handler

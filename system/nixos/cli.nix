@@ -241,6 +241,7 @@
     fd
     lua-language-server
     nodePackages_latest.bash-language-server
+    marksman
     p11-kit
     nix-prefetch-github
     onefetch
@@ -257,6 +258,7 @@
     alejandra
     nixfmt-classic
     zoxide
+    ticker
   ];
 
   programs.mtr.enable = true;

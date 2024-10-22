@@ -73,6 +73,7 @@ in {
         "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
+        "F8" = "exec amixer set Master 4%-";
         #"${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
         #"${modifier}+Return" = " exec ${pkgs.mlterm}/bin/mlterm -e fish";
         "${modifier}+Return" = "exec st -e fish";
@@ -188,17 +189,17 @@ in {
           notification = false;
         }
 
-        #{
-        #command = "xss-lock -n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer -l -- ${pkgs.xsecurelock}/bin/xsecurelock";
-        #always = false;
-        #notification = false;
-        #}
-
         {
-          command = "xautolock -time 10 -locker 'i3lock -c 000000' -detectsleep";
+          command = "xss-lock -n ${pkgs.xsecurelock}/libexec/xsecurelock/dimmer -l -- ${pkgs.xsecurelock}/bin/xsecurelock";
           always = false;
           notification = false;
         }
+
+        #{
+        #command = "xautolock -time 10 -locker 'i3lock -c 000000' -detectsleep";
+        #always = false;
+        #notification = false;
+        #}
 
         {
           command = "i3-msg workspace 1";

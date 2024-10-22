@@ -98,6 +98,7 @@
         source-code-pro
         source-sans-pro
         weather-icons
+        fira-code
         font-awesome
         corefonts
         vistafonts

@@ -146,6 +146,25 @@ require("lazy").setup({
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	Noice(),
 	Conform(),
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = function()
+			require("lazy").load({ plugins = { "markdown-preview.nvim" } })
+			vim.fn["mkdp#util#install"]()
+		end,
+		keys = {
+			{
+				"<leader>cp",
+				ft = "markdown",
+				"<cmd>MarkdownPreviewToggle<cr>",
+				desc = "Markdown Preview",
+			},
+		},
+		config = function()
+			vim.cmd([[do FileType]])
+		end,
+	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	"folke/which-key.nvim",
 	{

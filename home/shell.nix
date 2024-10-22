@@ -32,7 +32,7 @@
     eza = {
       enable = true;
       extraOptions = ["--group-directories-first"];
-      icons = true;
+      icons = "auto";
       git = false;
     };
   };

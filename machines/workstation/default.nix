@@ -30,10 +30,8 @@ in {
   hardware.graphics.extraPackages32 = [
     #pkgs.driversi686Linux.amdvlk
   ];
-  hardware.amdgpu.initrd.enable = true;
-  hardware.amdgpu.amdvlk.enable = true;
 
-  hardware.amdgpu.opencl.enable = true;
+  hardware.amdgpu.initrd.enable = true;
 
   environment.systemPackages = with pkgs; [
     lm_sensors
@@ -73,7 +71,7 @@ in {
 
   boot = {
     plymouth = {
-      enable = true;
+      enable = false;
       #theme = "abstract_ring";
       theme = "catppuccin-macchiato";
       themePackages = with pkgs; [
@@ -135,7 +133,7 @@ in {
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  services.upower.enable = true;
+  #services.upower.enable = true;
   #services.blueman.enable = true;
   #services.printing.enable = true;
   #services.printing.drivers = [pkgs.hplip];

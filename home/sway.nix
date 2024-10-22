@@ -136,7 +136,7 @@ in {
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
         #"${modifier}+Return" = " exec ${pkgs.alacritty}/bin/alacritty msg create-window || ${pkgs.alacritty}/bin/alacritty";
         "${modifier}+Shift+Return" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
-        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -dpi -show drun -show-icons";
+        "${modifier}+d" = "exec rofi -dpi -show drun -show-icons";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
