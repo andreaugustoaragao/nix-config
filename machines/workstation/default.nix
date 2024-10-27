@@ -133,10 +133,10 @@ in {
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  #services.upower.enable = true;
+  services.upower.enable = true;
   #services.blueman.enable = true;
-  #services.printing.enable = true;
-  #services.printing.drivers = [pkgs.hplip];
+  services.printing.enable = true;
+  services.printing.drivers = [pkgs.hplip];
   services.printing.startWhenNeeded = true; # optional
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [pkgs.sane-airscan];

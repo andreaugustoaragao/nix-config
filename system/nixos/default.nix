@@ -85,7 +85,7 @@
         (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode" "DroidSansMono" "Hack" "RobotoMono" "Terminus"];})
         dejavu_fonts
         noto-fonts
-        noto-fonts-cjk
+        noto-fonts-cjk-sans
         noto-fonts-color-emoji
         terminus_font
         roboto

@@ -4,7 +4,7 @@
   ...
 }: {
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     optimise.automatic = true;
 
     gc = {

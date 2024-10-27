@@ -32,7 +32,7 @@ in {
     # DEVELOPMENT
     #jetbrains.idea-ultimate
     #jetbrains.goland
-    default-python
+    #default-python
     jdk17
     gradle
     maven
@@ -63,7 +63,7 @@ in {
     kubelogin
     kubernetes-helm
     k9s
-    azure-cli
+    #azure-cli
     lazydocker
 
     # SYSADMIN
@@ -87,12 +87,12 @@ in {
     libreoffice
     _1password-gui
     gimp
-    calibre
+    #calibre
     zoom-us
     cheese
-    bitwarden-desktop
     goldwarden
-    bitwarden-desktop
+    #bitwarden-desktop
     cava
+    hdparm
   ];
 }

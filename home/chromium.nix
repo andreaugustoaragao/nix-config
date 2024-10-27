@@ -42,6 +42,7 @@ in {
     executable = false;
   };
   home.packages = [
-    qutebrowserWideVine
+    pkgs.qutebrowser
+    #qutebrowserWideVine
   ];
 }
