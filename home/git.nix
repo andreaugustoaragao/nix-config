@@ -9,9 +9,10 @@ in {
     #package = pkgs.gitFull;
     enable = true;
     aliases = {
-      ci = "commit";
+      c = "commit";
       co = "checkout";
       s = "status";
+      p = "push";
     };
     # signing = {
     #  signByDefault = if isLinux then true else false;
@@ -25,7 +26,7 @@ in {
 
     includes = [
       {
-        condition = "gitdir=${config.home.homeDirectory}/projects/personal/";
+        condition = "gitdir/i=${config.home.homeDirectory}/projects/personal/**";
         contents = {
           user = {
             name = "andreaugustoaragao";
@@ -34,7 +35,7 @@ in {
         };
       }
       {
-        condition = "gitdir=${config.home.homeDirectory}/projects/work/";
+        condition = "gitdir/i=${config.home.homeDirectory}/projects/work/**";
         contents = {
           user = {
             name = "aragao";

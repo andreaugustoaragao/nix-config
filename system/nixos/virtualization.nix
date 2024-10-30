@@ -1,16 +1,20 @@
 {
+  config,
   lib,
-  inputs,
   pkgs,
+  ...
 }: {
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  environment.systemPackages = with pkgs; [
-    docker-credential-helpers
-  ];
+  options.machine.virtualization.enable = lib.mkEnableOption "enables docker and kvm";
 
-  environment.systemPackages = with pkgs; [
-    minikube
-  ];
+  config = lib.mkIf config.machine.virtualization.enable {
+    virtualisation.docker.enable = true;
+    virtualisation.libvirtd.enable = true;
+
+    programs.virt-manager.enable = config.machine.role == "pc";
+
+    environment.systemPackages = with pkgs; [
+      docker-credential-helpers
+      minikube
+    ];
+  };
 }

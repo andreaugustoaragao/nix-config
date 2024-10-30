@@ -1,7 +1,7 @@
 {
   services.logind.extraConfig = ''
     HandlePowerKey=sleep
-    IdleAction=hybrid-sleep
+    IdleAction=sleep
     IdleActionSec=5min
   '';
 }

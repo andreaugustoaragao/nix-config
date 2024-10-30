@@ -47,12 +47,6 @@
       recursive = true;
     };
     services.blueman-applet.enable = false;
-    dconf.settings = {
-      "org/virt-manager/virt-manager/connections" = {
-        autoconnect = ["qemu:///system"];
-        uris = ["qemu:///system"];
-      };
-    };
 
     programs.eww = {
       enable = true;

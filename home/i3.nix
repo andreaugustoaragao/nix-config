@@ -14,6 +14,13 @@ in {
     ./dunst.nix
   ];
 
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
+  };
+
   xsession.windowManager.i3 = {
     enable = osConfig.machine.x11.enable;
 

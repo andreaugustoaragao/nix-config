@@ -7,7 +7,7 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ./fix-suspend.nix
+    #./fix-suspend.nix
     ./ethernet.nix
     ./sleep.nix
   ];

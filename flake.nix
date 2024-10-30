@@ -40,7 +40,7 @@
     homeManagerStateVersion = "24.05";
   in {
     nixosConfigurations = {
-      workstation = nixpkgs.lib.nixosSystem rec {
+      workstation = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
@@ -52,6 +52,7 @@
           {
             machine = {
               role = "pc";
+              virtualization.enable = true;
               x11 = {
                 enable = true;
                 dpi = 144;
@@ -62,6 +63,7 @@
               };
             };
           }
+          ./system/nixos/virtualization.nix
           home-manager.nixosModules.home-manager
           ./home
           nix-index-database.nixosModules.nix-index

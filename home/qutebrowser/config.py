@@ -7,6 +7,8 @@ config.set("tabs.show", "switching")
 config.set("statusbar.show", "in-mode")
 config.set("content.javascript.clipboard", "access")
 config.set("auto_save.session", True)
+config.set("scrolling.smooth", True)
+config.set("changelog_after_upgrade","major")
 # https://peter.sh/experiments/chromium-command-line-switches/
 c.qt.workarounds.disable_accelerated_2d_canvas = "never"
 c.qt.args = [

@@ -223,6 +223,8 @@
     zip
     unrar
     p7zip
+    pciutils
+    usbutils
     tree
     fzf
     fortune

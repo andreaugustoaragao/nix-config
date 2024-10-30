@@ -49,7 +49,7 @@
     documentation.man.man-db.enable = false;
 
     #KERNEL
-    #boot.kernelPackages = pkgs.linuxPackages_zen;
+    boot.kernelPackages = pkgs.linuxPackages_zen;
 
     boot.kernel.sysctl = {
       "vm.overcommit_memory" = 1;

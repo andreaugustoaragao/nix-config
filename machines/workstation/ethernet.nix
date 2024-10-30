@@ -14,8 +14,8 @@
     wait-online.enable = true;
     #wait-online.anyInterface = true;
     networks = {
-      "10-enp9s0f0" = {
-        matchConfig.Name = "enp9s0f0";
+      "10-enp108s0f0" = {
+        matchConfig.Name = "enp108s0f0";
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = false;
