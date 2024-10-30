@@ -48,7 +48,7 @@ in {
           else 12;
       };
 
-      shell = {
+      terminal.shell = {
         #program = "${pkgs.tmux}/bin/tmux";
         #args = [
         #  "new-session"
