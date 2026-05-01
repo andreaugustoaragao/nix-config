@@ -13,7 +13,7 @@
   ];
   networking.enableIPv6 = false;
   networking.useDHCP = lib.mkForce false;
-  networking.wireless.enable = false;
+  networking.wireless.enable = lib.mkForce false;
 
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [80 443 53];
