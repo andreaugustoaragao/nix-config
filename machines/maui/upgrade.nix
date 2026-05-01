@@ -34,7 +34,7 @@ in {
       ExecStartPre = "-${hcPing} /start";
       ExecStartPost = "-${hcPing}";
     };
-    onFailure = ["hc-ping-fail.service"];
+    onFailure = ["hc-ping-fail.service" "matrix-alert@nixos-upgrade.service"];
   };
 
   systemd.services.hc-ping-fail = {

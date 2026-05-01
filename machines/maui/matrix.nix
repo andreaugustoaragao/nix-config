@@ -41,10 +41,7 @@ in {
       port = [6167];
       allow_federation = false;
       allow_encryption = true;
-      # Reopened only to register the @maui-alerts bot account; will
-      # close again in the next commit.
-      allow_registration = true;
-      registration_token_file = "/data/services/matrix/registration_token";
+      allow_registration = false;
       max_request_size = 20000000;
     };
   };
