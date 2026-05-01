@@ -61,6 +61,7 @@ in {
       allow_federation = false;
       allow_encryption = true;
       allow_registration = false;
+      new_user_displayname_suffix = "";
       max_request_size = 20000000;
     };
   };
