@@ -30,20 +30,32 @@
     host=$(${pkgs.nettools}/bin/hostname)
     plain_msg="nixos-upgrade complete on $host:"$'\n\n'"$diff_text"
 
-    # HTML-escape diff text for safe inclusion inside <pre>. & first.
-    html_diff="''${diff_text//&/&amp;}"
-    html_diff="''${html_diff//</&lt;}"
-    html_diff="''${html_diff//>/&gt;}"
-    html_msg="<p><strong>nixos-upgrade complete on $host</strong></p><pre><code>$html_diff</code></pre>"
-
     token=$(cat /data/services/matrix/bot-token)
     room=$(cat /data/services/matrix/alert-room-id)
     txn=$(date +%s%N)
 
+    # HTML-escape happens inside jq via gsub, so jq fully owns string
+    # encoding (avoids the bash-parameter-expansion edge case where
+    # earlier attempts produced "gt;" without the leading "&"). Plain
+    # <pre> with no <code> — Element's syntax highlighter on <code>
+    # blocks was stripping the entities mid-render.
     body=$(${pkgs.jq}/bin/jq -n \
       --arg plain "$plain_msg" \
-      --arg html "$html_msg" \
-      '{msgtype:"m.text",body:$plain,format:"org.matrix.custom.html",formatted_body:$html}')
+      --arg host "$host" \
+      --arg diff "$diff_text" \
+      '{
+        msgtype: "m.text",
+        body: $plain,
+        format: "org.matrix.custom.html",
+        formatted_body: (
+          "nixos-upgrade complete on " + $host + ":<br><br><pre>"
+          + ($diff
+             | gsub("&"; "&amp;")
+             | gsub("<"; "&lt;")
+             | gsub(">"; "&gt;"))
+          + "</pre>"
+        )
+      }')
 
     exec ${pkgs.curl}/bin/curl -fsS --retry 3 --max-time 30 -X PUT \
       "http://127.0.0.1:6167/_matrix/client/v3/rooms/$room/send/m.room.message/$txn" \
