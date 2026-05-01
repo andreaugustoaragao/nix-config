@@ -18,8 +18,9 @@ in {
     flags = [
       "--refresh"
       "-L"
-      "--update-input"
+      "--override-input"
       "nixpkgs"
+      "github:NixOS/nixpkgs/nixos-unstable"
     ];
     operation = "switch";
     dates = "Sun 03:00";
