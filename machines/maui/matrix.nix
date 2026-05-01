@@ -1,4 +1,24 @@
-{
+{lib, ...}: {
+  users.users.continuwuity = {
+    isSystemUser = true;
+    group = "continuwuity";
+  };
+  users.groups.continuwuity = {};
+
+  systemd.tmpfiles.rules = [
+    "d /data/services/matrix 0700 continuwuity continuwuity -"
+  ];
+
+  # database_path is hardcoded to /var/lib/continuwuity by the module.
+  # Bind-mount it onto /data so the actual storage lives on the btrfs
+  # RAID 1, while the service sees the path it expects.
+  fileSystems."/var/lib/continuwuity" = {
+    device = "/data/services/matrix";
+    fsType = "none";
+    options = ["bind"];
+    depends = ["/data"];
+  };
+
   services.matrix-continuwuity = {
     enable = true;
     settings.global = {
@@ -7,9 +27,19 @@
       port = [6167];
       allow_federation = false;
       allow_encryption = true;
-      # Flip to false after creating the first user; see commit message.
+      # Flip to false after creating the first user.
       allow_registration = true;
       max_request_size = 20000000;
+    };
+  };
+
+  systemd.services.matrix-continuwuity = {
+    after = ["data.mount" "var-lib-continuwuity.mount"];
+    requires = ["data.mount" "var-lib-continuwuity.mount"];
+    serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = lib.mkForce "continuwuity";
+      Group = lib.mkForce "continuwuity";
     };
   };
 
