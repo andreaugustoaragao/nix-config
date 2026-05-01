@@ -20,6 +20,7 @@
     ./monitoring.nix
     ./vaultwarden.nix
     ./certs.nix
+    ./upgrade.nix
   ];
 
   # Set your time zone.
