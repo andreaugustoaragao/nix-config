@@ -127,7 +127,7 @@
           enable = true;
           servers = {
             html.enable = true; # HTML
-            nil-ls.enable = true; # Nix
+            nil_ls.enable = true; # Nix
             dockerls.enable = true; # Docker
             bashls.enable = true; # Bash
             yamlls.enable = true; # YAML
@@ -200,7 +200,7 @@
 
         lspkind = {
           enable = true;
-          extraOptions = {
+          settings = {
             maxwidth = 50;
             ellipsis_char = "...";
           };
