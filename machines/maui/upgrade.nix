@@ -4,6 +4,14 @@
     exec ${pkgs.curl}/bin/curl -fsS --retry 3 --max-time 10 "$url$1"
   '';
 in {
+  # libgit2 (used by nix flake fetchers) refuses to open repos whose
+  # top-level dir is owned by a different user than the running process.
+  # nixos-upgrade runs as root; the checkout is owned by adm.
+  programs.git = {
+    enable = true;
+    config.safe.directory = "/home/adm/nix-config";
+  };
+
   system.autoUpgrade = {
     enable = true;
     flake = "git+file:///home/adm/nix-config?ref=main";
