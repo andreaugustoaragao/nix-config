@@ -3,6 +3,45 @@
     url=$(cat "$CREDENTIALS_DIRECTORY/hc-url")
     exec ${pkgs.curl}/bin/curl -fsS --retry 3 --max-time 10 "$url$1"
   '';
+
+  # Posts an `nvd diff` summary of the upgrade to the Matrix alert room.
+  # Reads the bot token + room id from /data, hits continuwuity directly
+  # on localhost. Non-fatal — failures here don't fail the upgrade unit.
+  upgradeReport = pkgs.writeShellScript "upgrade-report" ''
+    set -euo pipefail
+
+    gens=$(ls -1 /nix/var/nix/profiles/ | grep -E '^system-[0-9]+-link$' | sort -V | tail -2)
+    prev=$(echo "$gens" | head -1)
+    curr=$(echo "$gens" | tail -1)
+
+    if [[ -z "$prev" || -z "$curr" || "$prev" == "$curr" ]]; then
+      diff_text="(no previous generation to compare)"
+    else
+      diff_text=$(NO_COLOR=1 ${pkgs.nvd}/bin/nvd diff "/nix/var/nix/profiles/$prev" "/nix/var/nix/profiles/$curr" 2>&1 || echo "(diff failed)")
+    fi
+
+    # Matrix message size cap is generous but readers aren't — truncate
+    # very long diffs.
+    max=8000
+    if (( ''${#diff_text} > max )); then
+      diff_text="''${diff_text:0:$max}"$'\n'"...(truncated)"
+    fi
+
+    host=$(${pkgs.nettools}/bin/hostname)
+    msg="nixos-upgrade complete on $host:"$'\n\n'"$diff_text"
+
+    token=$(cat /data/services/matrix/bot-token)
+    room=$(cat /data/services/matrix/alert-room-id)
+    txn=$(date +%s%N)
+
+    body=$(${pkgs.jq}/bin/jq -n --arg body "$msg" '{msgtype:"m.text",body:$body}')
+
+    exec ${pkgs.curl}/bin/curl -fsS --retry 3 --max-time 30 -X PUT \
+      "http://127.0.0.1:6167/_matrix/client/v3/rooms/$room/send/m.room.message/$txn" \
+      -H "Authorization: Bearer $token" \
+      -H "Content-Type: application/json" \
+      -d "$body"
+  '';
 in {
   # libgit2 (used by nix flake fetchers) refuses to open repos whose
   # top-level dir is owned by a different user than the running process.
@@ -32,7 +71,10 @@ in {
     serviceConfig = {
       LoadCredential = "hc-url:/data/services/healthchecks/maui-upgrade.url";
       ExecStartPre = "-${hcPing} /start";
-      ExecStartPost = "-${hcPing}";
+      ExecStartPost = [
+        "-${hcPing}"
+        "-${upgradeReport}"
+      ];
     };
     onFailure = ["hc-ping-fail.service" "matrix-alert@nixos-upgrade.service"];
   };
