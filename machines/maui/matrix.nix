@@ -1,4 +1,28 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  matrixAlert = pkgs.writeShellScript "matrix-alert" ''
+    set -euo pipefail
+
+    unit="''${1:-unknown}"
+    host=$(${pkgs.nettools}/bin/hostname)
+    msg="$unit failed on $host"
+
+    token=$(cat /data/services/matrix/bot-token)
+    room=$(cat /data/services/matrix/alert-room-id)
+    txn=$(date +%s%N)
+
+    body=$(${pkgs.jq}/bin/jq -n --arg body "$msg" '{msgtype:"m.text",body:$body}')
+
+    exec ${pkgs.curl}/bin/curl -fsS --retry 3 --max-time 15 -X PUT \
+      "https://matrix.faragao.net/_matrix/client/v3/rooms/$room/send/m.room.message/$txn" \
+      -H "Authorization: Bearer $token" \
+      -H "Content-Type: application/json" \
+      -d "$body"
+  '';
+in {
   users.users.continuwuity = {
     isSystemUser = true;
     group = "continuwuity";
@@ -17,7 +41,10 @@
       port = [6167];
       allow_federation = false;
       allow_encryption = true;
-      allow_registration = false;
+      # Reopened only to register the @maui-alerts bot account; will
+      # close again in the next commit.
+      allow_registration = true;
+      registration_token_file = "/data/services/matrix/registration_token";
       max_request_size = 20000000;
     };
   };
@@ -29,11 +56,26 @@
       DynamicUser = lib.mkForce false;
       User = lib.mkForce "continuwuity";
       Group = lib.mkForce "continuwuity";
-      # database_path is hardcoded to /var/lib/continuwuity by the
-      # module. Bind /data over it inside the service's namespace
-      # only — doing this at the host level (via fileSystems) makes
-      # systemd's StateDirectory step EBUSY at service start.
       BindPaths = ["/data/services/matrix:/var/lib/continuwuity"];
+    };
+  };
+
+  # Templated alert unit: invoke as matrix-alert@<failed-service>.service
+  # via OnFailure=. Posts a one-line message into the room whose ID is
+  # stored at /data/services/matrix/alert-room-id, authenticated with
+  # the access token at /data/services/matrix/bot-token. Both files are
+  # created by install/setup-matrix-bot.sh.
+  systemd.services."matrix-alert@" = {
+    description = "Post Matrix alert for %i";
+    unitConfig = {
+      ConditionPathExists = [
+        "/data/services/matrix/bot-token"
+        "/data/services/matrix/alert-room-id"
+      ];
+    };
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${matrixAlert} %i";
     };
   };
 
