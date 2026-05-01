@@ -52,6 +52,7 @@
     settings.server.domain = "monitoring.faragao.net";
     settings.server.http_port = 2342;
     settings.server.http_addr = "127.0.0.1";
+    settings.security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
   };
 
   services.nginx.virtualHosts.${config.services.grafana.settings.server.domain} = {
