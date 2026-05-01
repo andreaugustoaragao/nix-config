@@ -9,16 +9,6 @@
     "d /data/services/matrix 0700 continuwuity continuwuity -"
   ];
 
-  # database_path is hardcoded to /var/lib/continuwuity by the module.
-  # Bind-mount it onto /data so the actual storage lives on the btrfs
-  # RAID 1, while the service sees the path it expects.
-  fileSystems."/var/lib/continuwuity" = {
-    device = "/data/services/matrix";
-    fsType = "none";
-    options = ["bind"];
-    depends = ["/data"];
-  };
-
   services.matrix-continuwuity = {
     enable = true;
     settings.global = {
@@ -34,17 +24,17 @@
   };
 
   systemd.services.matrix-continuwuity = {
-    after = ["data.mount" "var-lib-continuwuity.mount"];
-    requires = ["data.mount" "var-lib-continuwuity.mount"];
+    after = ["data.mount"];
+    requires = ["data.mount"];
     serviceConfig = {
       DynamicUser = lib.mkForce false;
       User = lib.mkForce "continuwuity";
       Group = lib.mkForce "continuwuity";
-      # The bind mount above puts /var/lib/continuwuity on /data, so
-      # systemd's StateDirectory machinery would fight us trying to
-      # chown/manage a mountpoint. Let the mount handle it.
-      StateDirectory = lib.mkForce "";
-      ReadWritePaths = ["/var/lib/continuwuity"];
+      # database_path is hardcoded to /var/lib/continuwuity by the
+      # module. Bind /data over it inside the service's namespace
+      # only — doing this at the host level (via fileSystems) makes
+      # systemd's StateDirectory step EBUSY at service start.
+      BindPaths = ["/data/services/matrix:/var/lib/continuwuity"];
     };
   };
 
