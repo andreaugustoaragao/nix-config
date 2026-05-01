@@ -14,8 +14,13 @@ in {
 
   system.autoUpgrade = {
     enable = true;
-    flake = "git+file:///home/adm/nix-config?ref=main";
-    flags = ["--refresh" "-L"];
+    flake = "github:andreaugustoaragao/nix-config/main";
+    flags = [
+      "--refresh"
+      "-L"
+      "--update-input"
+      "nixpkgs"
+    ];
     operation = "switch";
     dates = "Sun 03:00";
     randomizedDelaySec = "45min";
