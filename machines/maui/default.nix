@@ -109,7 +109,7 @@
     fonts = [
       {
         name = "DroidSansM Nerd Font Mono";
-        package = pkgs.nerdfonts;
+        package = pkgs.nerd-fonts.droid-sans-mono;
       }
     ];
     extraOptions = ''
