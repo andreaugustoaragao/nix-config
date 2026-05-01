@@ -3,6 +3,10 @@
   pkgs,
   ...
 }: let
+  # Hits continuwuity directly on localhost rather than going through
+  # matrix.faragao.net -> Cloudflare -> nginx -> continuwuity. That
+  # means alerts can still fire when nginx, unbound, adguardhome, or
+  # the cert chain are the failing service.
   matrixAlert = pkgs.writeShellScript "matrix-alert" ''
     set -euo pipefail
 
@@ -17,11 +21,26 @@
     body=$(${pkgs.jq}/bin/jq -n --arg body "$msg" '{msgtype:"m.text",body:$body}')
 
     exec ${pkgs.curl}/bin/curl -fsS --retry 3 --max-time 15 -X PUT \
-      "https://matrix.faragao.net/_matrix/client/v3/rooms/$room/send/m.room.message/$txn" \
+      "http://127.0.0.1:6167/_matrix/client/v3/rooms/$room/send/m.room.message/$txn" \
       -H "Authorization: Bearer $token" \
       -H "Content-Type: application/json" \
       -d "$body"
   '';
+
+  # Services whose failure should land in the Matrix alert room. Each
+  # name produces an OnFailure=matrix-alert@<name>.service link.
+  # continuwuity itself is intentionally excluded — if the homeserver
+  # is down, the alert can't be delivered through it.
+  alertedServices = [
+    "vaultwarden"
+    "unbound"
+    "adguardhome"
+    "nginx"
+    "acme-faragao.net"
+    "smbd"
+    "prometheus"
+    "grafana"
+  ];
 in {
   users.users.continuwuity = {
     isSystemUser = true;
@@ -46,35 +65,36 @@ in {
     };
   };
 
-  systemd.services.matrix-continuwuity = {
-    after = ["data.mount"];
-    requires = ["data.mount"];
-    serviceConfig = {
-      DynamicUser = lib.mkForce false;
-      User = lib.mkForce "continuwuity";
-      Group = lib.mkForce "continuwuity";
-      BindPaths = ["/data/services/matrix:/var/lib/continuwuity"];
-    };
-  };
+  systemd.services =
+    {
+      matrix-continuwuity = {
+        after = ["data.mount"];
+        requires = ["data.mount"];
+        serviceConfig = {
+          DynamicUser = lib.mkForce false;
+          User = lib.mkForce "continuwuity";
+          Group = lib.mkForce "continuwuity";
+          BindPaths = ["/data/services/matrix:/var/lib/continuwuity"];
+        };
+      };
 
-  # Templated alert unit: invoke as matrix-alert@<failed-service>.service
-  # via OnFailure=. Posts a one-line message into the room whose ID is
-  # stored at /data/services/matrix/alert-room-id, authenticated with
-  # the access token at /data/services/matrix/bot-token. Both files are
-  # created by install/setup-matrix-bot.sh.
-  systemd.services."matrix-alert@" = {
-    description = "Post Matrix alert for %i";
-    unitConfig = {
-      ConditionPathExists = [
-        "/data/services/matrix/bot-token"
-        "/data/services/matrix/alert-room-id"
-      ];
-    };
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${matrixAlert} %i";
-    };
-  };
+      "matrix-alert@" = {
+        description = "Post Matrix alert for %i";
+        unitConfig = {
+          ConditionPathExists = [
+            "/data/services/matrix/bot-token"
+            "/data/services/matrix/alert-room-id"
+          ];
+        };
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${matrixAlert} %i";
+        };
+      };
+    }
+    // lib.genAttrs alertedServices (name: {
+      onFailure = ["matrix-alert@${name}.service"];
+    });
 
   services.nginx.virtualHosts."matrix.faragao.net" = {
     forceSSL = true;
