@@ -41,6 +41,7 @@
           "\"adguard.faragao.net.         IN A 192.168.40.3\""
           "\"monitoring.faragao.net.      IN A 192.168.40.3\""
           "\"vw.faragao.net.              IN A 192.168.40.3\""
+          "\"matrix.faragao.net.          IN A 192.168.40.3\""
           "\"tamatoa-mgmt.faragao.net.    IN A 192.168.40.3\""
           "\"chief-tui-mgmt.faragao.net.  IN A 192.168.40.3\""
           "\"teka-web.faragao.net.        IN A 192.168.40.3\""

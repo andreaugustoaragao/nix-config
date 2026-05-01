@@ -21,6 +21,7 @@
     ./vaultwarden.nix
     ./certs.nix
     ./upgrade.nix
+    ./matrix.nix
   ];
 
   # Set your time zone.
