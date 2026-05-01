@@ -43,6 +43,7 @@
         ts-autotag.enable = true;
         nvim-autopairs.enable = true;
         persistence.enable = true;
+        web-devicons.enable = true;
         telescope = {
           enable = true;
           extensions = {
