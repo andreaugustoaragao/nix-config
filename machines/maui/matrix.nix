@@ -40,6 +40,11 @@
       DynamicUser = lib.mkForce false;
       User = lib.mkForce "continuwuity";
       Group = lib.mkForce "continuwuity";
+      # The bind mount above puts /var/lib/continuwuity on /data, so
+      # systemd's StateDirectory machinery would fight us trying to
+      # chown/manage a mountpoint. Let the mount handle it.
+      StateDirectory = lib.mkForce "";
+      ReadWritePaths = ["/var/lib/continuwuity"];
     };
   };
 
