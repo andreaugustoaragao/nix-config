@@ -19,6 +19,7 @@
       allow_encryption = true;
       # Flip to false after creating the first user.
       allow_registration = true;
+      registration_token_file = "/data/services/matrix/registration_token";
       max_request_size = 20000000;
     };
   };
